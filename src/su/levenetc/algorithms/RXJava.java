@@ -52,7 +52,7 @@ public class RXJava {
 	}
 
 	public static void treads() {
-		String[] array = new String[]{"0", "1", "2", "3", "5"};
+		String[] array = new String[]{"0", "1", "2", "3", "6"};
 		Observable.from(array)
 				.subscribe(s -> {
 					println(s);
