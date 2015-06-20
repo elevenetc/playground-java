@@ -52,7 +52,7 @@ public class RXJava {
 	}
 
 	public static void treads() {
-		String[] array = new String[]{"0", "1", "2", "3", "6"};
+		String[] array = new String[]{"0", "1", "2", "3", "7"};
 		Observable.from(array)
 				.subscribe(s -> {
 					println(s);
@@ -65,5 +65,26 @@ public class RXJava {
 					println(s);
 					println(Thread.currentThread());
 				});
+	}
+
+	public static void map() {
+		String[] array = new String[]{"0", "1", "2", "3", "4"};
+		Observable.from(array)
+				.map(s -> {
+					SomeObject result = new SomeObject();
+					result.from = s;
+					return result;
+				})
+				.subscribe(RXJava::println);
+	}
+
+	private static class SomeObject {
+		private String from;
+
+		@Override public String toString() {
+			return "SomeObject{" +
+					"from='" + from + '\'' +
+					'}';
+		}
 	}
 }
