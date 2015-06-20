@@ -1,0 +1,12 @@
+/.idea/workspace.xml
+/out
+.DS_Store
+
+# Files
+*.ipr
+*.iws
+*.iml
+*.class
+*.apk
+*.ap_
+*.dex
