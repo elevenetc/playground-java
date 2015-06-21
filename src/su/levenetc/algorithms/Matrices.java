@@ -122,7 +122,7 @@ public class Matrices {
 			return;
 		}
 
-		//check from which corner start to iterating
+		//check data which corner start to iterating
 		if (x >= 0 && y >= 0) {//right bottom corner
 			for (int r = matrix.data.length - 1; r >= 0; r--) {
 				for (int c = matrix.data[0].length - 1; c >= 0; c--) {
