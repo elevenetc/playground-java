@@ -78,8 +78,47 @@ public class RXJava {
 				.subscribe(RXJava::println);
 	}
 
+	public static void retrofitJustError() {
+		RetrofitConfig.API api = RetrofitConfig.initAPI();
+		Observable<RetrofitConfig.BackendModel> observable400 = api.get400();
+		observable400.subscribe(backendModel -> println(backendModel), RXJava::println);
+	}
+
+	public static void retrofitErrorToResult() {
+		RetrofitConfig.API api = RetrofitConfig.initAPI();
+		api.get400()
+				.retry(4)
+				.onErrorResumeNext(throwable -> {
+					println("log backend error:" + throwable);
+					return Observable.just(new RetrofitConfig.BackendModel(RetrofitConfig.RESULT_ERROR));
+				})
+				.flatMap((RetrofitConfig.BackendModel backendModel) -> {
+					if (backendModel == null || RetrofitConfig.RESULT_ERROR.equals(backendModel.result)) {
+						println("flatMap backendModel == null || result == error");
+						println("query db and return empty");
+						return Observable.from(new SomeObject[]{new SomeObject("empty")});
+					} else {
+						return Observable.from(new SomeObject[]{new SomeObject(backendModel.result)});
+					}
+				}).subscribe(result -> println("result ok:" + result), throwable -> println("error: " + throwable), () -> println("complete"));
+	}
+
+	public static void retrofitResponseMap() {
+		RetrofitConfig.API api = RetrofitConfig.initAPI();
+		Observable<RetrofitConfig.BackendModel> observable200 = api.get200();
+		observable200.subscribe(backendModel -> println(backendModel), RXJava::println);
+	}
+
 	private static class SomeObject {
 		private String from;
+
+		public SomeObject(String from) {
+			this.from = from;
+		}
+
+		public SomeObject() {
+
+		}
 
 		@Override public String toString() {
 			return "SomeObject{" +
