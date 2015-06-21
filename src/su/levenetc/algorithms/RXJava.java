@@ -2,10 +2,7 @@ package su.levenetc.algorithms;
 
 import rx.Observable;
 import rx.schedulers.Schedulers;
-import su.levenetc.algorithms.rxjava.BaseResponse;
-import su.levenetc.algorithms.rxjava.ClientForFailAndSuccess;
-import su.levenetc.algorithms.rxjava.SomeObject;
-import su.levenetc.algorithms.rxjava.ZipClient;
+import su.levenetc.algorithms.rxjava.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -88,7 +85,7 @@ public class RXJava {
 		observable400.subscribe(backendModel -> println(backendModel), RXJava::println);
 	}
 
-	public static void retrofitErrorToResult() {
+	public static void retrofitFailAndSuccess() {
 		ClientForFailAndSuccess client = new ClientForFailAndSuccess();
 		client.start();
 	}
@@ -104,4 +101,8 @@ public class RXJava {
 		observable200.subscribe(backendModel -> println(backendModel), RXJava::println);
 	}
 
+	public static void checkNetworkConnection() {
+		CheckConntectionClient client = new CheckConntectionClient();
+		client.start();
+	}
 }

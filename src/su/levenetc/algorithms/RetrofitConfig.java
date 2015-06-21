@@ -32,7 +32,7 @@ public class RetrofitConfig {
 
 					String url = request.getUrl();
 
-					System.out.println("request:" + url);
+					System.out.println("request:" + url + " at " + Thread.currentThread());
 
 					if (url.contains(GET_200)) {
 						TypedString body = new TypedString(gson.toJson(new BaseResponse(RESULT_OK, "data")));
