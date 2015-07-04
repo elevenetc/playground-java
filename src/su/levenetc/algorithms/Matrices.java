@@ -1,5 +1,7 @@
 package su.levenetc.algorithms;
 
+import su.levenetc.algorithms.utils.Out;
+
 /**
  * Created by elevenetc on 12/06/15.
  */
@@ -35,13 +37,13 @@ public class Matrices {
 	}
 
 	private static void printA(String name, int[][] array) {
-		pln(name + ":");
+		Out.pln(name + ":");
 		printA(array);
 	}
 
 	private static void printA(int[][] array) {
 		String result = matrixToString(array);
-		pln(result);
+		Out.pln(result);
 	}
 
 	private static String matrixToString(int[][] array) {
@@ -65,14 +67,6 @@ public class Matrices {
 		return builder.toString();
 	}
 
-	private static void pln(Object result) {
-		System.out.println(result.toString());
-	}
-
-	private static void pln(String result) {
-		System.out.println(result);
-	}
-
 	private static void shiftTo(Matrix matrix, int x, int y) {
 		if (matrix.shiftX == x && matrix.shiftY == y) return;
 
@@ -91,34 +85,34 @@ public class Matrices {
 		//if data matrix too narrow to be shifted to x then minimize x
 		if (x > 0) {
 			if (matrix.width < x + matrix.startX + matrix.dataWidth - 1) {
-				pln("changed x=" + x);
+				Out.pln("changed x=" + x);
 				x = matrix.width - matrix.dataWidth - matrix.startX + 1;
-				pln("to x=" + x);
+				Out.pln("to x=" + x);
 			}
 		} else if (x < 0) {
 			if (matrix.startX + x < 0) {
-				pln("changed x=" + x);
+				Out.pln("changed x=" + x);
 				x = 0;
-				pln("to x=" + x);
+				Out.pln("to x=" + x);
 			}
 		}
 
 		if (y > 0) {
 			if (matrix.height < y + matrix.startY + matrix.dataHeight - 1) {
-				pln("changed y=" + y);
+				Out.pln("changed y=" + y);
 				y = matrix.height - matrix.dataHeight - matrix.startY + 1;
-				pln("to y=" + y);
+				Out.pln("to y=" + y);
 			}
 		} else if (y < 0) {
 			if (matrix.startY + y < 0) {
-				pln("changed y=" + y);
+				Out.pln("changed y=" + y);
 				y = 0;
-				pln("to y=" + y);
+				Out.pln("to y=" + y);
 			}
 		}
 
 		if (x == 0 && y == 0) {
-			pln("filled the whole zone to be moved");
+			Out.pln("filled the whole zone to be moved");
 			return;
 		}
 

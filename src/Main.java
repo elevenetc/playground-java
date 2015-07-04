@@ -1,8 +1,9 @@
-import su.levenetc.algorithms.RXJava;
+import su.levenetc.algorithms.threads.Threads;
 
 public class Main {
 
 	public static void main(String[] args) {
-		RXJava.checkNetworkConnection();
+//		RXJava.checkNetworkConnection();
+		Threads.checkSyncMethod();
 	}
 }
