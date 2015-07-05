@@ -1,9 +1,10 @@
-import su.levenetc.algorithms.threads.Threads;
+import su.levenetc.algorithms.numbers.NumbersTests;
 
 public class Main {
 
 	public static void main(String[] args) {
 //		RXJava.checkNetworkConnection();
-		Threads.checkSyncMethod();
+//		Threads.checkSyncMethod();
+		NumbersTests.run();
 	}
 }
