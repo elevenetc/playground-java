@@ -4,7 +4,8 @@ package su.levenetc.algorithms.utils;
  * Created by elevenetc on 04/07/15.
  */
 public class Out {
-	private static void pln(Object result) {
+
+	public static void pln(Object result) {
 		System.out.println(result.toString());
 	}
 
