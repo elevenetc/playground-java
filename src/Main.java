@@ -1,4 +1,4 @@
-import su.levenetc.algorithms.datastructures.Structures;
+import su.levenetc.algorithms.strings.Strings;
 
 public class Main {
 
@@ -7,6 +7,7 @@ public class Main {
 //		Threads.checkSyncMethod();
 //		NumbersTests.run();
 
-		Structures.run();
+//		Structures.run();
+		Strings.cutSymbols();
 	}
 }
