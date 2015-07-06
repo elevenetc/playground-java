@@ -28,6 +28,7 @@ public class Strings {
 			}
 		}
 
+
 		return new String(chars);
 	}
 }
