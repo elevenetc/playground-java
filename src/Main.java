@@ -1,3 +1,4 @@
+import su.levenetc.algorithms.geo.Geo;
 import su.levenetc.algorithms.strings.Strings;
 
 public class Main {
@@ -8,6 +9,7 @@ public class Main {
 //		NumbersTests.run();
 
 //		Structures.run();
-		Strings.cutSymbols();
+//		Strings.cutSymbols();
+		Geo.relativePoint();
 	}
 }
