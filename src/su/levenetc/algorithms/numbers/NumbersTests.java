@@ -22,6 +22,17 @@ public class NumbersTests {
 		set(d);
 	}
 
+	public static void isNumberFloatOrInteger() {
+		int i = 10;
+		float f = 10.1f;
+		Number ni = i;
+		Number nf = f;
+
+		Out.pln(nf.floatValue() == (int)ni);
+
+//		Out.pln(ni.floatValue() == ni.intValue());
+	}
+
 	private static void set(Number n) {
 		Out.pln(n.toString());
 	}

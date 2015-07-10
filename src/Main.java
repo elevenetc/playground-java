@@ -1,4 +1,4 @@
-import su.levenetc.algorithms.strings.Strings;
+import su.levenetc.algorithms.numbers.NumbersTests;
 
 public class Main {
 
@@ -8,6 +8,7 @@ public class Main {
 //		NumbersTests.run();
 
 //		Structures.run();
-		Strings.cutSymbols();
+		//Strings.cutSymbols();
+		NumbersTests.isNumberFloatOrInteger();
 	}
 }
