@@ -28,7 +28,7 @@ public class NumbersTests {
 		Number ni = i;
 		Number nf = f;
 
-		Out.pln(nf.floatValue() == (int)ni);
+		Out.pln(nf.floatValue() == (int) ni);
 
 //		Out.pln(ni.floatValue() == ni.intValue());
 	}

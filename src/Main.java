@@ -1,4 +1,4 @@
-import su.levenetc.algorithms.numbers.NumbersTests;
+import su.levenetc.algorithms.rxjava.UseCachedData;
 
 public class Main {
 
@@ -9,6 +9,8 @@ public class Main {
 
 //		Structures.run();
 		//Strings.cutSymbols();
-		NumbersTests.isNumberFloatOrInteger();
+//		NumbersTests.isNumberFloatOrInteger();
+		UseCachedData.run();
+
 	}
 }
