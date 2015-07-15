@@ -4,9 +4,11 @@ import com.google.gson.Gson;
 import retrofit.RestAdapter;
 import retrofit.client.Response;
 import retrofit.http.GET;
+import retrofit.http.Query;
 import retrofit.mime.TypedString;
 import rx.Observable;
 import su.levenetc.algorithms.rxjava.BaseResponse;
+import su.levenetc.algorithms.utils.NetUtils;
 
 import java.util.ArrayList;
 
@@ -32,10 +34,16 @@ public class RetrofitConfig {
 
 					String url = request.getUrl();
 
+					String paramA = NetUtils.getParam(url, "paramA");
+
+					if (paramA == null) {
+						paramA = "data";
+					}
+
 					System.out.println("request:" + url + " at " + Thread.currentThread());
 
 					if (url.contains(GET_200)) {
-						TypedString body = new TypedString(gson.toJson(new BaseResponse(RESULT_OK, "data")));
+						TypedString body = new TypedString(gson.toJson(new BaseResponse(RESULT_OK, paramA)));
 						return new Response("", 200, "", new ArrayList<>(), body);
 					} else if (url.contains(GET_400)) {
 						TypedString body = new TypedString(gson.toJson(new BaseResponse(RESULT_ERROR, null)));
@@ -62,7 +70,11 @@ public class RetrofitConfig {
 
 		@GET(GET_200) Observable<BaseResponse> get200();
 
+		@GET(GET_200) Observable<BaseResponse> get200(@Query("paramA") String paramA);
+
 		@GET(GET_400) Observable<BaseResponse> get400();
+
+		@GET(GET_400) Observable<BaseResponse> get400(@Query("paramA") String paramA);
 
 		@GET(GET_500) Observable<BaseResponse> get500();
 	}

@@ -12,6 +12,23 @@ import su.levenetc.algorithms.utils.Out;
  */
 public class UseCachedData {
 
+	private static Data memoryCache;
+	private static Data diskCache;
+
+	private static Action1<Data> cacheOnMemory = new Action1<Data>() {
+		@Override public void call(Data data) {
+			Out.pln("cached on memory");
+			memoryCache = data;
+		}
+	};
+
+	private static Action1<Data> cacheOnDisk = new Action1<Data>() {
+		@Override public void call(Data data) {
+			Out.pln("cached on disk");
+			diskCache = data;
+		}
+	};
+
 
 	private static Observable<Data> network = Observable.create(new Observable.OnSubscribe<Data>() {
 		@Override public void call(Subscriber<? super Data> subscriber) {
@@ -22,13 +39,7 @@ public class UseCachedData {
 			subscriber.onCompleted();
 		}
 	}).doOnNext(cacheOnDisk).doOnNext(cacheOnMemory);
-	private static Data memoryCache;
-	private static Action1<Data> cacheOnMemory = new Action1<Data>() {
-		@Override public void call(Data data) {
-			Out.pln("cached on memory");
-			memoryCache = data;
-		}
-	};
+
 	private static Observable<Data> memory = Observable.create(new Observable.OnSubscribe<Data>() {
 		@Override public void call(Subscriber<? super Data> subscriber) {
 			if (memoryCache != null) {
@@ -38,13 +49,7 @@ public class UseCachedData {
 			subscriber.onCompleted();
 		}
 	});
-	private static Data diskCache;
-	private static Action1<Data> cacheOnDisk = new Action1<Data>() {
-		@Override public void call(Data data) {
-			Out.pln("cached on disk");
-			diskCache = data;
-		}
-	};
+
 	private static Observable<Data> disk = Observable.create(new Observable.OnSubscribe<Data>() {
 		@Override public void call(Subscriber<? super Data> subscriber) {
 			if (diskCache != null) {

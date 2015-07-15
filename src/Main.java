@@ -1,4 +1,4 @@
-import su.levenetc.algorithms.rxjava.UseCachedData;
+import su.levenetc.algorithms.rxjava.LogErrorOnEveryError;
 
 public class Main {
 
@@ -10,7 +10,7 @@ public class Main {
 //		Structures.run();
 		//Strings.cutSymbols();
 //		NumbersTests.isNumberFloatOrInteger();
-		UseCachedData.run();
-
+//		UseCachedData.run();
+		LogErrorOnEveryError.run();
 	}
 }
