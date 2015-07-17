@@ -1,3 +1,4 @@
+import su.levenetc.algorithms.files.ReadLIneByLine;
 import su.levenetc.algorithms.geo.Geo;
 import su.levenetc.algorithms.strings.Strings;
 
@@ -10,6 +11,7 @@ public class Main {
 
 //		Structures.run();
 //		Strings.cutSymbols();
-		Geo.relativePoint();
+//		Geo.relativePoint();
+		ReadLIneByLine.read();
 	}
 }
