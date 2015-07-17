@@ -1,5 +1,4 @@
-import su.levenetc.algorithms.files.ReadLIneByLine;
-import su.levenetc.algorithms.geo.Geo;
+import su.levenetc.algorithms.rxjava.LogErrorOnEveryError;
 import su.levenetc.algorithms.strings.Strings;
 
 public class Main {
@@ -10,8 +9,9 @@ public class Main {
 //		NumbersTests.run();
 
 //		Structures.run();
-//		Strings.cutSymbols();
-//		Geo.relativePoint();
-		ReadLIneByLine.read();
+		//Strings.cutSymbols();
+//		NumbersTests.isNumberFloatOrInteger();
+//		UseCachedData.run();
+		LogErrorOnEveryError.run();
 	}
 }

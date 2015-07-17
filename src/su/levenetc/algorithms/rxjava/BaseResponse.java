@@ -24,6 +24,7 @@ public class BaseResponse {
 	@Override public String toString() {
 		return "BaseResponse{" +
 				"result='" + result + '\'' +
+				"data='" + data + '\'' +
 				'}';
 	}
 }
