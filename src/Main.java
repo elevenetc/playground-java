@@ -1,3 +1,4 @@
+import su.levenetc.algorithms.comparators.CheckComparator;
 import su.levenetc.algorithms.rxjava.LogErrorOnEveryError;
 import su.levenetc.algorithms.strings.Strings;
 
@@ -12,6 +13,7 @@ public class Main {
 		//Strings.cutSymbols();
 //		NumbersTests.isNumberFloatOrInteger();
 //		UseCachedData.run();
-		LogErrorOnEveryError.run();
+//		LogErrorOnEveryError.run();
+		CheckComparator.testUsersStatuses();
 	}
 }
