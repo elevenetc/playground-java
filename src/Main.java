@@ -14,6 +14,7 @@ public class Main {
 //		NumbersTests.isNumberFloatOrInteger();
 //		UseCachedData.run();
 //		LogErrorOnEveryError.run();
+		//some comment
 		CheckComparator.testUsersStatuses();
 	}
 }
