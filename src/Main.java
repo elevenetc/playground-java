@@ -1,6 +1,4 @@
-import su.levenetc.algorithms.comparators.CheckComparator;
-import su.levenetc.algorithms.rxjava.LogErrorOnEveryError;
-import su.levenetc.algorithms.strings.Strings;
+import su.levenetc.algorithms.methods.SmoothValue;
 
 public class Main {
 	//v 1.0.1
@@ -15,6 +13,7 @@ public class Main {
 //		UseCachedData.run();
 //		LogErrorOnEveryError.run();
 		//some comment
-		CheckComparator.testUsersStatuses();
+//		CheckComparator.testUsersStatuses();
+		SmoothValue.run();
 	}
 }
