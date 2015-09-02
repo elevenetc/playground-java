@@ -1,8 +1,11 @@
 package su.levenetc.algorithms;
 
 import rx.Observable;
+import rx.Subscriber;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import su.levenetc.algorithms.rxjava.*;
+import su.levenetc.algorithms.utils.ThreadsUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -104,5 +107,25 @@ public class RXJava {
 	public static void checkNetworkConnection() {
 		CheckConntectionClient client = new CheckConntectionClient();
 		client.start();
+	}
+
+	public static void noOnNext() {
+		Observable.create(new Observable.OnSubscribe<Object>() {
+			@Override
+			public void call(Subscriber<? super Object> subscriber) {
+				ThreadsUtils.sleep(200);
+				subscriber.onCompleted();
+			}
+		}).subscribe(new Action1<Object>() {
+			@Override
+			public void call(Object o) {
+
+			}
+		}, new Action1<Throwable>() {
+			@Override
+			public void call(Throwable throwable) {
+
+			}
+		});
 	}
 }
