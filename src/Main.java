@@ -1,7 +1,7 @@
-import su.levenetc.algorithms.rxjava.LogErrorOnEveryError;
+import su.levenetc.algorithms.methods.SmoothValue;
 
 public class Main {
-
+	//v 1.0.1
 	public static void main(String[] args) {
 //		RXJava.checkNetworkConnection();
 //		Threads.checkSyncMethod();
@@ -11,6 +11,9 @@ public class Main {
 		//Strings.cutSymbols();
 //		NumbersTests.isNumberFloatOrInteger();
 //		UseCachedData.run();
-		LogErrorOnEveryError.run();
+//		LogErrorOnEveryError.run();
+		//some comment
+//		CheckComparator.testUsersStatuses();
+		SmoothValue.run();
 	}
 }
