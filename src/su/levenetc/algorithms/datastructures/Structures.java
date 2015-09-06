@@ -13,7 +13,7 @@ public class Structures {
 	}
 
 	private static void hmap() {
-		HMap<String> hMap = new HMap<>();
+		//HMap<String> hMap = new HMap<>();
 	}
 
 	private static void alist() {
