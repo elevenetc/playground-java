@@ -10,7 +10,7 @@ public class Operators {
 		int a = 2;
 		int b = 4;
 		int c = 16;
-		int or = a | b | c;
+		int or = a | b;
 		int and = a & b & c;
 		Out.pln("a: " + Integer.toBinaryString(a));
 		Out.pln("b: " + Integer.toBinaryString(b));
