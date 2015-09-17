@@ -1,4 +1,4 @@
-import su.levenetc.algorithms.math.SomeMath;
+import su.levenetc.algorithms.cs.Operators;
 
 public class Main {
 	//v 1.0.1
@@ -15,6 +15,7 @@ public class Main {
 		//some comment
 //		CheckComparator.testUsersStatuses();
 //		SmoothValue.run();
-		SomeMath.sign();
+//		SomeMath.sign();
+		Operators.run();
 	}
 }
