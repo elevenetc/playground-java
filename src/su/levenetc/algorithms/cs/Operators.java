@@ -9,8 +9,8 @@ public class Operators {
 	public static void run() {
 		int a = 2;
 		int b = 4;
-		int c = 16;
-		int or = a | b;
+		int c = 8;
+		int or = c | a;
 		int and = a & b & c;
 		Out.pln("a: " + Integer.toBinaryString(a));
 		Out.pln("b: " + Integer.toBinaryString(b));
