@@ -7,10 +7,10 @@ import su.levenetc.algorithms.utils.Out;
  */
 public class Operators {
 	public static void run() {
-		int a = 2;
-		int b = 4;
-		int c = 9;
-		int or = b | c | a;
+		int a = 8;
+		int b = 2;
+		int c = 4;
+		int or = c | a;
 		int and = a & b & c;
 		Out.pln("a: " + Integer.toBinaryString(a));
 		Out.pln("b: " + Integer.toBinaryString(b));

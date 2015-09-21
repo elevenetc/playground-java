@@ -17,6 +17,10 @@ public class Out {
 		System.out.println(result);
 	}
 
+	public static void pln(int result) {
+		System.out.println(result);
+	}
+
 	public static void pln(String result) {
 		System.out.println(result);
 	}

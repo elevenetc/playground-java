@@ -1,4 +1,4 @@
-import su.levenetc.algorithms.cs.Operators;
+import su.levenetc.algorithms.strings.Strings;
 
 public class Main {
 	//v 1.0.1
@@ -16,6 +16,7 @@ public class Main {
 //		CheckComparator.testUsersStatuses();
 //		SmoothValue.run();
 //		SomeMath.sign();
-		Operators.run();
+//		Operators.run();
+		Strings.trims();
 	}
 }
