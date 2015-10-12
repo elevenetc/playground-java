@@ -9,6 +9,7 @@ import java.util.Random;
  * Created by levenetc on 02/09/15.
  */
 public class SmoothValue {
+	
 	public static void run() {
 		new Smoother();
 	}
