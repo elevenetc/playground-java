@@ -7,19 +7,56 @@ import su.levenetc.algorithms.utils.Out;
  */
 public class Structures {
 	public static void run() {
-		alist();
+		//alist();
+		//lList();
+		hmap();
+	}
+
+	private static void hmap() {
+		//HMap<String> hMap = new HMap<>();
 	}
 
 	private static void alist() {
-		AList<String> alist = new AList<>();
+		AList<String> alist = new AList<>(3);
 		Out.pln(alist);
+
+		String sixElem = "6";
+		String elemFive = "5";
+
 		alist.add("0");
 		alist.add("1");
 		alist.add("2");
-		Out.pln(alist);
-		alist.pop();
-		Out.pln(alist);
-		alist.delete(0);
-		Out.pln(alist);
+		alist.add("3");
+		alist.add("4");
+
+		alist.add(elemFive);
+
+		alist.add(sixElem);
+		alist.remove(elemFive);
+		alist.remove(sixElem);
+
+		Out.pln("FINAL " + alist);
+	}
+
+	private static void lList() {
+		LList<String> llist = new LList<>();
+		llist.add("0");
+		llist.add("1");
+		llist.add("2");
+
+		Out.pln(llist);
+
+		Out.pln("contains:" + "1: " + llist.contains("1"));
+		Out.pln("contains:" + "10: " + llist.contains("10"));
+
+
+		llist.remove("1");
+		Out.pln(llist);
+		llist.remove("0");
+		Out.pln(llist);
+		llist.remove("2");
+		Out.pln(llist);
+		llist.remove("20");
+		Out.pln(llist);
 	}
 }

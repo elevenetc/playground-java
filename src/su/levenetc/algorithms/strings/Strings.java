@@ -6,6 +6,25 @@ import su.levenetc.algorithms.utils.Out;
  * Created by levenetc on 06/07/15.
  */
 public class Strings {
+
+	public static void trims() {
+		String aaa = "a b  ";
+		String trimmed = aaa.trim();
+
+		int length = aaa.length();
+		int start = 0;
+		int end = aaa.length();
+		if (trimmed.length() != aaa.length()) {
+			start = aaa.lastIndexOf(trimmed);
+			end = start + trimmed.length();
+		}
+
+		Out.pln("start:" + start);
+		Out.pln("end:" + end);
+		Out.pln("num of spaces at start:" + start);
+		Out.pln("num of spaces at end:" + (length - end));
+	}
+
 	public static void cutSymbols() {
 		String src = "0\n1\n2\n3\n4";
 		char ch = '\n';

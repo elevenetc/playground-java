@@ -1,4 +1,4 @@
-import su.levenetc.algorithms.methods.SmoothValue;
+import su.levenetc.algorithms.strings.Strings;
 
 public class Main {
 	//v 1.0.1
@@ -14,6 +14,9 @@ public class Main {
 //		LogErrorOnEveryError.run();
 		//some comment
 //		CheckComparator.testUsersStatuses();
-		SmoothValue.run();
+//		SmoothValue.run();
+//		SomeMath.sign();
+//		Operators.run();
+		Strings.trims();
 	}
 }

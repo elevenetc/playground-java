@@ -5,11 +5,19 @@ package su.levenetc.algorithms.utils;
  */
 public class Out {
 
+	public static void plnBin(int val) {
+		System.out.println(Integer.toBinaryString(val));
+	}
+
 	public static void pln(Object result) {
 		System.out.println(result.toString());
 	}
 
 	public static void pln(float result) {
+		System.out.println(result);
+	}
+
+	public static void pln(int result) {
 		System.out.println(result);
 	}
 
