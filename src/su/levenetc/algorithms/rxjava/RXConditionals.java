@@ -14,7 +14,7 @@ public class RXConditionals {
 			if (resultA == null) {
 				return Observable.error(new RuntimeException("no A"));
 			} else {
-				return getB(resultA).map(resultB -> new ResultFinal(resultA.price, resultB));
+				return getDependsOnNullable(resultA).map(resultB -> new ResultFinal(resultA.price, resultB));
 			}
 		});
 
@@ -32,7 +32,7 @@ public class RXConditionals {
 		});
 	}
 
-	private static Observable<ResultB> getB(ResultA resultA) {
+	private static Observable<ResultB> getDependsOnNullable(ResultA resultA) {
 		return Observable.create(new Observable.OnSubscribe<ResultB>() {
 			@Override
 			public void call(Subscriber<? super ResultB> subscriber) {
