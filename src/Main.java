@@ -1,8 +1,8 @@
-import su.levenetc.algorithms.rxjava.RXCaching;
+import su.levenetc.algorithms.rxjava.RXConditionals;
 
 public class Main {
 
 	public static void main(String[] args) {
-		RXCaching.run();
+		RXConditionals.run();
 	}
 }
