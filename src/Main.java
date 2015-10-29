@@ -1,8 +1,8 @@
-import su.levenetc.algorithms.rxjava.RXConditionals;
+import su.levenetc.algorithms.rxjava.RXConcat;
 
 public class Main {
 
 	public static void main(String[] args) {
-		RXConditionals.run();
+		RXConcat.run();
 	}
 }
