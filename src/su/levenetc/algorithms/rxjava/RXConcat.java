@@ -9,7 +9,7 @@ import su.levenetc.algorithms.utils.Out;
  */
 public class RXConcat {
 	public static void run() {
-		Observable<Object> obsC = Observable.concat(getA(), getB());
+		Observable<Object> obsC = Observable.concat(getB(), getA());
 		obsC.subscribe(o -> Out.pln("ok:" + o), e -> Out.pln("error:" + e));
 	}
 
@@ -17,8 +17,9 @@ public class RXConcat {
 		return Observable.create(new Observable.OnSubscribe<Results.A>() {
 			@Override
 			public void call(Subscriber<? super Results.A> subscriber) {
-				Out.pln("call " + Results.A.class);
-				subscriber.onNext(new Results.A());
+//				Out.pln("call " + Results.A.class);
+//				subscriber.onNext(new Results.A());
+				subscriber.onError(new Exception("no " + Results.A.class));
 				subscriber.onCompleted();
 			}
 		});
