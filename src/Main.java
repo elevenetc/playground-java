@@ -1,8 +1,8 @@
-import su.levenetc.algorithms.rxjava.RXConcat;
+import su.levenetc.algorithms.rxjava.RXConcatAndLast;
 
 public class Main {
 
 	public static void main(String[] args) {
-		RXConcat.run();
+		RXConcatAndLast.run();
 	}
 }
