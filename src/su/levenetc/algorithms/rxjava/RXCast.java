@@ -2,7 +2,6 @@ package su.levenetc.algorithms.rxjava;
 
 import rx.Observable;
 import rx.Subscriber;
-import rx.functions.Action1;
 import su.levenetc.algorithms.utils.Objects;
 import su.levenetc.algorithms.utils.Out;
 
@@ -12,13 +11,16 @@ import su.levenetc.algorithms.utils.Out;
 public class RXCast {
 
 	public static void run() {
-		Observable<Object> casted = getA().cast(Object.class);
-		casted.subscribe(new Action1<Object>() {
-			@Override
-			public void call(Object o) {
-				Out.pln("Result:" + o);
-			}
-		});
+		Observable<Void> casted = getA().map(a -> null);
+		casted.subscribe(RXCast::handleEnd, RXCast::handleError);
+	}
+
+	private static void handleError(Throwable throwable) {
+		Out.pln("Error:" + throwable.toString());
+	}
+
+	private static void handleEnd(Void aVoid) {
+		Out.pln("End.");
 	}
 
 	private static Observable<Objects.A> getA() {
