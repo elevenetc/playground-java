@@ -15,25 +15,29 @@ public class RXOrderOfSub {
 		Out.pln();
 		ThreadsUtils.sleep(200);
 
-		Out.pln("Start:" + Thread.currentThread());
+		Out.pln("ST:" + Thread.currentThread());
 
 		Observable.just("FZ")
 //				.observeOn(Schedulers.computation())
 				.map(new Func1<String, String>() {
 					@Override public String call(String s) {
-						Out.pln("First map:" + Thread.currentThread());
+						Out.pln("M0:" + Thread.currentThread());
 						return s + "X";
 					}
 				})
-//				.observeOn(Schedulers.computation())
+				.observeOn(Schedulers.computation())
 				.map(s -> {
-					Out.pln("Second map:" + Thread.currentThread());
+					Out.pln("M1:" + Thread.currentThread());
 					return s.length();
 				})
-				.observeOn(Schedulers.computation())
-				.subscribe();
+//				.observeOn(Schedulers.immediate())
+				.subscribe(RXOrderOfSub::handleEnd);
 
+		ThreadsUtils.sleep(2000);
 		Out.pln();
-		ThreadsUtils.sleep(200);
+	}
+
+	private static void handleEnd(int result) {
+		Out.pln("EN:" + Thread.currentThread());
 	}
 }
