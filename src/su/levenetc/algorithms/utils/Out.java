@@ -9,6 +9,10 @@ public class Out {
 		System.out.println(Integer.toBinaryString(val));
 	}
 
+	public static void pln() {
+		System.out.println("\n");
+	}
+
 	public static void pln(Object result) {
 		System.out.println(result.toString());
 	}
