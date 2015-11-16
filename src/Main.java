@@ -1,8 +1,8 @@
-import su.levenetc.algorithms.rxjava.RXOrderOfSub;
+import su.levenetc.algorithms.rxjava.RXConcatLastNull;
 
 public class Main {
 
 	public static void main(String[] args) {
-		RXOrderOfSub.run();
+		RXConcatLastNull.run();
 	}
 }

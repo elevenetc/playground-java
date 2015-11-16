@@ -6,6 +6,22 @@ package su.levenetc.algorithms.utils;
 public class Objects {
 	public static class A {
 
+		private String id;
+
+		public A() {
+
+		}
+
+		public A(String id) {
+			this.id = id;
+		}
+
+		@Override
+		public String toString() {
+			return "A{" +
+					"id='" + id + '\'' +
+					'}';
+		}
 	}
 
 	public static class B {
