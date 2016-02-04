@@ -1,14 +1,10 @@
 package su.levenetc.playground.java;
 
-import su.levenetc.playground.java.datastructures.TestBST;
-import su.levenetc.playground.java.utils.Out;
-
-import java.util.LinkedList;
-import java.util.Queue;
+import su.levenetc.playground.java.algs.FlatArray;
 
 public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
-		TestBST.run();
+		FlatArray.run();
 	}
 }
