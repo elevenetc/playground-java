@@ -1,8 +1,10 @@
-package su.levenetc.algorithms.threads;
+package su.levenetc.playground.java.threads;
 
-import su.levenetc.algorithms.utils.Out;
-import su.levenetc.algorithms.utils.ThreadX;
-import su.levenetc.algorithms.utils.ThreadsUtils;
+
+import su.levenetc.playground.java.utils.Out;
+import su.levenetc.playground.java.utils.ThreadX;
+import su.levenetc.playground.java.utils.ThreadsUtils;
+
 
 /**
  * Created by levenetc on 21/01/16.

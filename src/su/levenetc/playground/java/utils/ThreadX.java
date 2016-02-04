@@ -1,4 +1,4 @@
-package su.levenetc.algorithms.utils;
+package su.levenetc.playground.java.utils;
 
 /**
  * Created by levenetc on 21/01/16.
