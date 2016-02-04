@@ -14,7 +14,7 @@ public class WaitForObject {
 	public static void run() {
 //
 		Object lock = new Object();
-
+git
 		ThreadX threadA = new ThreadX("A");
 		ThreadX threadB = new ThreadX("B");
 
