@@ -1,14 +1,17 @@
 package su.levenetc.playground.java;
 
-import su.levenetc.playground.java.datastructures.TestBST;
-import su.levenetc.playground.java.utils.Out;
+import su.levenetc.playground.java.algs.Strings;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 
 public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
-		TestBST.run();
+//		Strings.isPalindrom();
+		LinkedHashSet
+
 	}
 }
