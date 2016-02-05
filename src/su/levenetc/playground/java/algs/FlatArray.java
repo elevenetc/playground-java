@@ -3,7 +3,6 @@ package su.levenetc.playground.java.algs;
 import su.levenetc.playground.java.utils.Out;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -30,30 +29,16 @@ public class FlatArray {
 	}
 
 	private static List makeFlat(List notFlat, List target) {
-		if (notFlat.isEmpty()) return target;
 
-		Object o = notFlat.remove(0);
 
-		if (o instanceof List) {
-
-			List list = (List) o;
-			Iterator iterator = list.iterator();
-			while(iterator.hasNext()){
-				Object val = iterator.next();
-
-				if(val instanceof List){
-					target.addAll(makeFlat((List) val, target));
-				}else{
-					target.add(val);
-				}
-
-				iterator.remove();
+		for (Object o : notFlat) {
+			if (o instanceof List) {
+				makeFlat((List) o, target);
+			} else {
+				target.add(o);
 			}
-
-			return makeFlat(list, target);
-		} else {
-			target.add(o);
 		}
+
 
 		return target;
 	}
