@@ -42,7 +42,7 @@ public class Out {
 	}
 
 	public static void result(Object in, Object out) {
-		pln("in: " + in + "\nout: " + out);
+		pln(" in: " + in + "\nout: " + out);
 	}
 
 	public static void result(Object[] in, Object[] out) {
