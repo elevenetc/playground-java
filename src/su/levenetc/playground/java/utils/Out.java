@@ -41,6 +41,15 @@ public class Out {
 		System.out.println(result);
 	}
 
+	public static void result(Object in, Object out) {
+		pln("in: " + in + "\nout: " + out);
+	}
+
+	public static void result(Object[] in, Object[] out) {
+		result(Arrays.toString(in), Arrays.toString(out));
+	}
+
+
 	public static void meth(String result) {
 		System.out.println("method(" + SysUtils.time() + "): " + result);
 	}
