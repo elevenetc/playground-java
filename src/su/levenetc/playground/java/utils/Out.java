@@ -57,4 +57,8 @@ public class Out {
 	public static void newLine() {
 		System.out.println("");
 	}
+
+	public static void plnCurrentThread() {
+		pln(Thread.currentThread());
+	}
 }
