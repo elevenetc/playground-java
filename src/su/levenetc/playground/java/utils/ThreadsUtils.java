@@ -19,10 +19,18 @@ public class ThreadsUtils {
 
 
 	public static void sleep(long ms) {
+		sleep(ms, null);
+	}
+
+	public static void sleep(long ms, DoOnWakeup handler) {
 		try {
 			Thread.sleep(ms);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+
 		}
+
+		if (handler != null) handler.wakeupHandler();
 	}
+
+
 }
