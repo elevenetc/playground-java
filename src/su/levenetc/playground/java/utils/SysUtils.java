@@ -1,13 +1,21 @@
 package su.levenetc.playground.java.utils;
 
+import rx.Scheduler;
+import rx.schedulers.Schedulers;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.Executors;
 
 /**
  * Created by elevenetc on 04/07/15.
  */
 public class SysUtils {
+
+	public static Scheduler getNonDemon() {
+		return Schedulers.from(Executors.newCachedThreadPool(Thread::new));
+	}
 
 	public static String time() {
 		Date date = new Date(System.currentTimeMillis());

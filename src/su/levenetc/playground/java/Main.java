@@ -1,6 +1,5 @@
 package su.levenetc.playground.java;
 
-
 import su.levenetc.playground.java.rxjava.CompletableSample;
 
 public class Main {
