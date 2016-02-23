@@ -33,4 +33,12 @@ public class ThreadsUtils {
 	}
 
 
+	public static void startNonDemonThread(long ms) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				sleep(ms);
+			}
+		}).start();
+	}
 }

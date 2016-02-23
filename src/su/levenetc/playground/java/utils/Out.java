@@ -61,4 +61,9 @@ public class Out {
 	public static void plnCurrentThread() {
 		pln(Thread.currentThread());
 	}
+
+	public static void plnCurrentThread(String tag) {
+		pln(tag + ":" + Thread.currentThread());
+	}
+
 }
