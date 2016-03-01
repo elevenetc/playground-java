@@ -66,4 +66,13 @@ public class Out {
 		pln(tag + ":" + Thread.currentThread());
 	}
 
+	public static void bin(int value) {
+		pln(Integer.toString(value, 2));
+	}
+
+	public static void hex(int value) {
+		pln(Integer.toString(value, 16));
+	}
+
+
 }
