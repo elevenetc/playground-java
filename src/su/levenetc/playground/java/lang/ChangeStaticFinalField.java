@@ -45,4 +45,11 @@ public class ChangeStaticFinalField {
 		field.set(null, newValue);
 	}
 
+	static void setFinalInstanceField(Object instance, String fieldName, Object newValue) throws NoSuchFieldException, IllegalAccessException {
+		Field f = instance.getClass().getDeclaredField(fieldName);
+		f.setAccessible(true);
+		f.set(instance, newValue);
+	}
+
+
 }
