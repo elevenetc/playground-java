@@ -1,11 +1,10 @@
 package su.levenetc.playground.java;
 
-import su.levenetc.playground.java.lang.ChangeStaticFinalField;
-import su.levenetc.playground.java.rxjava.CompletableSample;
+import su.levenetc.playground.java.rxjava.RxBus;
 
 public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
-		ChangeStaticFinalField.run();
+		RxBus.run();
 	}
 }
