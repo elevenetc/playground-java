@@ -6,6 +6,6 @@ import su.levenetc.playground.java.utils.RandomUtils;
 public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
-		RandomUtils.genRandom();
+		RandomUtils.hashRandom();
 	}
 }
