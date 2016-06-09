@@ -11,13 +11,6 @@ public class MixGeneric {
     private static class ImplBase extends CustomBase<A, B> {
 
         @Override
-        ZeroHolder create(int index) {
-            if (index == 0) return createA();
-            else if (index == 1) return createB();
-            return super.create(index);
-        }
-
-        @Override
         A createA() {
             return null;
         }
@@ -42,6 +35,8 @@ public class MixGeneric {
 
         @Override
         ZeroHolder create(int index) {
+            if (index == 0) return createA();
+            else if (index == 1) return createB();
             return null;
         }
 
