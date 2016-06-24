@@ -1,11 +1,10 @@
 package su.levenetc.playground.java;
 
-import su.levenetc.playground.java.rxjava.RxBus;
-import su.levenetc.playground.java.utils.RandomUtils;
+import su.levenetc.playground.java.lang.UpdateHashMap;
 
 public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
-		RandomUtils.hashRandom();
+		UpdateHashMap.run();
 	}
 }
