@@ -1,10 +1,16 @@
 package su.levenetc.playground.java;
 
-import su.levenetc.playground.java.rxjava.PostponedQueue;
+import su.levenetc.playground.java.rxjava.CheckThreadDoOnSub;
+import su.levenetc.playground.java.utils.Out;
+import su.levenetc.playground.java.utils.ThreadsUtils;
 
 public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
-		PostponedQueue.run();
+		ThreadsUtils.sleep(50);
+		Out.pln();
+		CheckThreadDoOnSub.run();
+		Out.pln();
+		ThreadsUtils.sleep(50);
 	}
 }
