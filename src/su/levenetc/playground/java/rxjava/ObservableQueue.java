@@ -28,16 +28,15 @@ public class ObservableQueue {
 				.observeOn(RX.getMain())
 				.subscribe(RX::onCompleteWithThread, RX::onErrorWithThread);
 
-		obsC = queue.add(obsC)
-				.observeOn(RX.getMain());
+		queue.add(obsC)
+				.observeOn(RX.getMain())
+				.subscribe(RX::onCompleteWithThread, RX::onErrorWithThread);
 
 		ThreadsUtils.sleep(5500);
 
 		queue.add(obsD)
 				.observeOn(RX.getMain())
 				.subscribe(RX::onCompleteWithThread, RX::onErrorWithThread);
-
-		obsC.subscribe(RX::onCompleteWithThread, RX::onErrorWithThread);
 	}
 
 	private static class ObsQueue {
@@ -46,6 +45,9 @@ public class ObservableQueue {
 		private Scheduler internalScheduler = RX.getSingleThreadScheduler("Internal");
 		private AtomicInteger atomicInt = new AtomicInteger();
 
+		/**
+		 * Subscription must be applied to returned Observable!
+		 */
 		public <T> Observable<T> add(Observable<T> obs) {
 			atomicInt.incrementAndGet();
 			return obs
