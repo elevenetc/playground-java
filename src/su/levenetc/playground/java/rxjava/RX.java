@@ -3,6 +3,7 @@ package su.levenetc.playground.java.rxjava;
 import rx.Observable;
 import rx.Scheduler;
 import rx.Subscriber;
+import rx.functions.Action0;
 import rx.schedulers.Schedulers;
 import su.levenetc.playground.java.utils.Out;
 import su.levenetc.playground.java.utils.ThreadsUtils;
@@ -13,19 +14,25 @@ import java.util.concurrent.Executors;
 /**
  * Created by eugene.levenetc on 01/07/16.
  */
-public class RXUtils {
+public class RX {
 
 	private static Scheduler main;
 	private static Scheduler back;
 
-	public static <T> Observable<T> getObs(T result, String tag, long duration) {
+	public static <T> Observable<T> getObs(T result, String tag, long duration, boolean throwExc, Action0 checkBeforeComplete) {
 		return Observable.create(new Observable.OnSubscribe<T>() {
 			@Override
 			public void call(Subscriber<? super T> subscriber) {
-				Out.plnCurrentThread(tag);
-				ThreadsUtils.sleep(duration);
-				subscriber.onNext(result);
-				subscriber.onCompleted();
+				if (throwExc) {
+					subscriber.onError(new RuntimeException(tag));
+				} else {
+					Out.plnCurrentThread(tag);
+					ThreadsUtils.sleep(duration);
+					checkBeforeComplete.call();
+					subscriber.onNext(result);
+					subscriber.onCompleted();
+				}
+
 			}
 		});
 	}
@@ -72,6 +79,10 @@ public class RXUtils {
 	}
 
 	public static void onError(Throwable t) {
-		Out.pln(t);
+		Out.pln("onError: " + t);
+	}
+
+	public static void onErrorWithThread(Throwable t) {
+		Out.pln(Out.currentThread() + " : onError: " + t);
 	}
 }

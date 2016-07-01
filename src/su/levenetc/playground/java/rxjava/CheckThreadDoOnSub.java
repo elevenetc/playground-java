@@ -13,19 +13,18 @@ import java.util.concurrent.Executors;
 public class CheckThreadDoOnSub {
 	public static void run() {
 
-		Scheduler sch = Schedulers.from(Executors.newSingleThreadExecutor());
+		Scheduler singleThreadScheduler = Schedulers.from(Executors.newSingleThreadExecutor());
 
 		Observable<Object> obs = Observable.create(subscriber -> {
 
 			System.out.println("onNext at: " + Thread.currentThread());
+
 			subscriber.onNext(new Object());
 			subscriber.onCompleted();
 
-		});
+		}).subscribeOn(singleThreadScheduler).observeOn(Schedulers.newThread());
 
-		obs = obs.subscribeOn(sch).observeOn(Schedulers.newThread());
-
-		obs = obs.doOnSubscribe(() -> System.out.println("doOnSubscribe at: " + Thread.currentThread())).subscribeOn(sch);
+		obs = obs.doOnSubscribe(() -> System.out.println("doOnSubscribe at: " + Thread.currentThread())).subscribeOn(singleThreadScheduler);
 
 		obs.subscribe(o -> {
 			System.out.println("result at: " + Thread.currentThread());
