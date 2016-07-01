@@ -28,7 +28,7 @@ public class RX {
 				} else {
 					Out.plnCurrentThread(tag);
 					ThreadsUtils.sleep(duration);
-					checkBeforeComplete.call();
+					if (checkBeforeComplete != null) checkBeforeComplete.call();
 					subscriber.onNext(result);
 					subscriber.onCompleted();
 				}
@@ -67,6 +67,7 @@ public class RX {
 		Thread result = new Thread(runnable);
 		if (name.length() > 4) name = name.substring(0, 4);
 		result.setName("T: " + name);
+		//result.setDaemon(true);
 		return result;
 	}
 

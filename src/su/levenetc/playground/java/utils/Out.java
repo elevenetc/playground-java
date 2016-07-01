@@ -69,7 +69,7 @@ public class Out {
 	}
 
 	public static void plnCurrentThread(String tag) {
-		pln(currentThread() + " : " + tag);
+		pln(currentThread() + ": " + tag);
 	}
 
 	public static String currentThread() {

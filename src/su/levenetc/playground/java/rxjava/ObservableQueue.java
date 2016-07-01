@@ -2,7 +2,6 @@ package su.levenetc.playground.java.rxjava;
 
 import rx.Observable;
 import rx.Scheduler;
-import rx.functions.Action0;
 import su.levenetc.playground.java.utils.Objects;
 import su.levenetc.playground.java.utils.Out;
 import su.levenetc.playground.java.utils.ThreadsUtils;
@@ -16,11 +15,10 @@ public class ObservableQueue {
 	public static void run() {
 		ObsQueue queue = new ObsQueue();
 
-		Action0 checkRes = () -> Out.pln("isResAvailable: " + queue.isResAvailable());
-
-		Observable<Objects.A> obsA = RX.getObs(new Objects.A("A"), "task A running", 200, false, checkRes);
-		Observable<Objects.A> obsB = RX.getObs(new Objects.A("B"), "task B running", 100, false, checkRes);
-		Observable<Objects.A> obsC = RX.getObs(new Objects.A("C"), "task C running", 350, false, checkRes);
+		Observable<Objects.A> obsA = RX.getObs(new Objects.A("A"), "task A running", 200, false, null);
+		Observable<Objects.A> obsB = RX.getObs(new Objects.A("B"), "task B running", 100, false, null);
+		Observable<Objects.A> obsC = RX.getObs(new Objects.A("C"), "task C running", 350, false, null);
+		Observable<Objects.A> obsD = RX.getObs(new Objects.A("D"), "task D running", 150, false, null);
 
 		queue.add(obsA)
 				.observeOn(RX.getMain())
@@ -30,9 +28,16 @@ public class ObservableQueue {
 				.observeOn(RX.getMain())
 				.subscribe(RX::onCompleteWithThread, RX::onErrorWithThread);
 
-		queue.add(obsC)
+		obsC = queue.add(obsC)
+				.observeOn(RX.getMain());
+
+		ThreadsUtils.sleep(5500);
+
+		queue.add(obsD)
 				.observeOn(RX.getMain())
 				.subscribe(RX::onCompleteWithThread, RX::onErrorWithThread);
+
+		obsC.subscribe(RX::onCompleteWithThread, RX::onErrorWithThread);
 	}
 
 	private static class ObsQueue {
@@ -54,14 +59,12 @@ public class ObservableQueue {
 		}
 
 		private void handleSubscription() {
-			if (!isResAvailable())
-				loadRes();
+			if (!isResAvailable()) loadRes();
 		}
 
 		private void handleTermination() {
-			if (atomicInt.decrementAndGet() == 0 && isResAvailable()) {
-				destroyRes();
-			}
+			int i = atomicInt.decrementAndGet();
+			if (i == 0 && isResAvailable()) destroyRes();
 		}
 
 		private void loadRes() {
