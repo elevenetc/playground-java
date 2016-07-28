@@ -1,6 +1,6 @@
 package su.levenetc.playground.java;
 
-import su.levenetc.playground.java.rxjava.ObservableQueue;
+import su.levenetc.playground.java.rxjava.ImmediateSchedulerBehavior;
 import su.levenetc.playground.java.utils.Out;
 import su.levenetc.playground.java.utils.ThreadsUtils;
 
@@ -19,6 +19,6 @@ public class Main {
 	}
 
 	private static void run() {
-		ObservableQueue.run();
+		ImmediateSchedulerBehavior.run();
 	}
 }
