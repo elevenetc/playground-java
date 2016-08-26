@@ -2,7 +2,10 @@ package su.levenetc.playground.java.lang;
 
 import su.levenetc.playground.java.utils.Out;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,43 +22,63 @@ public class StringFormat {
         Out.pln(String.format("object: %1$s", new Object()));
         Out.pln(String.format("date: %1$tm.%1$te.%1$tY", new Date()));
 
-        checkFormat("%2$s %3$d", 2);
-        checkFormat("%1$d %2$s %3$d", 3);
+        checkFormat("%2$s %3$d %3$s", 3);
+        //checkFormat("%1$d %2$s %3", 2);
     }
 
-    private static void checkFormat(String formatA, int amount) {
-        Out.pln("'" + formatA + "': " + assertEquals(getAmountOfValidReplacements(formatA), amount));
+    private static void checkFormat(String source, int mustBe) {
+        List<String> validReplacements = getValidReplacements(source);
+        Out.pln("check format '" + source + "': " + assertEquals(validReplacements.size(), mustBe));
+        checkAmountOfValidReplacements(source, validReplacements);
     }
 
     private static boolean compareFormats(String formatA, String formatB) {
         return false;
     }
 
-    private static int amountOfReplacement(String format) {
-        int result = 0;
-        int lastIndex = 0;
-        while (lastIndex > -1) {
-            String check = "%";
-            lastIndex = format.indexOf(check, lastIndex);
-            if (lastIndex > -1) {
-                int length = check.length();
-                lastIndex += length;
-                result++;
-            }
-
-        }
-        return result;
-    }
-
-    private static int getAmountOfValidReplacements(String format) {
+    private static List<String> getValidReplacements(String format) {
+        List<String> replacements = new ArrayList<>();
         Pattern p = Pattern.compile("%\\d(\\$s|\\$d)");
         Matcher m = p.matcher(format);
-        int result = 0;
-        while (m.find()) result++;
-        return result;
+        while (m.find())
+            replacements.add(m.group(0));
+
+        return replacements;
     }
 
-    private static boolean isReplacementValid(String replacement) {
-        return false;
+    private static void checkAmountOfValidReplacements(String source, List<String> replacements) {
+
+        int size = replacements.size();
+        replacements = new ArrayList<>(replacements);
+        List<String> notFount = new ArrayList<>();
+
+        for (int i = 1; i <= size; i++) {
+
+            Iterator<String> iterator = replacements.iterator();
+            boolean found = false;
+
+            while (iterator.hasNext()) {
+                String match = iterator.next();
+
+                String checkMatch = "%" + i;
+                if (match.contains(checkMatch)) {
+                    found = true;
+                    iterator.remove();
+                    break;
+                }
+            }
+
+            if (!found)
+                notFount.add("%" + i);
+        }
+
+        if (replacements.size() > 0 || notFount.size() > 0) {
+            Out.pln("Found problems for '" + source + "'");
+
+            if (replacements.size() > 0) Out.pln("Redundant replacement: " + replacements);
+
+            if (notFount.size() > 0) Out.pln("Not found replacement: " + notFount);
+        }
     }
+
 }
