@@ -21,19 +21,19 @@ public class StringFormat {
         Out.pln(String.format("first: %1$d second: %2$s", 1, "a"));
         Out.pln(String.format("object: %1$s", new Object()));
         Out.pln(String.format("date: %1$tm.%1$te.%1$tY", new Date()));
-
+        Out.pln();
         checkFormat("%2$s %3$d %3$s", 3);
-        //checkFormat("%1$d %2$s %3", 2);
+        checkFormat("%2$s %3$d %1$s", 3);
+        checkFormat("%2$s %3$d %0$s", 3);
+        checkFormat("%4$s %3$d %9$s %1", 3);
     }
 
     private static void checkFormat(String source, int mustBe) {
+        Out.pln("Testing: " + source);
         List<String> validReplacements = getValidReplacements(source);
         Out.pln("check format '" + source + "': " + assertEquals(validReplacements.size(), mustBe));
         checkAmountOfValidReplacements(source, validReplacements);
-    }
-
-    private static boolean compareFormats(String formatA, String formatB) {
-        return false;
+        Out.pln();
     }
 
     private static List<String> getValidReplacements(String format) {
@@ -78,6 +78,8 @@ public class StringFormat {
             if (replacements.size() > 0) Out.pln("Redundant replacement: " + replacements);
 
             if (notFount.size() > 0) Out.pln("Not found replacement: " + notFount);
+        } else {
+            Out.pln(source + " is valid");
         }
     }
 
