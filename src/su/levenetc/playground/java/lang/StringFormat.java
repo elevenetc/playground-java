@@ -36,16 +36,11 @@ public class StringFormat {
         Out.pln();
     }
 
-    private static List<String> getValidReplacements(String format) {
-        List<String> replacements = new ArrayList<>();
-        Pattern p = Pattern.compile("%\\d(\\$s|\\$d)");
-        Matcher m = p.matcher(format);
-        while (m.find())
-            replacements.add(m.group(0));
-
-        return replacements;
-    }
-
+    /**
+     *
+     * @param source "XXX %1$s ZZZ %2#d"
+     * @param replacements ["%1$s","%2#d"]
+     */
     private static void checkAmountOfValidReplacements(String source, List<String> replacements) {
 
         int size = replacements.size();
@@ -82,5 +77,20 @@ public class StringFormat {
             Out.pln(source + " is valid");
         }
     }
+
+    /**
+     * @param format "XXX %1$s ZZZ %2#d"
+     * @return ["%1$s","%2#d"]
+     */
+    private static List<String> getValidReplacements(String format) {
+        List<String> replacements = new ArrayList<>();
+        Pattern p = Pattern.compile("%\\d(\\$s|\\$d)");
+        Matcher m = p.matcher(format);
+        while (m.find())
+            replacements.add(m.group(0));
+
+        return replacements;
+    }
+
 
 }
