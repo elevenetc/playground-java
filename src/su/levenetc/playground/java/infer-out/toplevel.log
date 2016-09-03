@@ -1,0 +1,10 @@
+[INFO] output of locale.getdefaultlocale(): ('en_GB', 'UTF-8')
+[INFO] encoding we chose in the end: UTF-8
+[INFO] Running command /usr/local/bin/../Cellar/infer/0.9.2/bin/../lib/infer/infer/lib/python/infer.py --multicore 8 --out /Users/eleven/Dropbox/Development/playground-java/src/su/levenetc/playground/java/infer-out --project_root /Users/eleven/Dropbox/Development/playground-java/src/su/levenetc/playground/java -- javac Main.java
+[INFO] Path to infer script /usr/local/bin/../Cellar/infer/0.9.2/bin/../lib/infer/infer/lib/python/infer.py (/usr/local/Cellar/infer/0.9.2/lib/infer/infer/lib/python/infer.py)
+[INFO] 
+[INFO] Platform: Darwin-15.6.0-x86_64-i386-64bit
+[INFO] PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/eleven/Tools/android-sdk-macosx/platform-tools
+[INFO] SHELL=/bin/zsh
+[INFO] PWD=/Users/eleven/Dropbox/Development/playground-java/src/su/levenetc/playground/java
+[ERROR] Error during capture phase, exiting
