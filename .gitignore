@@ -14,3 +14,4 @@ gen/
 .DS_Store
 .gradle
 /local.properties
+/infer-out/
