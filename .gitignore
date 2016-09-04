@@ -15,4 +15,5 @@ gen/
 .gradle
 /local.properties
 /infer-out/
-/src/su/levenetc/playground/java/infer-out/
+/main/java/su/levenetc/playground/java/infer-out/
+/references.txt
