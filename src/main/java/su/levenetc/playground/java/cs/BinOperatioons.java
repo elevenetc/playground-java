@@ -5,8 +5,6 @@ import rx.Subscriber;
 import rx.functions.Func1;
 import su.levenetc.playground.java.utils.Out;
 
-import java.util.List;
-
 /**
  * Created by eleven on 29/02/2016.
  */

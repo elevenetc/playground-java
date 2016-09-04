@@ -1,7 +1,5 @@
 package su.levenetc.playground.java.datastructures;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
 
 /**
  * Created by eleven on 30/01/2016.
@@ -63,7 +61,7 @@ public class BST<K extends Comparable<? super K>, V> {
 		return findMinimum(node.left);
 	}
 
-	private @Nullable Node findNode(Node node, K key) {
+	private Node findNode(Node node, K key) {
 		if (node == null) return null;
 		if (key.equals(node.key)) return node;
 
@@ -78,7 +76,7 @@ public class BST<K extends Comparable<? super K>, V> {
 		return null;
 	}
 
-	private @Nullable V find(K key, Node node) {
+	private V find(K key, Node node) {
 		if (node.key.equals(key)) {
 			return node.value;
 		} else {
@@ -108,7 +106,7 @@ public class BST<K extends Comparable<? super K>, V> {
 		}
 	}
 
-	private @Nullable Node findParent(Node parent, K key) {
+	private Node findParent(Node parent, K key) {
 		if (parent == null) return null;
 		if (parent.left == null && parent.right == null) return parent;
 
@@ -129,11 +127,11 @@ public class BST<K extends Comparable<? super K>, V> {
 	}
 
 	public class Node {
-		@Nullable Node parent;
-		@Nullable Node left;
-		@Nullable Node right;
-		@NotNull V value;
-		@NotNull K key;
+		Node parent;
+		Node left;
+		Node right;
+		V value;
+		K key;
 
 		public Node(K key, V value, Node parent) {
 			this.value = value;

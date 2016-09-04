@@ -2,10 +2,6 @@ package su.levenetc.playground.java.algs;
 
 import su.levenetc.playground.java.utils.Out;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Created by eleven on 01/02/2016.
  */

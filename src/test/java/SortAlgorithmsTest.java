@@ -1,5 +1,3 @@
-package su.levenetc.playground.java.tests;
-
 import su.levenetc.playground.java.algs.InsertionSort;
 import su.levenetc.playground.java.algs.SortAlgorithm;
 
