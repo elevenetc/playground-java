@@ -1,5 +1,4 @@
-package su.levenetc.playground.java.lang;
-
+import org.junit.Test;
 import su.levenetc.playground.java.utils.Out;
 
 import java.util.ArrayList;
@@ -12,16 +11,18 @@ import java.util.regex.Pattern;
 import static su.levenetc.playground.java.utils.TestUtils.assertEquals;
 
 /**
- * Created by eugene.levenetc on 26/08/16.
+ * Created by eugene.levenetc on 14/09/16.
  */
-public class StringFormat {
-    public static void run() {
+public class TestStringFormat {
+    @Test
+    public void testStringFormats() {
         Out.pln(String.format("first: %1$s second: %2$s", "x", "y"));
         Out.pln(String.format("first: %1$d second: %2$d", 1, 2));
         Out.pln(String.format("first: %1$d second: %2$s", 1, "a"));
         Out.pln(String.format("object: %1$s", new Object()));
         Out.pln(String.format("date: %1$tm.%1$te.%1$tY", new Date()));
         Out.pln();
+
         checkFormat("%2$s %3$d %3$s", 3);
         checkFormat("%2$s %3$d %1$s", 3);
         checkFormat("%2$s %3$d %0$s", 3);
@@ -91,6 +92,4 @@ public class StringFormat {
 
         return replacements;
     }
-
-
 }

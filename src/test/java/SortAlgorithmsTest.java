@@ -1,3 +1,4 @@
+import org.junit.Test;
 import su.levenetc.playground.java.algs.InsertionSort;
 import su.levenetc.playground.java.algs.SortAlgorithm;
 
@@ -8,7 +9,7 @@ import static org.junit.Assert.assertArrayEquals;
  */
 public class SortAlgorithmsTest {
 
-	@org.junit.Test
+	@Test
 	public void testInsertionAlgorithm() throws Exception {
 
 		InsertionSort algorithm = new InsertionSort();
