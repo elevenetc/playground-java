@@ -14,6 +14,14 @@ import static su.levenetc.playground.java.utils.TestUtils.assertEquals;
  * Created by eugene.levenetc on 14/09/16.
  */
 public class TestStringFormat {
+
+    @Test
+    public void testOneReplacement() {
+        assertEquals(String.format("%1$s, %2$s", "A", "B"), "A, B");
+        assertEquals(String.format("%2$s, %1$s", "A", "B"), "B, A");
+        assertEquals(String.format("%s, %s", "A", "B"), "A, B");
+    }
+
     @Test
     public void testStringFormats() {
         Out.pln(String.format("first: %1$s second: %2$s", "x", "y"));
@@ -38,8 +46,7 @@ public class TestStringFormat {
     }
 
     /**
-     *
-     * @param source "XXX %1$s ZZZ %2#d"
+     * @param source       "XXX %1$s ZZZ %2#d"
      * @param replacements ["%1$s","%2#d"]
      */
     private static void checkAmountOfValidReplacements(String source, List<String> replacements) {
