@@ -7,13 +7,17 @@ import su.levenetc.playground.java.utils.Out;
 public class TestXmlReplacement {
     @Test
     public void replace() {
-        String targetKey = "payment_failed_pin_not_set";
-        String newValue = "new";
-        String xml = "<k><string name=\"payment_failed_pin_not_set\">old</string></k>";
-        String newReplacement = "<string name=\"" + targetKey + "\">" + newValue + "</string>";
-        String regex = "((<string name=\"" + targetKey + ").*(</string>))";
+        final String xml = "<k><string name=\"payment_failed_pin_not_set\">old</string></k>";
+        final String key = "payment_failed_pin_not_set";
+        final String newValue = "new";
 
         Out.pln("old:" + xml);
-        Out.pln("new:" + xml.replaceFirst(regex, newReplacement));
+        Out.pln("new:" + replaceKey(xml, key, newValue));
+    }
+
+    private static String replaceKey(String xml, String key, String newValue) {
+        String newReplacement = "<string name=\"" + key + "\">" + newValue + "</string>";
+        String regex = "((<string name=\"" + key + ").*(</string>))";
+        return xml.replaceFirst(regex, newReplacement);
     }
 }
