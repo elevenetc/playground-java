@@ -1,6 +1,9 @@
+addons:
+  sonarqube: true
 language: java
 jdk:
   - oraclejdk8
 install: true
 script:
     - ./gradlew test
+    - sonar-scanner -Dsonar.login=$SONAR_TOKEN
