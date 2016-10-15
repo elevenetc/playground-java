@@ -1,9 +1,12 @@
 addons:
   sonarqube: true
+env:
+  global:
+  - secure: ievIQzGXQQAt8hbne93EuzSv1ZYXnxMv98Y5LaKLfZQYmNRAAFMHyaFs9nBx6VJ7Z4cIOck5+p6MoNsLEw14UBvVm0tWrU136i44TmDCbX0AJyZ2ImxmkLpz7XjqQ62RtYccdX4Hmkgh+9BHWojuAagMPoaP3c/MtpJ1K/pi9mdaVZflE3SWWtqkQ37uldGqmXHgS/b39AZ3NZNIpP8bWTfO7NHBfpnlc0EimFD9V1bnCqkoxTuJpiTyUyVGeZNGFGa4taQfKsV7xRsGImiFLsxo/6/KS0jNiZQA291SgFForlRnJHF2TRLhsce9XAWe9yQGT0dOkm3XwecXRXsn4TukXBEcWdkRHz1igmCWJcbt/cbQ//6wunyx3LC62+wBAS2zeBuc+G0vVBDco8O8QFumnrTz3pc8rlTTXGr7vLNhFMKahS+QRdR4gs75h54Nx5GJb3hRpc47EAsFPRJtCohWtKKEI+yD1cHFfU5g28Gcrkn/5W5g4U3BepGHtIKNL7E2C4dgAzOpaY5Tlnm0bc1BTJL9UmHgSb/XLI/eY6zHiq6sYVwrQii0a/msWlZ+dgsgcvDjmjtY+8CU6gHtox4GDxtIwHTqkPJFQugcB8CNadw+jArpOm5AS/1amLTwFC8Mp0whQCrRfRcUWNxjMC1wOeO/GJvYY1At/hA+dRE=
 language: java
 jdk:
-  - oraclejdk8
+- oraclejdk8
 install: true
 script:
-    - ./gradlew test
-    - sonar-scanner -Dsonar.login=$SONAR_TOKEN
+- "./gradlew test"
+- sonar-scanner -Dsonar.login=$SONAR_TOKEN
