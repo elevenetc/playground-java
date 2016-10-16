@@ -14,7 +14,7 @@ public class Threads {
 		/**
 		 * When one thread is executing a synchronized method for an object, all other threads that invoke
 		 * synchronized methods for the same object block (suspend execution)
-		 * until the first thread is done with the object.
+		 * until the first thread is done build the object.
 		 */
 		new Thread(objSample::sycnedMeth).start();
 		new Thread(objSample::sycnedMeth).start();

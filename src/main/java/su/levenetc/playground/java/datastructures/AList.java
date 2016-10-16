@@ -86,7 +86,7 @@ public class AList<T> {
 	}
 
 	@Override public String toString() {
-		return "Size:" + getSize() + " data:" + Arrays.toString(array);
+		return "SizeComponent:" + getSize() + " data:" + Arrays.toString(array);
 	}
 
 	private void checkAndIncreaseSize() {

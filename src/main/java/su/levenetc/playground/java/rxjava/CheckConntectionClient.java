@@ -1,5 +1,6 @@
 package su.levenetc.playground.java.rxjava;
 
+
 import rx.Observable;
 import su.levenetc.playground.java.RXJava;
 import su.levenetc.playground.java.RetrofitConfig;
