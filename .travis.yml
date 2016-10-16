@@ -10,3 +10,7 @@ install: true
 script:
 - "./gradlew test"
 - sonar-scanner -Dsonar.login=$SONAR_TOKEN
+cache:
+  directories:
+  - $HOME/.gradle/wrapper
+  - $HOME/.gradle/caches
