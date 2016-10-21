@@ -19,7 +19,7 @@ public class TestUtils {
             prevValue = check.get(i);
         }
 
-        Out.pln("MergeSort ok with " + check);
+        Out.pln("MergeSort ok build " + check);
     }
 
     public static String assertEquals(Object a, Object b) {

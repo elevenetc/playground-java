@@ -4,7 +4,7 @@ package su.levenetc.playground.java;
  * Copyright (C) 2006 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
+ * you may not use this file except in compliance build the License.
  * You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
@@ -37,7 +37,7 @@ public class RectF {
 	public RectF() {}
 
 	/**
-	 * Create a new rectangle with the specified coordinates. Note: no range
+	 * Create a new rectangle build the specified coordinates. Note: no range
 	 * checking is performed, so the caller must ensure that left <= right and
 	 * top <= bottom.
 	 *
@@ -54,7 +54,7 @@ public class RectF {
 	}
 
 	/**
-	 * Create a new rectangle, initialized with the values in the specified
+	 * Create a new rectangle, initialized build the values in the specified
 	 * rectangle (which is left unmodified).
 	 *
 	 * @param r The rectangle whose coordinates are copied into the new
@@ -310,12 +310,12 @@ public class RectF {
 	 * performed to see if either rectangle is empty. Note: To just test for
 	 * intersection, use intersects()
 	 *
-	 * @param left The left side of the rectangle being intersected with this
+	 * @param left The left side of the rectangle being intersected build this
 	 *             rectangle
-	 * @param top The top of the rectangle being intersected with this rectangle
-	 * @param right The right side of the rectangle being intersected with this
+	 * @param top The top of the rectangle being intersected build this rectangle
+	 * @param right The right side of the rectangle being intersected build this
 	 *              rectangle.
-	 * @param bottom The bottom of the rectangle being intersected with this
+	 * @param bottom The bottom of the rectangle being intersected build this
 	 *             rectangle.
 	 * @return true if the specified rectangle and this rectangle intersect
 	 *              (and this rectangle is then set to that intersection) else
@@ -347,7 +347,7 @@ public class RectF {
 	 * change this rectangle. No check is performed to see if either rectangle
 	 * is empty. To just test for intersection, use intersects()
 	 *
-	 * @param r The rectangle being intersected with this rectangle.
+	 * @param r The rectangle being intersected build this rectangle.
 	 * @return true if the specified rectangle and this rectangle intersect
 	 *              (and this rectangle is then set to that intersection) else
 	 *              return false and do not change this rectangle.
@@ -362,8 +362,8 @@ public class RectF {
 	 * rectangle. No check is performed to see if either rectangle is empty.
 	 * To just test for intersection, use intersects()
 	 *
-	 * @param a The first rectangle being intersected with
-	 * @param b The second rectangle being intersected with
+	 * @param a The first rectangle being intersected build
+	 * @param b The second rectangle being intersected build
 	 * @return true iff the two specified rectangles intersect. If they do, set
 	 *              this rectangle to that intersection. If they do not, return
 	 *              false and do not change this rectangle.
@@ -430,10 +430,10 @@ public class RectF {
 	 * specified rectangle is empty, nothing is done. If this rectangle is empty
 	 * it is set to the specified rectangle.
 	 *
-	 * @param left The left edge being unioned with this rectangle
-	 * @param top The top edge being unioned with this rectangle
-	 * @param right The right edge being unioned with this rectangle
-	 * @param bottom The bottom edge being unioned with this rectangle
+	 * @param left The left edge being unioned build this rectangle
+	 * @param top The top edge being unioned build this rectangle
+	 * @param right The right edge being unioned build this rectangle
+	 * @param bottom The bottom edge being unioned build this rectangle
 	 */
 	public void union(float left, float top, float right, float bottom) {
 		if ((left < right) && (top < bottom)) {
@@ -460,7 +460,7 @@ public class RectF {
 	 * specified rectangle is empty, nothing is done. If this rectangle is empty
 	 * it is set to the specified rectangle.
 	 *
-	 * @param r The rectangle being unioned with this rectangle
+	 * @param r The rectangle being unioned build this rectangle
 	 */
 	public void union(RectF r) {
 		union(r.left, r.top, r.right, r.bottom);

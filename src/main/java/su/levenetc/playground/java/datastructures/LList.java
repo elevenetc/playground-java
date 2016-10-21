@@ -80,7 +80,7 @@ public class LList<T> {
 
 		Node n = first;
 		StringBuilder sb = new StringBuilder();
-		sb.append("Size: " + size + " [");
+		sb.append("SizeComponent: " + size + " [");
 		while (n != null) {
 			sb.append(n);
 			if (n.next != null) sb.append(",");
