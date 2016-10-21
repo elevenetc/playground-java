@@ -3,6 +3,7 @@ package su.levenetc.playground.java.bot;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import org.glassfish.tyrus.client.ClientManager;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -12,8 +13,9 @@ import rx.Observable;
 import rx.functions.Action1;
 
 import javax.websocket.*;
-import java.io.IOException;
 import java.net.URI;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
  * Created by eugene.levenetc on 21/10/2016.
@@ -38,7 +40,8 @@ public class HelloBot {
                 .build();
 
         Api api = retrofit.create(Api.class);
-        api.authorize("").subscribe(new Action1<RtmStartResponse>() {
+        final String botToken = System.getenv("BOT_TOKEN");
+        api.authorize(botToken).subscribe(new Action1<RtmStartResponse>() {
             @Override
             public void call(RtmStartResponse response) {
                 new WWSClient(response.url);
@@ -62,22 +65,57 @@ public class HelloBot {
         public String url;
     }
 
-    private static class WWSClient {
+    @ClientEndpoint
+    public static class WWSClient {
         public WWSClient(String url) {
-            WebSocketContainer container = ContainerProvider.getWebSocketContainer();
+            final URI uri = URI.create(url);
+
+//            WebSocketContainer container = ContainerProvider.getWebSocketContainer();
+            ClientManager client = ClientManager.createClient();
+
             try {
-                final Session session = container.connectToServer(this, URI.create(url));
-                session.addMessageHandler(new MessageHandler.Whole<String>() {
+                client.setAsyncSendTimeout(1000);
+                final Future<Session> future = client.asyncConnectToServer(this, uri);
+                final Session session = future.get();
+                if (session == null) {
 
-                    @Override
-                    public void onMessage(String message) {
-                        if (message == null) {
-
-                        }
-                    }
-                });
-            } catch (DeploymentException | IOException e) {
+                }
+            } catch (DeploymentException | ExecutionException | InterruptedException e) {
                 e.printStackTrace();
+            }
+
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @OnOpen
+        public void onOpen(Session userSession) {
+            if (userSession == null) {
+
+            }
+        }
+
+        @OnClose
+        public void onClose(Session userSession, CloseReason reason) {
+            if (userSession == null) {
+
+            }
+        }
+
+        @OnError
+        public void onError(Throwable throwable) {
+            if (throwable == null) {
+
+            }
+        }
+
+        @OnMessage
+        public void onMessage(String message) {
+            if (message == null) {
+
             }
         }
     }
