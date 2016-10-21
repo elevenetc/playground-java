@@ -1,16 +1,11 @@
 package su.levenetc.playground.java;
 
 import com.google.gson.Gson;
-import retrofit.RestAdapter;
-import retrofit.client.Response;
-import retrofit.http.GET;
-import retrofit.http.Query;
-import retrofit.mime.TypedString;
+import retrofit2.Retrofit;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 import rx.Observable;
 import su.levenetc.playground.java.rxjava.BaseResponse;
-import su.levenetc.playground.java.utils.NetUtils;
-
-import java.util.ArrayList;
 
 /**
  * Created by elevenetc on 21/06/15.
@@ -28,37 +23,37 @@ public class RetrofitConfig {
 
 	public static API initAPI() {
 		final Gson gson = new Gson();
-		RestAdapter restAdapter = new RestAdapter.Builder()
-				.setEndpoint("http://ya.ru")
-				.setClient(request -> {
-
-					String url = request.getUrl();
-
-					String paramA = NetUtils.getParam(url, "paramA");
-
-					if (paramA == null) {
-						paramA = "data";
-					}
-
-					System.out.println("request:" + url + " at " + Thread.currentThread());
-
-					if (url.contains(GET_200)) {
-						TypedString body = new TypedString(gson.toJson(new BaseResponse(RESULT_OK, paramA)));
-						return new Response("", 200, "", new ArrayList<>(), body);
-					} else if (url.contains(GET_400)) {
-						TypedString body = new TypedString(gson.toJson(new BaseResponse(RESULT_ERROR, null)));
-						return new Response("", 400, "", new ArrayList<>(), body);
-					} else if (url.contains(GET_A_200)) {
-						TypedString body = new TypedString(gson.toJson(new BaseResponse(RESULT_OK, "A")));
-						return new Response("", 200, "", new ArrayList<>(), body);
-					} else if (url.contains(GET_B_200)) {
-						TypedString body = new TypedString(gson.toJson(new BaseResponse(RESULT_OK, "B")));
-						return new Response("", 200, "", new ArrayList<>(), body);
-					} else {
-						return new Response("", 500, "", new ArrayList<>(), null);
-					}
-
-				})
+		Retrofit restAdapter = new Retrofit.Builder()
+				.baseUrl("http://ya.ru")
+//				.setClient(request -> {
+//
+//					String url = request.getUrl();
+//
+//					String paramA = NetUtils.getParam(url, "paramA");
+//
+//					if (paramA == null) {
+//						paramA = "data";
+//					}
+//
+//					System.out.println("request:" + url + " at " + Thread.currentThread());
+//
+//					if (url.contains(GET_200)) {
+//						TypedString body = new TypedString(gson.toJson(new BaseResponse(RESULT_OK, paramA)));
+//						return new Response("", 200, "", new ArrayList<>(), body);
+//					} else if (url.contains(GET_400)) {
+//						TypedString body = new TypedString(gson.toJson(new BaseResponse(RESULT_ERROR, null)));
+//						return new Response("", 400, "", new ArrayList<>(), body);
+//					} else if (url.contains(GET_A_200)) {
+//						TypedString body = new TypedString(gson.toJson(new BaseResponse(RESULT_OK, "A")));
+//						return new Response("", 200, "", new ArrayList<>(), body);
+//					} else if (url.contains(GET_B_200)) {
+//						TypedString body = new TypedString(gson.toJson(new BaseResponse(RESULT_OK, "B")));
+//						return new Response("", 200, "", new ArrayList<>(), body);
+//					} else {
+//						return new Response("", 500, "", new ArrayList<>(), null);
+//					}
+//
+//				})
 				.build();
 		return restAdapter.create(API.class);
 	}
