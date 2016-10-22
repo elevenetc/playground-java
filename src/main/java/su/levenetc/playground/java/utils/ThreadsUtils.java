@@ -5,40 +5,43 @@ package su.levenetc.playground.java.utils;
  */
 public class ThreadsUtils {
 
-	public static void sleepA() {
-		sleep(1000);
-	}
+    public static void sleepA() {
+        sleep(1000);
+    }
 
-	public static void sleepB() {
-		sleep(2000);
-	}
+    public static void sleepB() {
+        sleep(2000);
+    }
 
-	public static void sleepC() {
-		sleep(3000);
-	}
+    public static void sleepC() {
+        sleep(3000);
+    }
+
+    public static void sleepForever() {
+        sleep(Long.MAX_VALUE);
+    }
+
+    public static void sleep(long ms) {
+        sleep(ms, null);
+    }
+
+    public static void sleep(long ms, DoOnWakeup handler) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+
+        }
+
+        if (handler != null) handler.wakeupHandler();
+    }
 
 
-	public static void sleep(long ms) {
-		sleep(ms, null);
-	}
-
-	public static void sleep(long ms, DoOnWakeup handler) {
-		try {
-			Thread.sleep(ms);
-		} catch (InterruptedException e) {
-
-		}
-
-		if (handler != null) handler.wakeupHandler();
-	}
-
-
-	public static void startNonDemonThread(long ms) {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				sleep(ms);
-			}
-		}).start();
-	}
+    public static void startNonDemonThread(long ms) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                sleep(ms);
+            }
+        }).start();
+    }
 }
