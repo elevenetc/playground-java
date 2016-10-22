@@ -14,10 +14,11 @@ public class BasicMove extends Move {
 		super(target, unit, map);
 	}
 
-	@Override void move() throws MoveException {
+	@Override
+	void move(Map.Path path) throws MoveException {
 		Location current = position.getCurrent();
 		if (!current.equals(target)) {
-			Map.Path path = map.getPathFor(unit).from(current).to(target).build(unit);
+			//Map.Path path = map.getPathFor(unit).from(current).to(target).build();
 			if (path.size() > 0) {
 
 			}
