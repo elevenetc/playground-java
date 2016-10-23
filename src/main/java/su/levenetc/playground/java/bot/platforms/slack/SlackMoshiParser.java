@@ -11,7 +11,7 @@ import java.io.IOException;
 /**
  * Created by eugene.levenetc on 22/10/2016.
  */
-public class SlackMoshiMessageParser implements SlackPlatform.MessageParser {
+public class SlackMoshiParser implements SlackPlatform.MessageParser {
 
     private Moshi moshi = new Moshi.Builder().build();
     private final JsonAdapter<BaseMessage> baseMessageAdapter;
@@ -19,7 +19,7 @@ public class SlackMoshiMessageParser implements SlackPlatform.MessageParser {
     private final JsonAdapter<Msg> messageAdapter;
     private final JsonAdapter<Typing> typingAdapter;
 
-    public SlackMoshiMessageParser() {
+    public SlackMoshiParser() {
         baseMessageAdapter = moshi.adapter(BaseMessage.class);
         reconnectUrlAdapter = moshi.adapter(ReconnectUrl.class);
         messageAdapter = moshi.adapter(Msg.class);
