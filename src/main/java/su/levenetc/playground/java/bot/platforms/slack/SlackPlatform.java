@@ -16,6 +16,7 @@ import su.levenetc.playground.java.bot.models.User;
 import su.levenetc.playground.java.bot.platforms.Platform;
 import su.levenetc.playground.java.bot.wws.SocketClient;
 import su.levenetc.playground.java.utils.Out;
+import su.levenetc.playground.java.utils.RuntimeUtils;
 
 /**
  * Created by eugene.levenetc on 22/10/2016.
@@ -32,6 +33,7 @@ public class SlackPlatform extends Platform {
             MessageParser messageParser,
             String token
     ) {
+        RuntimeUtils.nullCheck(socketClient, messageParser, token);
         this.socketClient = socketClient;
         this.messageParser = messageParser;
         this.token = token;
