@@ -65,7 +65,7 @@ public class SlackPlatform extends Platform {
                 return openConnection(response.url).flatMap(new Function<Observable<String>, SingleSource<Object>>() {
                     @Override
                     public SingleSource<Object> apply(Observable<String> stringObservable) throws Exception {
-                        stringObservable.subscribe(SlackPlatform.this::handleMessage, SlackPlatform.this::handleErrorMessage);
+                        stringObservable.subscribe(SlackPlatform.this::handleRawMessage, SlackPlatform.this::handleErrorMessage);
                         return Single.just(new Object());
                     }
                 });
@@ -78,9 +78,9 @@ public class SlackPlatform extends Platform {
         throwable.printStackTrace();
     }
 
-    private void handleMessage(String rawMessage) {
+    private void handleRawMessage(String rawMessage) {
         Out.pln("New message: " + rawMessage);
-        messageParser.parse(rawMessage).subscribe(this::handleMessage);
+        messageParser.parse(rawMessage).subscribe(this::handleParsedMessage);
     }
 
     private void initApi() {

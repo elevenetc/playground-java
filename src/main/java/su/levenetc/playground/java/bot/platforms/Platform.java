@@ -27,7 +27,7 @@ public abstract class Platform {
 
     public abstract Single<Object> sendMessage(Message message);
 
-    protected void handleMessage(Message message) {
+    protected void handleParsedMessage(Message message) {
         messagePublisher.onNext(message);
     }
 

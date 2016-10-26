@@ -1,6 +1,5 @@
 package su.levenetc.playground.java.bot.services;
 
-import io.reactivex.Scheduler;
 import su.levenetc.playground.java.utils.Out;
 import su.levenetc.playground.java.utils.ThreadsUtils;
 
@@ -10,12 +9,9 @@ import su.levenetc.playground.java.utils.ThreadsUtils;
 public class HeavyService extends Service {
     @Override
     public void start() {
-
-        final Scheduler scheduler = ThreadsUtils.createScheduler("HeavyService");
-
-        platform.getMessageObservable()
+        getPlatform().getMessageObservable()
                 .filter(message -> "zzz".equals(message.getMessage()))
-                .observeOn(scheduler)
+                .observeOn(getScheduler())
                 .subscribe(message -> heavy());
     }
 
