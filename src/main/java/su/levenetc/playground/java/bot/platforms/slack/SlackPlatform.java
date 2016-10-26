@@ -40,6 +40,11 @@ public class SlackPlatform extends Platform {
     }
 
     @Override
+    public Observable<Message> getMessageObservable() {
+        return super.getMessageObservable().filter(message -> message.getMessageType() == SlackMessageTypes.MESSAGE);
+    }
+
+    @Override
     public Single<Object> start() {
         initApi();
         return authAndOpenConnection();

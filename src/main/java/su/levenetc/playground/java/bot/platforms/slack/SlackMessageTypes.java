@@ -9,4 +9,5 @@ public class SlackMessageTypes {
     public static final int HELLO = 102;
     public static final int TYPING = 103;
     public static final int MESSAGE = 104;
+    public static int DELIVERED = -1;
 }

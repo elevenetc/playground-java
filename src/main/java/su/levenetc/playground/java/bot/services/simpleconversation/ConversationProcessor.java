@@ -15,6 +15,10 @@ public class ConversationProcessor {
         this.question = question;
     }
 
+    public boolean isWaitingForAnswer() {
+        return question != null && !question.hasNoAnswers();
+    }
+
     public Question next(Answer answer) {
 
         Question result = question;

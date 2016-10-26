@@ -5,12 +5,25 @@ package su.levenetc.playground.java.bot.models;
  */
 public class Message {
 
-    private final int messageType;
+    private int messageType;
     private String message;
     private MessageTarget target;
     private User owner;
+    private boolean isDirect;
 
-    public Message(int messageType) {
+    public Message() {
+
+    }
+
+    public boolean isDirect() {
+        return isDirect;
+    }
+
+    public void setDirect(boolean direct) {
+        isDirect = direct;
+    }
+
+    public void setMessageType(int messageType) {
         this.messageType = messageType;
     }
 
@@ -39,7 +52,7 @@ public class Message {
     }
 
     public Message respond(String message) {
-        Message result = new Message(MessageType.MESSAGE);
+        Message result = new Message();
         result.setTarget(target);
         result.setMessage(message);
         return result;

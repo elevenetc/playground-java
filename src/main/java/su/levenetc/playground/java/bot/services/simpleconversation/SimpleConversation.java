@@ -10,6 +10,7 @@ public class SimpleConversation extends Service {
 
     private StringQuestion initQuestion;
     private ConversationProcessor conversationProcessor;
+    private boolean conversationStarted;
 
     @Override
     public void start() {
@@ -21,8 +22,9 @@ public class SimpleConversation extends Service {
 
         getPlatform()
                 .getMessageObservable()
+                .filter(message -> conversationStarted)
                 .observeOn(getScheduler())
-                .subscribe(this::handleAnyMessage);
+                .subscribe(this::handleConversationMessage);
 
         initQuestion = new StringQuestion("How old are you?");
         initQuestion.addAnswer(
@@ -44,21 +46,22 @@ public class SimpleConversation extends Service {
     }
 
     private void startConversation(Message message) {
-
-        if (conversationProcessor == null) {
-            conversationProcessor = new ConversationProcessor(initQuestion);
-            getPlatform().sendMessage(message.respond(initQuestion.getValue())).subscribe();
-        }
-
+        conversationProcessor = new ConversationProcessor(initQuestion);
+        updateMode();
+        getPlatform().sendMessage(message.respond(initQuestion.getValue())).subscribe();
+        conversationStarted = true;
     }
 
-    private void handleAnyMessage(Message message) {
-        if(conversationProcessor != null){
-            final Question next = conversationProcessor.next(new StringAnswer(message.getMessage()));
-            if(next != null){
-                getPlatform().sendMessage(message.respond((String)next.getValue())).subscribe();
-            }
+    private void handleConversationMessage(Message message) {
+        final Question next = conversationProcessor.next(new StringAnswer(message.getMessage()));
+        if (next != null) {
+            getPlatform().sendMessage(message.respond((String) next.getValue())).subscribe();
+            updateMode();
         }
+    }
+
+    private void updateMode() {
+        setMode(conversationProcessor.isWaitingForAnswer() ? Mode.WAITING_DIRECT_ANSWER : Mode.IDLE);
     }
 
 }

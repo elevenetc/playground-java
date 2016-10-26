@@ -1,6 +1,7 @@
 package su.levenetc.playground.java.bot.services;
 
 import io.reactivex.Scheduler;
+import su.levenetc.playground.java.bot.ServicesPool;
 import su.levenetc.playground.java.bot.platforms.Platform;
 import su.levenetc.playground.java.utils.ThreadsUtils;
 
@@ -11,6 +12,8 @@ public abstract class Service {
 
     private Platform platform;
     private Scheduler scheduler;
+    private Mode mode = Mode.IDLE;
+    private ServicesPool servicesPool;
 
     public void setPlatform(Platform platform) {
         this.platform = platform;
@@ -22,9 +25,29 @@ public abstract class Service {
 
     public abstract void start();
 
+    public Mode getMode() {
+        return mode;
+    }
+
+    protected void setMode(Mode mode) {
+        this.mode = mode;
+    }
+
     protected Scheduler getScheduler() {
         if (scheduler == null)
             scheduler = ThreadsUtils.createScheduler(getClass().getCanonicalName());
         return scheduler;
+    }
+
+    protected ServicesPool getServicesPool() {
+        return servicesPool;
+    }
+
+    public void setServicesPool(ServicesPool servicesPool) {
+        this.servicesPool = servicesPool;
+    }
+
+    public enum Mode {
+        WAITING_DIRECT_ANSWER, IDLE
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class HellBot {
 
-    private List<Service> services = new ArrayList<>();
+    private ServicesPoolImpl servicesPool = new ServicesPoolImpl();
     private Builder builder;
     private Platform platform;
 
@@ -23,15 +23,7 @@ public class HellBot {
     }
 
     public Single<Object> start() {
-        startServices();
-        return platform.start();
-    }
-
-    private void startServices() {
-        for (Service service : services) {
-            service.setPlatform(platform);
-        }
-        services.forEach(Service::start);
+        return platform.start().doOnSuccess(o -> servicesPool.startAll(platform));
     }
 
     public static class Builder {
@@ -59,8 +51,8 @@ public class HellBot {
             //TODO: check fields
             HellBot result = new HellBot();
             result.builder = this;
-            result.services = services;
             result.platform = platform;
+            result.servicesPool.setServices(services);
             return result;
         }
     }

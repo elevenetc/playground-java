@@ -49,25 +49,40 @@ public class SlackMoshiParser implements SlackPlatform.MessageParser {
 
             try {
                 final BaseMessage baseMessage = baseMessageAdapter.fromJson(rawMessage);
+
                 if ("reconnect_url".equals(baseMessage.type)) {
                     final ReconnectUrl reconnectUrl = reconnectUrlAdapter.fromJson(rawMessage);
-                    result = new Message(SlackMessageTypes.RECONNECT_URL);
+                    result = new Message();
+                    result.setMessageType(SlackMessageTypes.RECONNECT_URL);
                     result.setMessage(reconnectUrl.url);
                 } else if ("presence_change".equals(baseMessage.type)) {
-                    result = new Message(SlackMessageTypes.PRESENCE_CHANGE);
+                    result = new Message();
+                    result.setMessageType(SlackMessageTypes.PRESENCE_CHANGE);
                 } else if ("hello".equals(baseMessage.type)) {
-                    result = new Message(SlackMessageTypes.HELLO);
+                    result = new Message();
+                    result.setMessageType(SlackMessageTypes.HELLO);
                 } else if ("user_typing".equals(baseMessage.type)) {
-                    result = new Message(SlackMessageTypes.TYPING);
+                    result = new Message();
+                    result.setMessageType(SlackMessageTypes.TYPING);
                 } else if ("message".equals(baseMessage.type)) {
                     final Msg msg = messageAdapter.fromJson(rawMessage);
-                    result = new Message(SlackMessageTypes.MESSAGE);
+                    result = new Message();
+                    result.setMessageType(SlackMessageTypes.MESSAGE);
                     result.setMessage(msg.text);
                     result.setOwner(new User(msg.user));
                     result.setTarget(new User(msg.channel));
                 } else {
-                    emitter.onError(new RuntimeException("Unknown result type: " + baseMessage.type));
-                    return;
+                    if (!baseMessage.ok && baseMessage.type == null) {
+                        emitter.onError(new RuntimeException("Unknown result type: null"));
+                        return;
+                    } else if (!baseMessage.ok) {
+                        emitter.onError(new RuntimeException("Unknown result type: " + baseMessage.type));
+                        return;
+                    } else {
+                        result = new Message();
+                        result.setMessageType(SlackMessageTypes.DELIVERED);
+                    }
+
                 }
                 emitter.onSuccess(result);
             } catch (IOException e) {
@@ -79,6 +94,7 @@ public class SlackMoshiParser implements SlackPlatform.MessageParser {
 
     private static class BaseMessage {
         String type;
+        boolean ok;
     }
 
     private static class ReconnectUrl {
