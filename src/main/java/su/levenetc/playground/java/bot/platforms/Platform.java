@@ -5,6 +5,7 @@ import io.reactivex.Single;
 import io.reactivex.subjects.PublishSubject;
 import su.levenetc.playground.java.bot.models.Message;
 import su.levenetc.playground.java.bot.models.User;
+import su.levenetc.playground.java.bot.platforms.slack.InitData;
 
 /**
  * Created by eugene.levenetc on 22/10/2016.
@@ -12,16 +13,19 @@ import su.levenetc.playground.java.bot.models.User;
 public abstract class Platform {
 
     private final PublishSubject<Message> messagePublisher = PublishSubject.create();
+    private InitData initData;
 
     public Platform() {
 
     }
 
-    public Observable<Message> getMessageObservable() {
+    public abstract Observable<Message> getPersonalMessagesObservable();
+
+    public Observable<Message> getAllMessagesObservable() {
         return messagePublisher;
     }
 
-    public abstract Single<Object> start();
+    public abstract Single<InitData> start();
 
     public abstract Observable<User> loadUsers();
 
@@ -31,4 +35,13 @@ public abstract class Platform {
         messagePublisher.onNext(message);
     }
 
+    public void setInitData(InitData initData) {
+        this.initData = initData;
+    }
+
+    protected InitData getInitData() {
+        return initData;
+    }
+
+    public abstract Message.Builder respondTo(Message message);
 }

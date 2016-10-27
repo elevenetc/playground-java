@@ -64,6 +64,12 @@ public class SlackMoshiParser implements SlackPlatform.MessageParser {
                 } else if ("user_typing".equals(baseMessage.type)) {
                     result = new Message();
                     result.setMessageType(SlackMessageTypes.TYPING);
+                } else if ("im_marked".equals(baseMessage.type)) {
+                    result = new Message();
+                    result.setMessageType(SlackMessageTypes.IM_MARKED);
+                } else if ("group_marked".equals(baseMessage.type)) {
+                    result = new Message();
+                    result.setMessageType(SlackMessageTypes.GROUP_MARKED);
                 } else if ("message".equals(baseMessage.type)) {
                     final Msg msg = messageAdapter.fromJson(rawMessage);
                     result = new Message();
@@ -71,6 +77,10 @@ public class SlackMoshiParser implements SlackPlatform.MessageParser {
                     result.setMessage(msg.text);
                     result.setOwner(new User(msg.user));
                     result.setTarget(new User(msg.channel));
+                } else if ("error".equals(baseMessage.type)) {
+                    result = new Message();
+                    result.setMessageType(SlackMessageTypes.ERROR);
+                    result.setMessage(rawMessage);
                 } else {
                     if (!baseMessage.ok && baseMessage.type == null) {
                         emitter.onError(new RuntimeException("Unknown result type: null"));

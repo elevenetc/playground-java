@@ -3,6 +3,7 @@ package su.levenetc.playground.java.bot;
 
 import io.reactivex.Single;
 import su.levenetc.playground.java.bot.platforms.Platform;
+import su.levenetc.playground.java.bot.platforms.slack.InitData;
 import su.levenetc.playground.java.bot.services.Service;
 import su.levenetc.playground.java.bot.wws.SocketClient;
 
@@ -22,8 +23,8 @@ public class HellBot {
 
     }
 
-    public Single<Object> start() {
-        return platform.start().doOnSuccess(o -> servicesPool.startAll(platform));
+    public Single<InitData> start() {
+        return platform.start().doOnSuccess(bot -> servicesPool.startAll(platform, bot));
     }
 
     public static class Builder {

@@ -11,12 +11,16 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import su.levenetc.playground.java.bot.models.Channel;
 import su.levenetc.playground.java.bot.models.Message;
 import su.levenetc.playground.java.bot.models.User;
 import su.levenetc.playground.java.bot.platforms.Platform;
 import su.levenetc.playground.java.bot.wws.SocketClient;
 import su.levenetc.playground.java.utils.Out;
 import su.levenetc.playground.java.utils.RuntimeUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by eugene.levenetc on 22/10/2016.
@@ -40,12 +44,28 @@ public class SlackPlatform extends Platform {
     }
 
     @Override
-    public Observable<Message> getMessageObservable() {
-        return super.getMessageObservable().filter(message -> message.getMessageType() == SlackMessageTypes.MESSAGE);
+    public Observable<Message> getPersonalMessagesObservable() {
+        return getAllMessagesObservable().filter(message -> {
+
+            final List<Channel> channels = getInitData().getChannels();
+
+            for (Channel channel : channels) {
+                if (channel.isUserChannel() && message.getTarget().getId().equals(channel.getId())) {
+                    return true;
+                }
+            }
+
+            return false;
+        });
     }
 
     @Override
-    public Single<Object> start() {
+    public Observable<Message> getAllMessagesObservable() {
+        return super.getAllMessagesObservable().filter(message -> message.getMessageType() == SlackMessageTypes.MESSAGE);
+    }
+
+    @Override
+    public Single<InitData> start() {
         initApi();
         return authAndOpenConnection();
     }
@@ -65,16 +85,43 @@ public class SlackPlatform extends Platform {
         });
     }
 
-    private Single<Object> authAndOpenConnection() {
-        return api.authorize(token).flatMap(new Function<RtmStartResponse, SingleSource<Object>>() {
+    @Override
+    public Message.Builder respondTo(Message message) {
+        final Message.Builder builder = new Message.Builder();
+        builder.respondTo(message);
+        return builder;
+    }
+
+    private Single<InitData> authAndOpenConnection() {
+
+        return api.authorize(token).flatMap(new Function<RtmStartResponse, SingleSource<InitData>>() {
             @Override
-            public SingleSource<Object> apply(RtmStartResponse response) throws Exception {
-                return openConnection(response.url).flatMap(new Function<Observable<String>, SingleSource<Object>>() {
-                    @Override
-                    public SingleSource<Object> apply(Observable<String> stringObservable) throws Exception {
-                        stringObservable.subscribe(SlackPlatform.this::handleRawMessage, SlackPlatform.this::handleErrorMessage);
-                        return Single.just(new Object());
+            public SingleSource<InitData> apply(RtmStartResponse rtmResponse) throws Exception {
+
+                return openConnection(rtmResponse.url).flatMap(stringObservable -> {
+                    stringObservable.subscribe(SlackPlatform.this::handleRawMessage, SlackPlatform.this::handleErrorMessage);
+
+                    InitData initData = new InitData();
+                    initData.setCurrentUserId(rtmResponse.self.id);
+
+                    List<Channel> channels = new ArrayList<Channel>();
+
+                    for (RtmStartResponse.Ims im : rtmResponse.ims) {
+                        Channel channel = new Channel();
+                        channel.setId(im.id);
+                        channel.setUserChannel(true);
+                        channels.add(channel);
                     }
+
+                    for (RtmStartResponse.Channel c : rtmResponse.channels) {
+                        Channel channel = new Channel();
+                        channel.setId(c.id);
+                        channels.add(channel);
+                    }
+
+                    initData.setChannels(channels);
+
+                    return Single.just(initData);
                 });
             }
         });
@@ -93,7 +140,7 @@ public class SlackPlatform extends Platform {
     private void initApi() {
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -110,14 +157,43 @@ public class SlackPlatform extends Platform {
         return socketClient.connect(url);
     }
 
-
     interface SlackApi {
         @GET("rtm.start")
         Single<RtmStartResponse> authorize(@Query("token") String token);
+
+        @GET("bots.info")
+        Single<BotInfoResponse> botInfo(@Query("token") String token);
     }
 
     public static class RtmStartResponse {
+
         public String url;
+        public Self self;
+        public Ims[] ims;
+        public Channel[] channels;
+
+        public static class Self {
+            String id;
+        }
+
+        public static class Ims {
+            String id;
+            boolean is_im;
+
+        }
+
+        static class Channel {
+            String id;
+        }
+    }
+
+    public static class BotInfoResponse {
+
+        public Bot bot;
+
+        private static class Bot {
+            public String id;
+        }
     }
 
     public interface MessageParser {

@@ -5,14 +5,27 @@ package su.levenetc.playground.java.bot.models;
  */
 public class Channel implements MessageTarget {
 
-    private final String id;
+    private String id;
+    private boolean isUserChannel;
 
-    public Channel(String id) {
+    public Channel() {
+
+    }
+
+    public boolean isUserChannel() {
+        return isUserChannel;
+    }
+
+    public void setUserChannel(boolean userChannel) {
+        isUserChannel = userChannel;
+    }
+
+    public void setId(String id) {
         this.id = id;
     }
 
     @Override
     public String getId() {
-        return null;
+        return id;
     }
 }

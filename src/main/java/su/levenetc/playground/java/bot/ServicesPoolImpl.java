@@ -1,6 +1,7 @@
 package su.levenetc.playground.java.bot;
 
 import su.levenetc.playground.java.bot.platforms.Platform;
+import su.levenetc.playground.java.bot.platforms.slack.InitData;
 import su.levenetc.playground.java.bot.services.Service;
 
 import java.util.ArrayList;
@@ -18,10 +19,14 @@ class ServicesPoolImpl implements ServicesPool {
         this.services = services;
     }
 
-    public void startAll(Platform platform) {
+    public void startAll(Platform platform, InitData initData) {
+
+        platform.setInitData(initData);
+
         for (Service service : services) {
             service.setPlatform(platform);
             service.setServicesPool(this);
+            service.setInitData(initData);
         }
         services.forEach(Service::start);
     }

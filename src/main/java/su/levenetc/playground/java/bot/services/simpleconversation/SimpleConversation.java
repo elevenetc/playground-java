@@ -14,14 +14,14 @@ public class SimpleConversation extends Service {
 
     @Override
     public void start() {
-        getPlatform()
-                .getMessageObservable()
+        platform()
+                .getAllMessagesObservable()
                 .filter(message -> "sss".equals(message.getMessage()))
                 .observeOn(getScheduler())
                 .subscribe(this::startConversation);
 
-        getPlatform()
-                .getMessageObservable()
+        platform()
+                .getAllMessagesObservable()
                 .filter(message -> conversationStarted)
                 .observeOn(getScheduler())
                 .subscribe(this::handleConversationMessage);
@@ -48,14 +48,14 @@ public class SimpleConversation extends Service {
     private void startConversation(Message message) {
         conversationProcessor = new ConversationProcessor(initQuestion);
         updateMode();
-        getPlatform().sendMessage(message.respond(initQuestion.getValue())).subscribe();
+        platform().sendMessage(message.respond(initQuestion.getValue())).subscribe();
         conversationStarted = true;
     }
 
     private void handleConversationMessage(Message message) {
         final Question next = conversationProcessor.next(new StringAnswer(message.getMessage()));
         if (next != null) {
-            getPlatform().sendMessage(message.respond((String) next.getValue())).subscribe();
+            platform().sendMessage(message.respond((String) next.getValue())).subscribe();
             updateMode();
         }
     }

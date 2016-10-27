@@ -9,13 +9,13 @@ public class PingService extends Service {
 
     @Override
     public void start() {
-        getPlatform().getMessageObservable()
-                .filter(message -> "ping".equals(message.getMessage())).subscribe(this::handlePingMessage);
-
+        platform().getPersonalMessagesObservable()
+                .filter(message -> "ping".equals(message.getMessage()))
+                .subscribe(this::handlePingMessage);
     }
 
     private void handlePingMessage(Message message) {
-        getPlatform().sendMessage(message.respond("pong!")).subscribe();
+        platform().respondTo(message).with("pong!");
     }
 
 }

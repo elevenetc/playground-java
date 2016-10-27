@@ -1,5 +1,7 @@
 package su.levenetc.playground.java.bot.models;
 
+import su.levenetc.playground.java.bot.platforms.Platform;
+
 /**
  * Created by eugene.levenetc on 22/10/2016.
  */
@@ -13,6 +15,14 @@ public class Message {
 
     public Message() {
 
+    }
+
+    public String getTargetId() {
+        return target.getId();
+    }
+
+    public String getOwnerId() {
+        return owner.getId();
     }
 
     public boolean isDirect() {
@@ -53,8 +63,26 @@ public class Message {
 
     public Message respond(String message) {
         Message result = new Message();
-        result.setTarget(target);
+        result.setTarget(owner);
         result.setMessage(message);
         return result;
+    }
+
+    public static class Builder {
+
+        private Message message;
+        private Platform platform;
+
+        public void respondTo(Message message) {
+            this.message = message;
+        }
+
+        public void with(String text) {
+            //platform.sendMessage()
+        }
+
+        public void setPlatform(Platform platform){
+            this.platform = platform;
+        }
     }
 }
