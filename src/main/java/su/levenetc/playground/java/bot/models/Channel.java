@@ -6,10 +6,19 @@ package su.levenetc.playground.java.bot.models;
 public class Channel implements MessageTarget {
 
     private String id;
+    private String userId;
     private boolean isUserChannel;
 
     public Channel() {
 
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public boolean isUserChannel() {

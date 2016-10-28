@@ -13,8 +13,23 @@ public class Message {
     private User owner;
     private boolean isDirect;
 
+    private String ownerId;
+    private String channelId;
+
     public Message() {
 
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public String getChannelId() {
+        return channelId;
+    }
+
+    public void setChannelId(String channelId) {
+        this.channelId = channelId;
     }
 
     public String getTargetId() {
@@ -61,10 +76,10 @@ public class Message {
         return target;
     }
 
-    public Message respond(String message) {
+    public Message respond(String text) {
         Message result = new Message();
         result.setTarget(owner);
-        result.setMessage(message);
+        result.setMessage(text);
         return result;
     }
 
@@ -77,11 +92,18 @@ public class Message {
             this.message = message;
         }
 
-        public void with(String text) {
-            //platform.sendMessage()
+        public void channelId(String channelId) {
+
         }
 
-        public void setPlatform(Platform platform){
+        public void with(String text) {
+            Message message = new Message();
+            message.setChannelId(this.message.channelId);
+            message.setMessage(text);
+            platform.sendMessage(message).subscribe();
+        }
+
+        public void setPlatform(Platform platform) {
             this.platform = platform;
         }
     }

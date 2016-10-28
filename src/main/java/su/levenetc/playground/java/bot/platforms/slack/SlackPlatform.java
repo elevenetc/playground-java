@@ -88,7 +88,9 @@ public class SlackPlatform extends Platform {
     @Override
     public Message.Builder respondTo(Message message) {
         final Message.Builder builder = new Message.Builder();
+        builder.setPlatform(this);
         builder.respondTo(message);
+        final String channelId = getChannelIdByUserId(message.getOwnerId());
         return builder;
     }
 
@@ -104,11 +106,12 @@ public class SlackPlatform extends Platform {
                     InitData initData = new InitData();
                     initData.setCurrentUserId(rtmResponse.self.id);
 
-                    List<Channel> channels = new ArrayList<Channel>();
+                    List<Channel> channels = new ArrayList<>();
 
                     for (RtmStartResponse.Ims im : rtmResponse.ims) {
                         Channel channel = new Channel();
                         channel.setId(im.id);
+                        channel.setUserId(im.user);
                         channel.setUserChannel(true);
                         channels.add(channel);
                     }
@@ -157,6 +160,16 @@ public class SlackPlatform extends Platform {
         return socketClient.connect(url);
     }
 
+    private String getChannelIdByUserId(String userId) {
+        final List<Channel> channels = getInitData().getChannels();
+        for (Channel channel : channels) {
+            if (userId.equals(channel.getUserId())) {
+                return channel.getId();
+            }
+        }
+        return null;
+    }
+
     interface SlackApi {
         @GET("rtm.start")
         Single<RtmStartResponse> authorize(@Query("token") String token);
@@ -178,8 +191,8 @@ public class SlackPlatform extends Platform {
 
         public static class Ims {
             String id;
+            String user;
             boolean is_im;
-
         }
 
         static class Channel {

@@ -7,6 +7,7 @@ import su.levenetc.playground.java.bot.models.Message;
 import su.levenetc.playground.java.bot.models.User;
 
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by eugene.levenetc on 22/10/2016.
@@ -18,6 +19,7 @@ public class SlackMoshiParser implements SlackPlatform.MessageParser {
     private final JsonAdapter<ReconnectUrl> reconnectUrlAdapter;
     private final JsonAdapter<Msg> messageAdapter;
     private final JsonAdapter<Typing> typingAdapter;
+    private final AtomicInteger messageId = new AtomicInteger();
 
     public SlackMoshiParser() {
         baseMessageAdapter = moshi.adapter(BaseMessage.class);
@@ -31,7 +33,8 @@ public class SlackMoshiParser implements SlackPlatform.MessageParser {
         return Single.create(emitter -> {
             try {
                 Msg msg = new Msg();
-                msg.channel = message.getTarget().getId();
+                msg.id = messageId.incrementAndGet();
+                msg.channel = message.getChannelId();
                 msg.text = message.getMessage();
                 msg.type = "message";
                 final String result = messageAdapter.toJson(msg);
@@ -75,6 +78,8 @@ public class SlackMoshiParser implements SlackPlatform.MessageParser {
                     result = new Message();
                     result.setMessageType(SlackMessageTypes.MESSAGE);
                     result.setMessage(msg.text);
+                    result.setOwnerId(msg.user);
+                    result.setChannelId(msg.channel);
                     result.setOwner(new User(msg.user));
                     result.setTarget(new User(msg.channel));
                 } else if ("error".equals(baseMessage.type)) {
@@ -117,6 +122,7 @@ public class SlackMoshiParser implements SlackPlatform.MessageParser {
         String text;
         String team;
         String type;
+        int id;
         double ts;
     }
 
