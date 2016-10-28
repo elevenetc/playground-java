@@ -9,7 +9,7 @@ import su.levenetc.playground.java.utils.ThreadsUtils;
 public class HeavyService extends Service {
     @Override
     public void start() {
-        platform().getAllMessagesObservable()
+        platform().allMessages()
                 .filter(message -> "zzz".equals(message.getMessage()))
                 .observeOn(getScheduler())
                 .subscribe(message -> heavy());

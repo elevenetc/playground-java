@@ -12,7 +12,7 @@ public class CurrentRunningService extends Service {
     @Override
     public void start() {
 
-        platform().getAllMessagesObservable()
+        platform().allMessages()
                 .filter(message -> "runningServices".equals(message.getMessage()))
                 .observeOn(getScheduler())
                 .subscribe(this::handleRunningServices);

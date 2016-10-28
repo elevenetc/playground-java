@@ -15,13 +15,13 @@ public class SimpleConversation extends Service {
     @Override
     public void start() {
         platform()
-                .getAllMessagesObservable()
+                .allMessages()
                 .filter(message -> "sss".equals(message.getMessage()))
                 .observeOn(getScheduler())
                 .subscribe(this::startConversation);
 
         platform()
-                .getAllMessagesObservable()
+                .allMessages()
                 .filter(message -> conversationStarted)
                 .observeOn(getScheduler())
                 .subscribe(this::handleConversationMessage);

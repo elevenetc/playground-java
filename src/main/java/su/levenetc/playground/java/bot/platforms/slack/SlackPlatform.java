@@ -44,8 +44,8 @@ public class SlackPlatform extends Platform {
     }
 
     @Override
-    public Observable<Message> getPersonalMessagesObservable() {
-        return getAllMessagesObservable().filter(message -> {
+    public Observable<Message> personalMessages() {
+        return allMessages().filter(message -> {
 
             final List<Channel> channels = getInitData().getChannels();
 
@@ -60,8 +60,8 @@ public class SlackPlatform extends Platform {
     }
 
     @Override
-    public Observable<Message> getAllMessagesObservable() {
-        return super.getAllMessagesObservable().filter(message -> message.getMessageType() == SlackMessageTypes.MESSAGE);
+    public Observable<Message> allMessages() {
+        return super.allMessages().filter(message -> message.getMessageType() == SlackMessageTypes.MESSAGE);
     }
 
     @Override

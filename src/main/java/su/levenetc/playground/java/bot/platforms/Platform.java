@@ -19,9 +19,9 @@ public abstract class Platform {
 
     }
 
-    public abstract Observable<Message> getPersonalMessagesObservable();
+    public abstract Observable<Message> personalMessages();
 
-    public Observable<Message> getAllMessagesObservable() {
+    public Observable<Message> allMessages() {
         return messagePublisher;
     }
 
