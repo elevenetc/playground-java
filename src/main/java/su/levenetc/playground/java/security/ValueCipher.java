@@ -32,8 +32,7 @@ public class ValueCipher {
 
     public String encrypt(String value) {
         final byte[] encrypted = encrypt(getEncoder().encode(value.getBytes()), keyProvider.getKey(), alg);
-        final String encoded = getEncoder().encodeToString(encrypted);
-        return encoded;
+        return getEncoder().encodeToString(encrypted);
     }
 
     public String decrypt(String value) {
