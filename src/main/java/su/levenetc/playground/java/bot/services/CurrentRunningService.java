@@ -29,8 +29,8 @@ public class CurrentRunningService extends Service {
             sb.append(service.getMode());
             sb.append("]");
         }
-        platform()
-                .sendMessage(message.respond(sb.toString()))
-                .subscribe();
+//        platform()
+//                .sendMessage(message.respond(sb.toString()))
+//                .subscribe();
     }
 }

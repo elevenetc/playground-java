@@ -57,7 +57,7 @@ public class SlackMoshiParser implements SlackPlatform.MessageParser {
                     final ReconnectUrl reconnectUrl = reconnectUrlAdapter.fromJson(rawMessage);
                     result = new Message();
                     result.setMessageType(SlackMessageTypes.RECONNECT_URL);
-                    result.setMessage(reconnectUrl.url);
+                    result.setText(reconnectUrl.url);
                 } else if ("presence_change".equals(baseMessage.type)) {
                     result = new Message();
                     result.setMessageType(SlackMessageTypes.PRESENCE_CHANGE);
@@ -77,7 +77,7 @@ public class SlackMoshiParser implements SlackPlatform.MessageParser {
                     final Msg msg = messageAdapter.fromJson(rawMessage);
                     result = new Message();
                     result.setMessageType(SlackMessageTypes.MESSAGE);
-                    result.setMessage(msg.text);
+                    result.setText(msg.text);
                     result.setOwnerId(msg.user);
                     result.setChannelId(msg.channel);
                     result.setOwner(new User(msg.user));
@@ -85,7 +85,7 @@ public class SlackMoshiParser implements SlackPlatform.MessageParser {
                 } else if ("error".equals(baseMessage.type)) {
                     result = new Message();
                     result.setMessageType(SlackMessageTypes.ERROR);
-                    result.setMessage(rawMessage);
+                    result.setText(rawMessage);
                 } else {
                     if (!baseMessage.ok && baseMessage.type == null) {
                         emitter.onError(new RuntimeException("Unknown result type: null"));

@@ -19,7 +19,9 @@ public class PingService extends Service {
 
 
     private void handlePingMessage(Message message) {
-        platform().respondTo(message).with("pong!");
+        platform().sendMessage(
+                Message.Builder.respondTo(message).with("pong")
+        ).subscribe();
     }
 
 }

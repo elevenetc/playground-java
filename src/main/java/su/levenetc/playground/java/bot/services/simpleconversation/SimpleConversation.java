@@ -48,14 +48,14 @@ public class SimpleConversation extends Service {
     private void startConversation(Message message) {
         conversationProcessor = new ConversationProcessor(initQuestion);
         updateMode();
-        platform().sendMessage(message.respond(initQuestion.getValue())).subscribe();
+        //platform().sendMessage(message.respond(initQuestion.getValue())).subscribe();
         conversationStarted = true;
     }
 
     private void handleConversationMessage(Message message) {
         final Question next = conversationProcessor.next(new StringAnswer(message.getMessage()));
         if (next != null) {
-            platform().sendMessage(message.respond((String) next.getValue())).subscribe();
+            //platform().sendMessage(message.respond((String) next.getValue())).subscribe();
             updateMode();
         }
     }

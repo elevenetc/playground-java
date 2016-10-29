@@ -16,6 +16,12 @@ public class Message {
     private String ownerId;
     private String channelId;
 
+    public static Message message(String text) {
+        final Message result = new Message();
+        result.setText(text);
+        return result;
+    }
+
     public Message() {
 
     }
@@ -52,7 +58,7 @@ public class Message {
         this.messageType = messageType;
     }
 
-    public void setMessage(String message) {
+    public void setText(String message) {
         this.message = message;
     }
 
@@ -79,32 +85,74 @@ public class Message {
     public Message respond(String text) {
         Message result = new Message();
         result.setTarget(owner);
-        result.setMessage(text);
+        result.setText(text);
         return result;
     }
 
     public static class Builder {
 
-        private Message message;
+        private Message respondMessage;
         private Platform platform;
+        private Action action;
+        private String text;
 
-        public void respondTo(Message message) {
-            this.message = message;
+        public static Message.Builder respondTo(Message message) {
+            Message.Builder result = new Builder();
+            result.action = Action.RESPOND_TO;
+            result.respondMessage = message;
+            return result;
         }
 
-        public void channelId(String channelId) {
-
+        public Action getAction() {
+            return action;
         }
 
-        public void with(String text) {
-            Message message = new Message();
-            message.setChannelId(this.message.channelId);
-            message.setMessage(text);
-            platform.sendMessage(message).subscribe();
+        public Message getRespondMessage() {
+            return respondMessage;
+        }
+
+        public String getText() {
+            return text;
         }
 
         public void setPlatform(Platform platform) {
             this.platform = platform;
+        }
+
+        public void setAction(Action action) {
+            this.action = action;
+        }
+
+        public void setText(String text) {
+            this.text = text;
+        }
+
+        public Message.Builder with(String text) {
+            this.text = text;
+            return this;
+        }
+
+        public enum Action {
+            RESPOND_TO
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Builder builder = (Builder) o;
+
+            if (action != builder.action) return false;
+            return text.equals(builder.text);
+
+        }
+
+        @Override
+        public int hashCode() {
+            int result = action.hashCode();
+            result = 31 * result + text.hashCode();
+            return result;
         }
     }
 }

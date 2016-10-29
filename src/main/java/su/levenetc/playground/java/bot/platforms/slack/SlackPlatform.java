@@ -76,7 +76,19 @@ public class SlackPlatform extends Platform {
     }
 
     @Override
-    public Single<Object> sendMessage(Message message) {
+    public Single<Object> sendMessage(Message.Builder builder) {
+
+        Message message = null;
+
+        if (Message.Builder.Action.RESPOND_TO.equals(builder.getAction())) {
+            final Message respondMessage = builder.getRespondMessage();
+            final String text = builder.getText();
+
+            message = new Message();
+            message.setText(text);
+            message.setChannelId(respondMessage.getChannelId());
+        }
+
         return messageParser.toByte(message).flatMap(new Function<byte[], SingleSource<Object>>() {
             @Override
             public SingleSource<Object> apply(byte[] bytes) throws Exception {
@@ -87,7 +99,7 @@ public class SlackPlatform extends Platform {
 
     @Override
     public Message.Builder respondTo(Message message) {
-        final Message.Builder builder = new Message.Builder();
+        final Message.Builder builder = super.respondTo(message);
         builder.setPlatform(this);
         builder.respondTo(message);
         final String channelId = getChannelIdByUserId(message.getOwnerId());

@@ -29,7 +29,7 @@ public abstract class Platform {
 
     public abstract Observable<User> loadUsers();
 
-    public abstract Single<Object> sendMessage(Message message);
+    public abstract Single<Object> sendMessage(Message.Builder messageBuilder);
 
     protected void handleParsedMessage(Message message) {
         messagePublisher.onNext(message);
@@ -43,5 +43,13 @@ public abstract class Platform {
         return initData;
     }
 
-    public abstract Message.Builder respondTo(Message message);
+    public Message.Builder respondTo(Message message) {
+        return createBuilder();
+    }
+
+    private Message.Builder createBuilder() {
+        final Message.Builder result = new Message.Builder();
+        result.setPlatform(this);
+        return result;
+    }
 }
