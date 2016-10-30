@@ -97,15 +97,6 @@ public class SlackPlatform extends Platform {
         });
     }
 
-    @Override
-    public Message.Builder respondTo(Message message) {
-        final Message.Builder builder = super.respondTo(message);
-        builder.setPlatform(this);
-        builder.respondTo(message);
-        final String channelId = getChannelIdByUserId(message.getOwnerId());
-        return builder;
-    }
-
     private Single<InitData> authAndOpenConnection() {
 
         return api.authorize(token).flatMap(new Function<RtmStartResponse, SingleSource<InitData>>() {

@@ -43,10 +43,6 @@ public abstract class Platform {
         return initData;
     }
 
-    public Message.Builder respondTo(Message message) {
-        return createBuilder();
-    }
-
     private Message.Builder createBuilder() {
         final Message.Builder result = new Message.Builder();
         result.setPlatform(this);

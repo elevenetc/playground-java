@@ -13,6 +13,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static su.levenetc.playground.java.bot.models.Message.message;
+import static su.levenetc.playground.java.bot.services.PingService.PING;
+import static su.levenetc.playground.java.bot.services.PingService.PONG;
 
 /**
  * Created by eugene.levenetc on 29/10/2016.
@@ -32,11 +34,11 @@ public class TestServices {
         PingService pingService = new PingService();
         pingService.setPlatform(platform);
 
-        when(platform.personalMessages()).thenReturn(just(message("ping")));
+        when(platform.personalMessages()).thenReturn(just(message(PING)));
         when(platform.sendMessage(any())).thenReturn(success());
 
         pingService.start();
 
-        verify(platform).sendMessage(respond("pong"));
+        verify(platform).sendMessage(respond(PONG));
     }
 }

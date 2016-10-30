@@ -8,10 +8,13 @@ import su.levenetc.playground.java.bot.models.Message;
  */
 public class Filters {
     public static Predicate<Message> kindOf(String value) {
-        return message -> {
-            String v = value.toLowerCase().replace("!", "").trim();
-            final String m = message.getMessage().toLowerCase().replace("!", "").trim();
-            return v.equals(m);
+        return message -> kindOfString(value).test(message.getMessage());
+    }
+
+    public static Predicate<String> kindOfString(String inputValue) {
+        return caseValue -> {
+            final String result = caseValue.toLowerCase().replace("!", "").trim();
+            return result.equals(inputValue);
         };
     }
 }

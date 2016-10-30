@@ -9,18 +9,21 @@ import static su.levenetc.playground.java.bot.services.filters.Filters.kindOf;
  */
 public class PingService extends Service {
 
+    public static final String PING = "ping";
+    public static final String PONG = "pong";
+
     @Override
     public void start() {
         platform()
                 .personalMessages()
-                .filter(kindOf("ping"))
+                .filter(kindOf(PING))
                 .subscribe(this::handlePingMessage);
     }
 
 
     private void handlePingMessage(Message message) {
         platform().sendMessage(
-                Message.Builder.respondTo(message).with("pong")
+                Message.Builder.respondTo(message).with(PONG)
         ).subscribe();
     }
 
