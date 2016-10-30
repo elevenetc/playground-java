@@ -7,6 +7,7 @@ import io.reactivex.SingleSource;
 import io.reactivex.functions.Function;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
@@ -21,6 +22,8 @@ import su.levenetc.playground.java.utils.RuntimeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static su.levenetc.playground.java.bot.platforms.slack.mappers.Mappers.toUsers;
 
 /**
  * Created by eugene.levenetc on 22/10/2016.
@@ -71,8 +74,8 @@ public class SlackPlatform extends Platform {
     }
 
     @Override
-    public Observable<User> loadUsers() {
-        return null;
+    public Single<List<User>> getUsers() {
+        return api.users(token).map(toUsers());
     }
 
     @Override
@@ -105,32 +108,35 @@ public class SlackPlatform extends Platform {
 
                 return openConnection(rtmResponse.url).flatMap(stringObservable -> {
                     stringObservable.subscribe(SlackPlatform.this::handleRawMessage, SlackPlatform.this::handleErrorMessage);
-
-                    InitData initData = new InitData();
-                    initData.setCurrentUserId(rtmResponse.self.id);
-
-                    List<Channel> channels = new ArrayList<>();
-
-                    for (RtmStartResponse.Ims im : rtmResponse.ims) {
-                        Channel channel = new Channel();
-                        channel.setId(im.id);
-                        channel.setUserId(im.user);
-                        channel.setUserChannel(true);
-                        channels.add(channel);
-                    }
-
-                    for (RtmStartResponse.Channel c : rtmResponse.channels) {
-                        Channel channel = new Channel();
-                        channel.setId(c.id);
-                        channels.add(channel);
-                    }
-
-                    initData.setChannels(channels);
-
-                    return Single.just(initData);
+                    return Single.just(parseInitData(rtmResponse));
                 });
             }
         });
+    }
+
+    @NotNull
+    private InitData parseInitData(RtmStartResponse rtmResponse) {
+        InitData initData = new InitData();
+        initData.setCurrentUserId(rtmResponse.self.id);
+
+        List<Channel> channels = new ArrayList<>();
+
+        for (RtmStartResponse.Ims im : rtmResponse.ims) {
+            Channel channel = new Channel();
+            channel.setId(im.id);
+            channel.setUserId(im.user);
+            channel.setUserChannel(true);
+            channels.add(channel);
+        }
+
+        for (RtmStartResponse.Channel c : rtmResponse.channels) {
+            Channel channel = new Channel();
+            channel.setId(c.id);
+            channels.add(channel);
+        }
+
+        initData.setChannels(channels);
+        return initData;
     }
 
     private void handleErrorMessage(Throwable throwable) {
@@ -179,6 +185,9 @@ public class SlackPlatform extends Platform {
 
         @GET("bots.info")
         Single<BotInfoResponse> botInfo(@Query("token") String token);
+
+        @GET("users.list")
+        Single<UsersResponse> users(@Query("token") String token);
     }
 
     public static class RtmStartResponse {
@@ -203,6 +212,10 @@ public class SlackPlatform extends Platform {
         }
     }
 
+    public static class UsersResponse {
+        public SlackUser[] members;
+    }
+
     public static class BotInfoResponse {
 
         public Bot bot;
@@ -220,6 +233,11 @@ public class SlackPlatform extends Platform {
         interface Factory {
             MessageParser create();
         }
+    }
+
+    public static class SlackUser {
+        public String id;
+        public String name;
     }
 
 

@@ -7,6 +7,8 @@ import su.levenetc.playground.java.bot.models.Message;
 import su.levenetc.playground.java.bot.models.User;
 import su.levenetc.playground.java.bot.platforms.slack.InitData;
 
+import java.util.List;
+
 /**
  * Created by eugene.levenetc on 22/10/2016.
  */
@@ -27,7 +29,7 @@ public abstract class Platform {
 
     public abstract Single<InitData> start();
 
-    public abstract Observable<User> loadUsers();
+    public abstract Single<List<User>> getUsers();
 
     public abstract Single<Object> sendMessage(Message.Builder messageBuilder);
 

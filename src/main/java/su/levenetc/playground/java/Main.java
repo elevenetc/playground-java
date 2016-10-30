@@ -6,6 +6,7 @@ import su.levenetc.playground.java.bot.platforms.slack.SlackPlatform;
 import su.levenetc.playground.java.bot.services.CurrentRunningService;
 import su.levenetc.playground.java.bot.services.HeavyService;
 import su.levenetc.playground.java.bot.services.PingService;
+import su.levenetc.playground.java.bot.services.SimpleSurveyService;
 import su.levenetc.playground.java.bot.services.simpleconversation.SimpleConversation;
 import su.levenetc.playground.java.bot.wws.OkHttpSocketClient;
 import su.levenetc.playground.java.utils.ThreadsUtils;
@@ -19,6 +20,7 @@ public class Main {
                 .addService(new PingService())
                 .addService(new CurrentRunningService())
                 .addService(new SimpleConversation())
+                .addService(new SimpleSurveyService())
                 .build()
                 .start()
                 .subscribe();

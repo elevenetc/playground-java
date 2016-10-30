@@ -6,6 +6,7 @@ package su.levenetc.playground.java.bot.models;
 public class User implements MessageTarget {
 
     private final String id;
+    private String name;
 
     public User(String id) {
         this.id = id;
@@ -14,5 +15,9 @@ public class User implements MessageTarget {
     @Override
     public String getId() {
         return id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
