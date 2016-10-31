@@ -2,6 +2,7 @@ package su.levenetc.playground.java.bot;
 
 
 import io.reactivex.Single;
+import su.levenetc.playground.java.bot.models.User;
 import su.levenetc.playground.java.bot.platforms.Platform;
 import su.levenetc.playground.java.bot.platforms.slack.InitData;
 import su.levenetc.playground.java.bot.services.Service;
@@ -32,6 +33,7 @@ public class HellBot {
         Platform platform;
         SocketClient.Factory wwsFactory;
         List<Service> services = new ArrayList<>();
+        private User[] debugUsers;
 
         public Builder setPlatform(Platform platform) {
             this.platform = platform;
@@ -54,7 +56,13 @@ public class HellBot {
             result.builder = this;
             result.platform = platform;
             result.servicesPool.setServices(services);
+            platform.setDebugUsers(debugUsers);
             return result;
+        }
+
+        public Builder setDebugUsers(User... debugUsers) {
+            this.debugUsers = debugUsers;
+            return this;
         }
     }
 

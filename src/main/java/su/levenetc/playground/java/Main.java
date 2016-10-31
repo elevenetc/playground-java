@@ -1,6 +1,7 @@
 package su.levenetc.playground.java;
 
 import su.levenetc.playground.java.bot.HellBot;
+import su.levenetc.playground.java.bot.models.User;
 import su.levenetc.playground.java.bot.platforms.slack.SlackMoshiParser;
 import su.levenetc.playground.java.bot.platforms.slack.SlackPlatform;
 import su.levenetc.playground.java.bot.services.CurrentRunningService;
@@ -21,6 +22,7 @@ public class Main {
                 .addService(new CurrentRunningService())
                 .addService(new SimpleConversation())
                 .addService(new SimpleSurveyService())
+                .setDebugUsers(new User("U04CXNETW"))
                 .build()
                 .start()
                 .subscribe();

@@ -16,6 +16,7 @@ public abstract class Platform {
 
     private final PublishSubject<Message> messagePublisher = PublishSubject.create();
     private InitData initData;
+    private User[] debugUsers;
 
     public Platform() {
 
@@ -49,5 +50,9 @@ public abstract class Platform {
         final Message.Builder result = new Message.Builder();
         result.setPlatform(this);
         return result;
+    }
+
+    public void setDebugUsers(User[] debugUsers) {
+        this.debugUsers = debugUsers;
     }
 }
