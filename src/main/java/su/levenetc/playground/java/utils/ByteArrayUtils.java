@@ -17,4 +17,27 @@ public class ByteArrayUtils {
         }
         return buffer.array();
     }
+
+    public static void fill(ByteBuffer byteBuffer, byte[]... arrays) {
+        int cursor = 0;
+        final int limit = byteBuffer.limit();
+        for (byte[] array : arrays) {
+            if (array.length == 0) continue;
+            if (cursor >= limit) {
+                return;
+            } else {
+
+                int length = array.length;
+
+                if (cursor + length > limit) {
+                    int extra = cursor + length - limit;
+                    length -= extra;
+                }
+
+                byteBuffer.put(array, 0, length);
+                cursor = cursor + array.length;
+            }
+
+        }
+    }
 }

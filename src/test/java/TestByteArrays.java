@@ -54,9 +54,47 @@ public class TestByteArrays {
         byte[] array2 = new byte[]{2, 3};
         byte[] array3 = new byte[]{4, 5, 6};
         final byte[] merged = ByteArrayUtils.merge(array0, array1, array2, array3);
-        assertArrayEquals(new byte[]{1, 2, 3, 4, 5, 6, }, merged);
+        assertArrayEquals(new byte[]{1, 2, 3, 4, 5, 6,}, merged);
     }
 
+    @Test
+    public void testFillA() {
+        byte[] array1 = new byte[]{1};
+        byte[] array2 = new byte[]{2, 3};
+        byte[] array3 = new byte[]{4, 5};
+        final ByteBuffer byteBuffer = ByteBuffer.allocate(3);
+        ByteArrayUtils.fill(byteBuffer, array1, array2, array3);
+        assertArrayEquals(new byte[]{1, 2, 3}, byteBuffer.array());
+    }
+
+    @Test
+    public void testFillB() {
+        byte[] array1 = new byte[]{1};
+        byte[] array2 = new byte[]{2, 3};
+        byte[] array3 = new byte[]{4, 5};
+        ByteBuffer byteBuffer = ByteBuffer.allocate(4);
+        ByteArrayUtils.fill(byteBuffer, array1, array2, array3);
+        assertArrayEquals(new byte[]{1, 2, 3, 4}, byteBuffer.array());
+    }
+
+    @Test
+    public void testFillC() {
+        byte[] array1 = new byte[]{1};
+        ByteBuffer byteBuffer = ByteBuffer.allocate(4);
+        ByteArrayUtils.fill(byteBuffer, array1);
+        assertArrayEquals(new byte[]{1, 0, 0, 0}, byteBuffer.array());
+    }
+
+    @Test
+    public void testFillD() {
+        byte[] array1 = new byte[]{0, 1, 2, 3};
+        byte[] array2 = new byte[]{4, 5, 6, 7, 8};
+        byte[] array3 = new byte[]{9};
+        byte[] array4 = new byte[]{10, 11, 12};
+        ByteBuffer byteBuffer = ByteBuffer.allocate(11);
+        ByteArrayUtils.fill(byteBuffer, array1, array2, array3, array4);
+        assertArrayEquals(new byte[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, byteBuffer.array());
+    }
 
     private static int fromByteArray(byte[] array) {
         return ByteBuffer.wrap(array).getInt();

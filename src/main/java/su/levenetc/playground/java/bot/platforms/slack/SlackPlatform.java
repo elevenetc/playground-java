@@ -18,12 +18,12 @@ import su.levenetc.playground.java.bot.models.User;
 import su.levenetc.playground.java.bot.platforms.Platform;
 import su.levenetc.playground.java.bot.wws.SocketClient;
 import su.levenetc.playground.java.utils.Out;
+import su.levenetc.playground.java.utils.RuntimeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static su.levenetc.playground.java.bot.platforms.slack.mappers.Mappers.toUsers;
-import static su.levenetc.playground.java.utils.RuntimeUtils.checkNull;
 
 /**
  * Created by eugene.levenetc on 22/10/2016.
@@ -40,7 +40,7 @@ public class SlackPlatform extends Platform {
             MessageParser messageParser,
             String token
     ) {
-        checkNull(socketClient, messageParser, token);
+        RuntimeUtils.checkNull(socketClient, messageParser, token);
         this.socketClient = socketClient;
         this.messageParser = messageParser;
         this.token = token;
