@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by eugene.levenetc on 22/10/2016.
  */
-public class OkHttpSocketClient implements SocketClient, WebSocketListener {
+public class OkHttpSocketClient implements SocketClient {
 
     private final StringBuilder stringBuilder = new StringBuilder();
     private final char[] charBuffer = new char[1024];
@@ -38,8 +38,41 @@ public class OkHttpSocketClient implements SocketClient, WebSocketListener {
                 WebSocketCall.create(
                         buildClient(),
                         new Request.Builder().url(url).build()
-                ).enqueue(OkHttpSocketClient.this);
-                emitter.onSuccess(messagePublisher);
+                ).enqueue(new WebSocketListener() {
+                    @Override
+                    public void onOpen(WebSocket webSocket, Response response) {
+                        OkHttpSocketClient.this.webSocket = webSocket;
+                        emitter.onSuccess(messagePublisher);
+                    }
+
+                    @Override
+                    public void onFailure(IOException e, Response response) {
+
+                    }
+
+                    @Override
+                    public void onMessage(ResponseBody message) throws IOException {
+                        stringBuilder.setLength(0);
+                        final Reader reader = message.charStream();
+                        int numChars;
+                        while ((numChars = reader.read(charBuffer)) >= 0) {
+                            stringBuilder.append(charBuffer, 0, numChars);
+                        }
+                        message.close();
+                        messagePublisher.onNext(stringBuilder.toString());
+                    }
+
+                    @Override
+                    public void onPong(Buffer payload) {
+
+                    }
+
+                    @Override
+                    public void onClose(int code, String reason) {
+
+                    }
+                });
+
             } catch (Exception e1) {
                 emitter.onError(e1);
             }
@@ -80,38 +113,5 @@ public class OkHttpSocketClient implements SocketClient, WebSocketListener {
                 emitter.onError(e);
             }
         });
-    }
-
-    @Override
-    public void onOpen(WebSocket webSocket, Response response) {
-
-        this.webSocket = webSocket;
-    }
-
-    @Override
-    public void onFailure(IOException e, Response response) {
-
-    }
-
-    @Override
-    public void onMessage(ResponseBody message) throws IOException {
-        stringBuilder.setLength(0);
-        final Reader reader = message.charStream();
-        int numChars;
-        while ((numChars = reader.read(charBuffer)) >= 0) {
-            stringBuilder.append(charBuffer, 0, numChars);
-        }
-        message.close();
-        messagePublisher.onNext(stringBuilder.toString());
-    }
-
-    @Override
-    public void onPong(Buffer payload) {
-
-    }
-
-    @Override
-    public void onClose(int code, String reason) {
-
     }
 }
