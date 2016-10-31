@@ -86,9 +86,15 @@ public class SlackMoshiParser implements SlackPlatform.MessageParser {
                     result = new Message();
                     result.setMessageType(SlackMessageTypes.ERROR);
                     result.setText(rawMessage);
+                } else if ("channel_marked".equals(baseMessage.type)) {
+                    result = new Message();
+                    result.setMessageType(SlackMessageTypes.CHANNEL_MARKED);
+                } else if ("pref_change".equals(baseMessage.type)) {
+                    result = new Message();
+                    result.setMessageType(SlackMessageTypes.PRESENCE_CHANGE);
                 } else {
                     if (!baseMessage.ok && baseMessage.type == null) {
-                        emitter.onError(new RuntimeException("Unknown result type: null"));
+                        emitter.onError(new RuntimeException("Unknown result type: null. Raw message: " + rawMessage));
                         return;
                     } else if (!baseMessage.ok) {
                         emitter.onError(new RuntimeException("Unknown result type: " + baseMessage.type));

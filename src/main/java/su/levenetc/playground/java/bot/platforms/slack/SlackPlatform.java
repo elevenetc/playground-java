@@ -75,21 +75,39 @@ public class SlackPlatform extends Platform {
 
     @Override
     public Single<List<User>> getUsers() {
-        return api.users(token).map(toUsers());
+        return api.users(token).map(toUsers()).map(filterUsers());
+    }
+
+    @Override
+    public Single<Object> sendPrivateMessageTo(User user, String text) {
+        Message.Builder builder = new Message.Builder();
+        builder.setText(text);
+        builder.setAction(Message.Builder.Action.PM);
+        builder.setPlatform(this);
+        builder.setMessageTarget(new Channel(getChannelIdByUserId(user.getId())));
+
+        return sendMessage(builder);
     }
 
     @Override
     public Single<Object> sendMessage(Message.Builder builder) {
 
-        Message message = null;
+        Message message;
+        final Message.Builder.Action action = builder.getAction();
 
-        if (Message.Builder.Action.RESPOND_TO.equals(builder.getAction())) {
+        if (Message.Builder.Action.RESPOND_TO.equals(action)) {
             final Message respondMessage = builder.getRespondMessage();
             final String text = builder.getText();
 
             message = new Message();
             message.setText(text);
             message.setChannelId(respondMessage.getChannelId());
+        } else if (Message.Builder.Action.PM.equals(action)) {
+            message = new Message();
+            message.setText(builder.getText());
+            message.setChannelId(builder.getMessageTarget().getId());
+        } else {
+            throw new RuntimeException("Invalid Message.Builder Action: " + action);
         }
 
         return messageParser.toByte(message).flatMap(new Function<byte[], SingleSource<Object>>() {
@@ -122,16 +140,14 @@ public class SlackPlatform extends Platform {
         List<Channel> channels = new ArrayList<>();
 
         for (RtmStartResponse.Ims im : rtmResponse.ims) {
-            Channel channel = new Channel();
-            channel.setId(im.id);
+            Channel channel = new Channel(im.id);
             channel.setUserId(im.user);
             channel.setUserChannel(true);
             channels.add(channel);
         }
 
         for (RtmStartResponse.Channel c : rtmResponse.channels) {
-            Channel channel = new Channel();
-            channel.setId(c.id);
+            Channel channel = new Channel(c.id);
             channels.add(channel);
         }
 

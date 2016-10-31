@@ -12,5 +12,7 @@ public class SlackMessageTypes {
     public static final int IM_MARKED = 105;
     public static final int GROUP_MARKED = 106;
     public static final int ERROR = 107;
+    public static final int CHANNEL_MARKED = 108;
+    public static final int PREF_CHANGE = 109;
     public static int DELIVERED = -1;
 }

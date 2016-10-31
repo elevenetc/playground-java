@@ -23,6 +23,7 @@ public class Main {
                 .addService(new SimpleConversation())
                 .addService(new SimpleSurveyService())
                 .setDebugUsers(new User("U04CXNETW"))
+                .setMode(HellBot.Mode.DEBUG)
                 .build()
                 .start()
                 .subscribe();

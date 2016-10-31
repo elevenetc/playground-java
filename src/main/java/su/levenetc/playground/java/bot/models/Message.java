@@ -96,6 +96,16 @@ public class Message {
         private Action action;
         private String text;
 
+        public MessageTarget getMessageTarget() {
+            return messageTarget;
+        }
+
+        public void setMessageTarget(MessageTarget messageTarget) {
+            this.messageTarget = messageTarget;
+        }
+
+        private MessageTarget messageTarget;
+
         public static Message.Builder respondTo(Message message) {
             Message.Builder result = new Builder();
             result.action = Action.RESPOND_TO;
@@ -133,7 +143,7 @@ public class Message {
         }
 
         public enum Action {
-            RESPOND_TO
+            RESPOND_TO, PM
         }
 
         @Override

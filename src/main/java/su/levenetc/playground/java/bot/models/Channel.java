@@ -9,8 +9,8 @@ public class Channel implements MessageTarget {
     private String userId;
     private boolean isUserChannel;
 
-    public Channel() {
-
+    public Channel(String id) {
+        this.id = id;
     }
 
     public String getUserId() {

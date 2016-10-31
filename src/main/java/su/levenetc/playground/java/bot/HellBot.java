@@ -30,6 +30,7 @@ public class HellBot {
 
     public static class Builder {
 
+        Mode mode;
         Platform platform;
         SocketClient.Factory wwsFactory;
         List<Service> services = new ArrayList<>();
@@ -57,6 +58,7 @@ public class HellBot {
             result.platform = platform;
             result.servicesPool.setServices(services);
             platform.setDebugUsers(debugUsers);
+            platform.setMode(mode);
             return result;
         }
 
@@ -64,6 +66,15 @@ public class HellBot {
             this.debugUsers = debugUsers;
             return this;
         }
+
+        public Builder setMode(Mode mode) {
+            this.mode = mode;
+            return this;
+        }
+    }
+
+    public enum Mode {
+        DEBUG, RELEASE
     }
 
 
