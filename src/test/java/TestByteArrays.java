@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static su.levenetc.playground.java.utils.ByteArrayUtils.array;
 
 /**
  * Created by eugene.levenetc on 27/10/2016.
@@ -94,6 +95,16 @@ public class TestByteArrays {
         ByteBuffer byteBuffer = ByteBuffer.allocate(11);
         ByteArrayUtils.fill(byteBuffer, array1, array2, array3, array4);
         assertArrayEquals(new byte[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, byteBuffer.array());
+    }
+
+    @Test
+    public void testLastBytesEquality() {
+        assertEquals(true, ByteArrayUtils.areLastBytesEqual(array(1, 2), array(1, 2)));
+        assertEquals(true, ByteArrayUtils.areLastBytesEqual(array(0, 1, 2), array(1, 2)));
+        assertEquals(false, ByteArrayUtils.areLastBytesEqual(array(1, 1), array(1, 2)));
+        assertEquals(false, ByteArrayUtils.areLastBytesEqual(array(1, 2, 1), array(1, 2)));
+        assertEquals(false, ByteArrayUtils.areLastBytesEqual(array(), array(1, 2)));
+        assertEquals(true, ByteArrayUtils.areLastBytesEqual(array(1, 2), array()));
     }
 
     private static int fromByteArray(byte[] array) {
