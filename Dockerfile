@@ -1,21 +1,24 @@
 FROM ubuntu
+MAINTAINER Eugene Levenetc
 
-RUN apt-get update
-RUN apt-get dist-upgrade -y
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y dist-upgrade
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install python-software-properties
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common
-
-RUN DEBIAN_FRONTEND=noninteractive echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
-RUN add-apt-repository -y ppa:webupd8team/java
-RUN apt-get update
-RUN apt-get install -y oracle-java8-installer
-RUN rm -rf /var/lib/apt/lists/*
-RUN rm -rf /var/cache/oracle-jdk8-installer
-
-WORKDIR /data
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y  software-properties-common && \
+    add-apt-repository ppa:webupd8team/java -y && \
+    apt-get update && \
+    echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
+    apt-get install -y oracle-java8-installer && \
+    apt-get clean
 ENV SLACK_TOKEN ""
-CMD ["./gradlew", "clean", "jar"]
-CMD ["java" "-jar" "./build/libs/playground-java.jar"]
+
+RUN ls
+RUN pwd
+ADD . /usr/local/playground-java
+WORKDIR /usr/local/playground-java
+RUN ./gradlew clean jar
+#RUN java -jar ./build/libs/playground-java.jar
+#CMD ["./gradlew", "clean", "jar"]
+#CMD ["echo", "`begin`"]
+#CMD ["echo", "./build/libs/playground-java.jar"]
+#CMD ["echo", "`end`"]
+#CMD ["java", "-jar", "./build/libs/playground-java.jar"]
