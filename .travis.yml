@@ -14,3 +14,5 @@ cache:
   directories:
   - $HOME/.gradle/wrapper
   - $HOME/.gradle/caches
+after_success:
+- ./gradlew cobertura coveralls
