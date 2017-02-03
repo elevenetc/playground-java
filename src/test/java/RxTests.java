@@ -72,4 +72,12 @@ public class RxTests {
 
         completable.subscribe(() -> Out.pln("Sub-C"));
     }
+
+    @Test
+    public void testIfCompletableCanceled() {
+        final Disposable sub = Completable.fromAction(new LongRunningAction())
+                .doOnTerminate(() -> Out.pln("on terminate"))
+                .subscribe(() -> Out.pln("complete"));
+        sub.dispose();
+    }
 }
