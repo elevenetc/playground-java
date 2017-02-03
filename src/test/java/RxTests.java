@@ -1,8 +1,12 @@
+import io.reactivex.Completable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import org.junit.Test;
 import rx.Observable;
 import rx.functions.Action0;
 import rx.subscriptions.Subscriptions;
+import su.levenetc.playground.java.rxjava.LongRunningAction;
 import su.levenetc.playground.java.utils.Out;
 import su.levenetc.playground.java.utils.ThreadsUtils;
 
@@ -50,5 +54,22 @@ public class RxTests {
 
 
         ThreadsUtils.sleep(500);
+    }
+
+    @Test
+    public void testHotCompletable() {
+
+        final Completable completable = Completable
+                .fromAction(LongRunningAction.create())
+                .subscribeOn(Schedulers.io())
+                .cache();
+
+        completable.subscribe(() -> Out.pln("Sub-A"));
+        final Disposable sub = completable.subscribe(() -> Out.pln("Sub-B"));
+        sub.dispose();
+
+        ThreadsUtils.sleep(1500);
+
+        completable.subscribe(() -> Out.pln("Sub-C"));
     }
 }
