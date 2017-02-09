@@ -51,5 +51,18 @@ public class TestBinaryTree {
         bt.printPostOrder();
     }
 
+    @Test
+    public void hasSum() {
+        assertEquals(true, bt.add(0).add(1).add(2).add(3).hasPathSum(6));
+        assertEquals(true, bt.add(0).add(1).add(2).add(-1).add(3).hasPathSum(6));
+        assertEquals(true, bt.add(-1).add(2).add(-2).add(3).hasPathSum(4));
+    }
+
+    @Test
+    public void printAllPaths() {
+        bt.add(0).add(1).add(2).add(-1).add(-2).add(5).add(3).add(6)
+                .printAllPaths();
+    }
+
 
 }
