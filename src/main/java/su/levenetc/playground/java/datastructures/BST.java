@@ -1,175 +1,231 @@
 package su.levenetc.playground.java.datastructures;
 
+import su.levenetc.playground.java.utils.Out;
+
+import java.util.*;
 
 /**
- * Created by eleven on 30/01/2016.
+ * Created by eugene.levenetc on 08/02/2017.
  */
-public class BST<K extends Comparable<? super K>, V> {
+public class BST {
 
-	private Node root;
+    Node root;
 
-	public void put(K key, V value) {
-		if (key == null) throw new NullPointerException("Key must not be null.");
+    public BST add(int value) {
+        if (root == null) {
+            root = new Node(value);
+        } else {
+            internalAdd(root, value);
+        }
+        return this;
+    }
 
-		Node parent = findParent(root, key);
+    public Node getRoot() {
+        return root;
+    }
 
-		if (parent == null) {
-			root = new Node(key, value, null);
-		} else {
-			if (key.compareTo(parent.key) > 0) {
-				parent.right = new Node(key, value, parent);
-			} else {
-				parent.left = new Node(key, value, parent);
-			}
-		}
-	}
+    public void clear() {
+        root = null;
+    }
 
-	public void remove(K key) {
-		Node toDel = findNode(root, key);
-		if (toDel != null) {
-			if (toDel.isLeaf()) {
-				toDel.parent.removeChild(toDel);
-			} else if (toDel.hasOnlyOneChild()) {
-				if (toDel.left != null) {
-					toDel.parent.replace(toDel, toDel.left);
-				} else if (toDel.right != null) {
-					toDel.parent.replace(toDel, toDel.right);
-				}
-			} else {
-				Node minimum = findMinimum(toDel);
-				toDel.parent.replace(toDel, minimum);
-			}
-		}
-	}
+    private void internalAdd(Node node, int value) {
+        if (value < node.value) {
+            if (node.left == null) {
+                node.left = new Node(value);
+            } else {
+                internalAdd(node.left, value);
+            }
+        } else {
+            if (node.right == null) {
+                node.right = new Node(value);
+            } else {
+                internalAdd(node.right, value);
+            }
+        }
+    }
 
-	public V get(K key) {
-		return find(key, root);
-	}
+    public void printAllPaths() {
+        findPath(root, new ArrayList<>(1000), 0);
+    }
 
-	public Node getRoot() {
-		return root;
-	}
+    private void findPath(Node node, List<Integer> steps, int step) {
 
-	public K findMinimum() {
-		Node minimum = findMinimum(root);
-		return minimum.key;
-	}
+        if (node == null) return;
 
-	private Node findMinimum(Node node) {
-		if (node == null) return null;
-		if (node.left == null) return node;
-		return findMinimum(node.left);
-	}
+        steps.add(step, node.value);
+        step++;
 
-	private Node findNode(Node node, K key) {
-		if (node == null) return null;
-		if (key.equals(node.key)) return node;
+        if (node.left == null && node.right == null) {
+            Out.p("Path: ");
+            for (int i = 0; i < step; i++) {
+                Out.p(steps.get(i));
+            }
+            Out.pln();
+        } else {
+            findPath(node.left, steps, step);
+            findPath(node.right, steps, step);
+        }
+    }
 
-		if (node.left != null && key.compareTo(node.left.key) <= 0) {
-			return findNode(node.left, key);
-		}
+    public void mirror() {
+        internalMirror(root);
+    }
 
-		if (node.right != null && key.compareTo(node.right.key) >= 0) {
-			return findNode(node.right, key);
-		}
+    public boolean isEqual(BST BST) {
+        return isEqualInternal(root, BST.getRoot());
+    }
 
-		return null;
-	}
+    private boolean isEqualInternal(Node nodeA, Node nodeB) {
+        if (nodeA == null && nodeB == null) {
+            return true;
+        }
+        if ((nodeA != null && nodeB == null) || nodeA == null && nodeB != null) {
+            return false;
+        }
 
-	private V find(K key, Node node) {
-		if (node.key.equals(key)) {
-			return node.value;
-		} else {
+        if (nodeA.value != nodeB.value) {
+            return false;
+        }
 
+        return isEqualInternal(nodeA.left, nodeB.left) && isEqualInternal(nodeB.right, nodeB.right);
+    }
 
-			if (node.left != null) {
+    private void internalMirror(Node node) {
+        if (node == null) return;
+        Node tmp = null;
+        tmp = node.left;
+        node.left = node.right;
+        node.right = tmp;
+        internalMirror(node.left);
+        internalMirror(node.right);
+    }
 
-				if (key.equals(node.left.key)) {
-					return node.left.value;
-				} else if (key.compareTo(node.left.key) < 0) {
-					return find(key, node.left);
-				}
+    private boolean isEnd(Node node) {
+        return node.left == null && node.right == null;
+    }
 
-			}
+    public boolean hasPathSum(int sum) {
+        return internalHasPathSum(root, root.value, sum);
+    }
 
-			if (node.right != null) {
+    public void printLayers() {
+        final HashMap<Integer, List<Integer>> layers = new HashMap<>();
+        buildLayerList(root, 0, layers);
+        for (Map.Entry<Integer, List<Integer>> entry : layers.entrySet()) {
+            Out.pln(entry.getKey() + ":" + Arrays.toString(entry.getValue().toArray()));
+        }
+    }
 
-				if (key.equals(node.right.key)) {
-					return node.right.value;
-				} else if (key.compareTo(node.right.key) > 0) {
-					return find(key, node.right);
-				}
+    private void buildLayerList(Node node, int layerIndex, HashMap<Integer, List<Integer>> layers) {
 
-			}
+        if (node == null) return;
 
-			return null;
-		}
-	}
+        List<Integer> layerList;
 
-	private Node findParent(Node parent, K key) {
-		if (parent == null) return null;
-		if (parent.left == null && parent.right == null) return parent;
+        if (!layers.containsKey(layerIndex)) {
+            layerList = new ArrayList<>();
+            layers.put(layerIndex, layerList);
+        } else {
+            layerList = layers.get(layerIndex);
+        }
 
-		if (parent.left != null) {
-			if (key.compareTo(parent.left.key) < 0) {
-				return findParent(parent.left, key);
-			}
-		}
+        layerList.add(node.value);
 
-		if (parent.right != null) {
-			if (key.compareTo(parent.right.key) > 0) {
-				return findParent(parent.right, key);
-			}
-		}
+        layerIndex++;
+        buildLayerList(node.left, layerIndex, layers);
+        buildLayerList(node.right, layerIndex, layers);
+    }
 
-		return parent;
+    private boolean internalHasPathSum(Node node, int counter, int sum) {
 
-	}
+        counter = node.value + counter;
 
-	public class Node {
-		Node parent;
-		Node left;
-		Node right;
-		V value;
-		K key;
+        if (sum == counter) {
+            return true;
+        } else {
+            if (node.left != null) {
+                if (internalHasPathSum(node.left, counter, sum)) {
+                    return true;
+                }
+            }
 
-		public Node(K key, V value, Node parent) {
-			this.value = value;
-			this.key = key;
-			this.parent = parent;
-		}
+            if (node.right != null) {
+                if (internalHasPathSum(node.right, counter, sum)) {
+                    return true;
+                }
+            }
+        }
 
-		public boolean isLeaf() {
-			return left == null && right == null;
-		}
+        return false;
 
-		public void removeChild(Node node) {
-			if (node == left) {
-				left = null;
-			} else if (node == right) {
-				right = null;
-			}
-		}
+    }
 
-		boolean hasOnlyOneChild() {
-			return (left == null && right != null) || (left != null && right == null);
-		}
+    public void printPostOrder() {
+        printPostOrder(root);
+    }
 
-		@Override public String toString() {
-			return "Node{" +
-					"key=" + key +
-					", value=" + value +
-					", isLeaf=" + isLeaf() +
-					'}';
-		}
+    public void printInOrder() {
+        printInOrder(root);
+    }
 
-		public void replace(Node someChild, Node newChild) {
-			if (someChild == left) {
-				left = newChild;
-			} else if (someChild == right) {
-				right = newChild;
-			}
-		}
-	}
+    public int minValue() {
+        return minValue(root, root.value);
+    }
 
+    public int getDepth() {
+        if (root == null) return 0;
+        return getDepth(root, 0);
+    }
+
+    private int minValue(Node node, int minValue) {
+        if (node == null) {
+            return minValue;
+        } else {
+            return minValue(node.left, node.value);
+        }
+    }
+
+    private void printPostOrder(Node node) {
+        if (node.left != null) printPostOrder(node.left);
+        if (node.right != null) printPostOrder(node.right);
+        Out.pln(node.value);
+    }
+
+    private void printInOrder(Node node) {
+        if (node.left != null) printInOrder(node.left);
+        Out.pln(node.value);
+        if (node.right != null) printInOrder(node.right);
+    }
+
+    private int getDepth(BST.Node node, int depth) {
+
+        int left = 0;
+        int right = 0;
+
+        if (node.left != null) {
+            left = getDepth(node.left, ++depth);
+        }
+
+        if (node.right != null) {
+            right = getDepth(node.right, ++depth);
+        }
+
+        if (left == 0 && right == 0) {
+            return depth;
+        } else {
+            return Math.max(left, right);
+        }
+
+    }
+
+    public static class Node {
+
+        int value;
+        public Node left;
+        public Node right;
+
+        public Node(int value) {
+            this.value = value;
+        }
+    }
 }
