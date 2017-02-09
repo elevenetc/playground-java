@@ -2,8 +2,7 @@ package su.levenetc.playground.java.datastructures;
 
 import su.levenetc.playground.java.utils.Out;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by eugene.levenetc on 08/02/2017.
@@ -23,6 +22,10 @@ public class BT {
 
     public Node getRoot() {
         return root;
+    }
+
+    public void clear() {
+        root = null;
     }
 
     private void internalAdd(Node node, int value) {
@@ -64,12 +67,73 @@ public class BT {
         }
     }
 
+    public void mirror() {
+        internalMirror(root);
+    }
+
+    public boolean isEqual(BT bt) {
+        return isEqualInternal(root, bt.getRoot());
+    }
+
+    private boolean isEqualInternal(Node nodeA, Node nodeB) {
+        if (nodeA == null && nodeB == null) {
+            return true;
+        }
+        if ((nodeA != null && nodeB == null) || nodeA == null && nodeB != null) {
+            return false;
+        }
+
+        if (nodeA.value != nodeB.value) {
+            return false;
+        }
+
+        return isEqualInternal(nodeA.left, nodeB.left) && isEqualInternal(nodeB.right, nodeB.right);
+    }
+
+    private void internalMirror(Node node) {
+        if (node == null) return;
+        Node tmp = null;
+        tmp = node.left;
+        node.left = node.right;
+        node.right = tmp;
+        internalMirror(node.left);
+        internalMirror(node.right);
+    }
+
     private boolean isEnd(Node node) {
         return node.left == null && node.right == null;
     }
 
     public boolean hasPathSum(int sum) {
         return internalHasPathSum(root, root.value, sum);
+    }
+
+    public void printLayers() {
+        final HashMap<Integer, List<Integer>> layers = new HashMap<>();
+        buildLayerList(root, 0, layers);
+        for (Map.Entry<Integer, List<Integer>> entry : layers.entrySet()) {
+            Out.pln(entry.getKey() + ":" + Arrays.toString(entry.getValue().toArray()));
+        }
+    }
+
+    private void buildLayerList(Node node, int layerIndex, HashMap<Integer, List<Integer>> layers) {
+
+        if (node == null) return;
+
+        List<Integer> layerList;
+
+        if (!layers.containsKey(layerIndex)) {
+            layerList = new ArrayList<>();
+            layers.put(layerIndex, layerList);
+        } else {
+            layerList = layers.get(layerIndex);
+        }
+
+        layerList.add(node.value);
+
+        layerIndex++;
+        buildLayerList(node.left, layerIndex, layers);
+        buildLayerList(node.right, layerIndex, layers);
     }
 
     private boolean internalHasPathSum(Node node, int counter, int sum) {

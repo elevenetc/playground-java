@@ -1,6 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 import su.levenetc.playground.java.datastructures.BT;
+import su.levenetc.playground.java.utils.Out;
 
 import static org.junit.Assert.assertEquals;
 
@@ -62,6 +63,30 @@ public class TestBinaryTree {
     public void printAllPaths() {
         bt.add(0).add(1).add(2).add(-1).add(-2).add(5).add(3).add(6)
                 .printAllPaths();
+    }
+
+    @Test
+    public void mirror() {
+        bt.add(0).add(1).add(2).add(-1).add(-2).mirror();
+    }
+
+    @Test
+    public void isEqual() {
+        final BT bA = new BT().add(0).add(1).add(-1).add(-2).add(-3);
+        final BT bB = new BT().add(0).add(1).add(-1).add(-2).add(-3);
+        assertEquals(true, bA.isEqual(bB));
+
+        final BT bC = new BT().add(0).add(1).add(-1).add(-2).add(-3);
+        final BT bD = new BT().add(0).add(1).add(-1).add(-2).add(-3).add(-4);
+        assertEquals(false, bC.isEqual(bD));
+    }
+
+    @Test
+    public void printLayers() {
+        bt.add(0).add(1).add(-1).add(2).add(-2).add(-3).add(-4).add(-5).add(3).printLayers();
+        Out.pln();
+        bt.clear();
+        bt.add(5).add(6).add(2).add(4).add(1).add(3).printLayers();
     }
 
 
