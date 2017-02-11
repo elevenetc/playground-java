@@ -31,16 +31,43 @@ public class BST {
     private void internalAdd(Node node, int value) {
         if (value < node.value) {
             if (node.left == null) {
-                node.left = new Node(value);
+                final Node newNode = new Node(value);
+                node.left = newNode;
+                newNode.parent = node;
             } else {
                 internalAdd(node.left, value);
             }
         } else {
             if (node.right == null) {
-                node.right = new Node(value);
+                final Node newNode = new Node(value);
+                node.right = newNode;
+                newNode.parent = node;
             } else {
                 internalAdd(node.right, value);
             }
+        }
+    }
+
+    public void getRange(int min, int max) {
+
+    }
+
+    public Node find(int value) {
+        return internalFind(root, value);
+    }
+
+    private Node internalFind(Node node, int value) {
+
+        if (node == null) {
+            return null;
+        } else if (node.value == value) {
+            return node;
+        }
+
+        if (value > node.value) {
+            return internalFind(node.right, value);
+        } else {
+            return internalFind(node.left, value);
         }
     }
 
@@ -220,9 +247,10 @@ public class BST {
 
     public static class Node {
 
-        int value;
+        public int value;
         public Node left;
         public Node right;
+        public Node parent;
 
         public Node(int value) {
             this.value = value;
