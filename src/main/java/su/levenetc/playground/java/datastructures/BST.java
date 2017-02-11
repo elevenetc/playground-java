@@ -48,8 +48,44 @@ public class BST {
         }
     }
 
-    public void getRange(int min, int max) {
+    public List<Integer> getRange(int min, int max) {
+        final Node node = find(min);
+        if (node == null) return null;
+        return internalRange(node, min, max, new ArrayList<>());
+    }
 
+    private List<Integer> internalRange(Node node, int min, int max, List<Integer> result) {
+
+        if (node == null) return null;
+
+        int parentValue = min - 1;
+        int rightValue = min - 1;
+
+        if (node.right != null && node.right.value > min) {
+            rightValue = node.right.value;
+        }
+
+        if (node.parent != null && node.parent.value > min) {
+            parentValue = node.parent.value;
+        }
+
+        final int m = Math.max(rightValue, parentValue);
+
+        if(m == max){
+            return result;
+        }
+
+        if(m > min){
+            result.add(m);
+
+            if(m == rightValue){
+                return internalRange(node.right, m, max, result);
+            }else if(m == parentValue){
+                return internalRange(node.parent, m, max, result);
+            }
+        }
+
+        return null;
     }
 
     public Node find(int value) {

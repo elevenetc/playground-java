@@ -3,7 +3,7 @@ import org.junit.Test;
 import su.levenetc.playground.java.datastructures.BST;
 import su.levenetc.playground.java.utils.Out;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
@@ -92,13 +92,23 @@ public class TestBinaryTree {
     }
 
     @Test
-    public void find(){
+    public void find() {
         bst.add(0).add(-1).add(1).add(-2).add(2).add(10).add(5);
         assertEquals(-1, bst.find(-1).value);
         assertEquals(10, bst.find(10).value);
         assertEquals(0, bst.find(0).value);
         assertEquals(null, bst.find(100));
         assertEquals(null, bst.find(-5));
+    }
+
+    @Test
+    public void testRange() {
+        bst.add(6).add(7).add(8).add(4).add(3).add(5);
+        assertEquals(new ArrayList<Integer>() {{
+            add(4);
+            add(6);
+            add(7);
+        }}, bst.getRange(3, 8));
     }
 
 
