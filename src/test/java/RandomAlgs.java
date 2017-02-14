@@ -13,4 +13,5 @@ public class RandomAlgs {
         assertEquals(true, Brackets.isValid("5*(10+1)+(4/3)*(20)/(20*(50-4))"));
         assertEquals(false, Brackets.isValid("())"));
     }
+
 }
