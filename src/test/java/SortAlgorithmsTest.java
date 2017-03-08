@@ -9,31 +9,35 @@ import static org.junit.Assert.assertArrayEquals;
  */
 public class SortAlgorithmsTest {
 
-	@Test
-	public void testInsertionAlgorithm() throws Exception {
+    @Test
+    public void testInsertionAlgorithm() throws Exception {
 
-		InsertionSort algorithm = new InsertionSort();
+        InsertionSort algorithm = new InsertionSort();
 
-		testLong(algorithm);
-		testBasic(algorithm);
-		testOne(algorithm);
-		testZero(algorithm);
-	}
+        testLong(algorithm);
+        testBasic(algorithm);
+        testOne(algorithm);
+        testZero(algorithm);
+    }
 
-	private void testLong(SortAlgorithm algorithm) {
-		assertArrayEquals(new int[]{0, 1, 2, 3, 4, 5}, algorithm.sort(new int[]{4, 1, 3, 5, 0, 2}));
-	}
+    private void testLong(SortAlgorithm algorithm) {
+        assertArrayEquals(new int[]{0, 1, 2, 3, 4, 5}, algorithm.sort(new int[]{4, 1, 3, 5, 0, 2}));
+    }
 
-	private void testBasic(SortAlgorithm algorithm) {
-		assertArrayEquals(new int[]{0, 1}, algorithm.sort(new int[]{1, 0}));
-	}
+    private void testBasic(SortAlgorithm algorithm) {
+        assertArrayEquals(new int[]{0, 1}, algorithm.sort(new int[]{1, 0}));
+    }
 
-	private void testOne(SortAlgorithm algorithm) {
-		assertArrayEquals(new int[]{0}, algorithm.sort(new int[]{0}));
-	}
+    private void testBasicInverted(SortAlgorithm algorithm) {
+        assertArrayEquals(new int[]{0, 1}, algorithm.sort(new int[]{1, 0}));
+    }
 
-	private void testZero(SortAlgorithm algorithm) {
-		assertArrayEquals(new int[]{}, algorithm.sort(new int[]{}));
-	}
+    private void testOne(SortAlgorithm algorithm) {
+        assertArrayEquals(new int[]{0}, algorithm.sort(new int[]{0}));
+    }
+
+    private void testZero(SortAlgorithm algorithm) {
+        assertArrayEquals(new int[]{}, algorithm.sort(new int[]{}));
+    }
 
 }
