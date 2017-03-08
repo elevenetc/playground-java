@@ -92,6 +92,11 @@ public class TestBinaryTree {
     }
 
     @Test
+    public void isBst(){
+        bst.add(0).add(1).add(11).add(3).add(2).add(10).isBst();
+    }
+
+    @Test
     public void find() {
         bst.add(0).add(-1).add(1).add(-2).add(2).add(10).add(5);
         assertEquals(-1, bst.find(-1).value);

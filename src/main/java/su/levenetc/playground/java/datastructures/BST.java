@@ -20,12 +20,34 @@ public class BST {
         return this;
     }
 
+    public boolean isBst() {
+        minValue = Integer.MIN_VALUE;
+        return isBstInternal(root);
+    }
+
+
     public Node getRoot() {
         return root;
     }
 
     public void clear() {
         root = null;
+    }
+
+    private int minValue = Integer.MIN_VALUE;
+
+    private boolean isBstInternal(Node node) {
+        if (node == null) return true;
+        boolean leftNode = isBstInternal(node.left);
+        boolean midValue;
+        if (node.value > minValue || minValue == Integer.MIN_VALUE) {
+            minValue = node.value;
+            midValue = true;
+        }else{
+            return false;
+        }
+        boolean rightNode = isBstInternal(node.right);
+        return leftNode && midValue && rightNode;
     }
 
     private void internalAdd(Node node, int value) {
@@ -71,16 +93,16 @@ public class BST {
 
         final int m = Math.max(rightValue, parentValue);
 
-        if(m == max){
+        if (m == max) {
             return result;
         }
 
-        if(m > min){
+        if (m > min) {
             result.add(m);
 
-            if(m == rightValue){
+            if (m == rightValue) {
                 return internalRange(node.right, m, max, result);
-            }else if(m == parentValue){
+            } else if (m == parentValue) {
                 return internalRange(node.parent, m, max, result);
             }
         }
