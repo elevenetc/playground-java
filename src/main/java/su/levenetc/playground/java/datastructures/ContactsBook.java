@@ -14,22 +14,22 @@ public class ContactsBook {
     }
 
     public int find(String prefix) {
-        if (map.isEmpty()) return 0;
+        if (map.isEmpty()) {
+            return 0;
+        }
         int result = 0;
-        for (int i = 0; i < prefix.length(); i++) {
-            final char c = prefix.charAt(i);
-
-            if (map.containsKey(c)) {
-                final Node node = map.get(c);
-                result = internalFind(prefix, node, 1);
-                break;
-            }
+        final char c = prefix.charAt(0);
+        if (map.containsKey(c)) {
+            final Node node = map.get(c);
+            result = internalFind(prefix, node, 1);
         }
         return result;
     }
 
     private int internalFind(String prefix, Node node, int index) {
-        if(index > prefix.length() - 1) return node.i;
+        if (index > prefix.length() - 1) {
+            return node.i;
+        }
         final char ch = prefix.charAt(index);
         if (index == prefix.length() - 1) {
             if (node.nodes.containsKey(ch)) {
