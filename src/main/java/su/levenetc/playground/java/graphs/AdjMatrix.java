@@ -1,5 +1,7 @@
 package su.levenetc.playground.java.graphs;
 
+import su.levenetc.playground.java.utils.Out;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -52,7 +54,9 @@ public class AdjMatrix {
                     return true;
                 }
 
-                searchIn(matrix[node], value);
+                if(searchIn(matrix[node], value)){
+                    return true;
+                }
             }
         }
         return false;

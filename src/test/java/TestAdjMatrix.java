@@ -19,7 +19,18 @@ public class TestAdjMatrix {
 
         assertEquals(true, matrix.hasConnectionDFS(0, 3));
         assertEquals(true, matrix.hasConnectionDFS(1, 2));
-        assertEquals(false, matrix.hasConnectionDFS(1, 3));
+        assertEquals(true, matrix.hasConnectionDFS(1, 3));
         assertEquals(true, matrix.hasConnectionDFS(4, 5));
+        assertEquals(false, matrix.hasConnectionDFS(0, 5));
+    }
+
+    @Test
+    public void testDFS2() {
+        AdjMatrix matrix = new AdjMatrix(4);
+        matrix.addConnection(0, 1);
+        matrix.addConnection(2, 1);
+        matrix.addConnection(3, 2);
+
+        assertEquals(true, matrix.hasConnectionDFS(0, 3));
     }
 }
