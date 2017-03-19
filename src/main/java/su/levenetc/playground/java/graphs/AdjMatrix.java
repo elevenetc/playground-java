@@ -1,10 +1,5 @@
 package su.levenetc.playground.java.graphs;
 
-import su.levenetc.playground.java.utils.Out;
-
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Created by eugene.levenetc on 18/03/2017.
  */
@@ -21,44 +16,45 @@ public class AdjMatrix {
         matrix[h][w] = 1;
     }
 
-    Set<Integer> visited = new HashSet<>();
+    public boolean dfs(int nodeA, int nodeB) {
 
-    public boolean hasConnectionDFS(int nodeA, int nodeB) {
+        if (matrix[nodeA][nodeB] == 1) return true;
 
-        if(matrix[nodeA][nodeB] == 1) return true;
+        final boolean[] visited = new boolean[matrix.length];
+        visited[nodeA] = true;
+        final int[] children = matrix[nodeA];
 
-        int[] children = matrix[nodeA];
-        visited.clear();
-        visited.add(nodeA);
-        for (int node = 0; node < children.length; node++) {
-
-            if (visited.contains(node)) continue;
-
-            if (searchIn(matrix[node], nodeB)) {
-                return true;
+        for (int i = 0; i < children.length; i++) {
+            if (!visited[i] && children[i] == 1) {
+                visited[i] = true;
+                if (internalDFS(visited, i, nodeB)) {
+                    return true;
+                }
             }
         }
+
         return false;
     }
 
-    private boolean searchIn(int[] children, int value) {
-        for (int node = 0; node < children.length; node++) {
-            if (visited.contains(node)) continue;
+    private boolean internalDFS(boolean[] visited, int index, int search) {
 
-            boolean hasConnection = children[node] == 1;
 
-            if(hasConnection){
-                visited.add(node);
+        final int[] children = matrix[index];
 
-                if (node == value) {
+        for (int i = 0; i < children.length; i++) {
+            if (!visited[i] && children[i] == 1) {
+                visited[i] = true;
+
+                if(search == i){
                     return true;
                 }
 
-                if(searchIn(matrix[node], value)){
+                if (internalDFS(visited, i, search)) {
                     return true;
                 }
             }
         }
+
         return false;
     }
 }
