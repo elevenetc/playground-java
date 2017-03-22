@@ -5,6 +5,7 @@ import rx.schedulers.Schedulers;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,6 +15,16 @@ import java.util.concurrent.Executors;
  * Created by elevenetc on 04/07/15.
  */
 public class SysUtils {
+
+    public static void changeStaticField(Class clazz, String fieldName, String targetValue) {
+        try {
+            Field field = clazz.getDeclaredField(fieldName);
+            field.setAccessible(true);
+            field.set(clazz, targetValue);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static InputStream toIs(String string) {
         return new ByteArrayInputStream(string.getBytes());
