@@ -6,6 +6,7 @@ import java.util.Random;
  * Created by eugene.levenetc on 27/10/2016.
  */
 public class StringUtils {
+
     public static String getRandomString(int length) {
         final char[] chars = "1234567890abcdefghijklmnopqrstuvwxyz".toCharArray();
         final StringBuilder sb = new StringBuilder();

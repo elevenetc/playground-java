@@ -92,5 +92,11 @@ public class Out {
         pln(Integer.toString(value, 16));
     }
 
+    public static void chars(String string) {
+        for (int i = 0; i < string.length(); i++) {
+            final char ch = string.charAt(i);
+            Out.pln(ch + " : " + (int) ch);
+        }
+    }
 
 }
