@@ -2,10 +2,7 @@ package su.levenetc.playground.java.datastructures;
 
 import su.levenetc.playground.java.utils.Out;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by eugene.levenetc on 17/03/2017.
@@ -39,7 +36,7 @@ public class Graph {
         }
     }
 
-    public int size(){
+    public int size() {
         final SizeTraverseHandler handler = new SizeTraverseHandler();
         traverse(root, handler);
         return handler.size;
@@ -52,6 +49,27 @@ public class Graph {
             Out.p(" > ");
             Out.p("{" + node.value + "}");
         });
+    }
+
+    public void traverseIterative() {
+        PrintTraverseHandler handler = new PrintTraverseHandler();
+        LinkedList<Node> stack = new LinkedList<>();
+        HashSet<Node> visited = new HashSet<>();
+
+        stack.add(root);
+        while (!stack.isEmpty()) {
+            final Node node = stack.pop();
+
+            if (visited.contains(node)) continue;
+
+            handler.visit(node);
+            visited.add(node);
+
+            for (Node child : node.children) {
+                if (visited.contains(child)) continue;
+                stack.add(child);
+            }
+        }
     }
 
     private TraverseHandler traverse(Node node, TraverseHandler handler) {
@@ -100,7 +118,15 @@ public class Graph {
         }
     }
 
-    private static class SizeTraverseHandler implements TraverseHandler{
+    private static class PrintTraverseHandler implements TraverseHandler {
+
+        @Override
+        public void visit(Node node) {
+            Out.pln("visit: " + node.value);
+        }
+    }
+
+    private static class SizeTraverseHandler implements TraverseHandler {
 
         int size;
 

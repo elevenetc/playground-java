@@ -24,7 +24,7 @@ public class LongestSubStringWithoutRepeating {
                     longest.setLength(0);
                     longest.append(current);
                 }
-                current.reverse()
+                //current.reverse()
                 //current.setLength(0);
             }
             current.append(ch);

@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 public class GraphTests {
 
     @Test
-    public void testSize(){
+    public void testSize() {
         assertEquals(5, createCycleGraph().size());
         assertEquals(4, createNonCycleGraph().size());
     }
@@ -50,6 +50,12 @@ public class GraphTests {
         assertEquals(true, graph.replace(2, 10));
         assertEquals(true, graph.contains(10));
         assertEquals(false, graph.contains(2));
+    }
+
+    @Test
+    public void traverseIterate() {
+        Graph graph = createCycleGraph();
+        graph.traverseIterative();
     }
 
     static Graph createCycleGraph() {
