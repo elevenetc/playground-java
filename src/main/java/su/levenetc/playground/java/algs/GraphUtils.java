@@ -3,6 +3,10 @@ package su.levenetc.playground.java.algs;
 import su.levenetc.playground.java.algs.pathfinding.NumNode;
 import su.levenetc.playground.java.utils.Out;
 
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.LinkedList;
+
 /**
  * Created by eugene.levenetc on 10/11/2016.
  */
@@ -29,7 +33,39 @@ public class GraphUtils {
         Out.pln(sb.toString());
     }
 
-    public static boolean containsCycle(int[][] matrix) {
+    public static boolean containsCycleIterative(int[][] matrix) {
+
+        boolean[] visited = new boolean[matrix.length];
+        Deque<Integer> stack = new LinkedList<>();
+        stack.add(0);
+
+        while (!stack.isEmpty()) {
+
+            int node = stack.pop();
+            if (!visited[node]) {
+                visited[node] = true;
+
+                final int[] children = matrix[node];
+                for (int i = 0; i < children.length; i++) {
+                    if (children[i] == 1) {
+                        stack.push(i);
+                    }
+                }
+
+            } else {
+                Out.pln("Found cycle " + node);
+                return true;
+            }
+
+
+        }
+
+        Out.plnArray(visited);
+
+        return false;
+    }
+
+    public static boolean containsCycleRecursive(int[][] matrix) {
 
         for (int n = 0; n < matrix.length; n++) {
             int[] children = matrix[n];
@@ -37,8 +73,6 @@ public class GraphUtils {
             if (checkChildren(n, matrix, children, new boolean[matrix.length])) {
                 return true;
             }
-
-
         }
 
         return false;
@@ -50,18 +84,16 @@ public class GraphUtils {
             return true;
         }
 
-
         for (int ch = 0; ch < children.length; ch++) {
             if (children[ch] == 1) {
                 visited[node] = true;
 
                 if (checkChildren(ch, matrix, matrix[ch], visited)) {
                     return true;
-                }else{
-                    return false;
                 }
             }
         }
+        Arrays.fill(visited, false);
         return false;
     }
 }

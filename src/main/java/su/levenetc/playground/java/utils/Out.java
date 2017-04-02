@@ -9,9 +9,12 @@ import java.util.HashMap;
  */
 public class Out {
 
+    public static void plnBin(String prefix, int val) {
+        Out.pln(prefix + ": " + Integer.toBinaryString(val));
+    }
 
     public static void plnBin(int val) {
-        System.out.println(Integer.toBinaryString(val));
+        Out.pln(Integer.toBinaryString(val));
     }
 
     public static void pln(HashMap<String, String> hashMap) {
@@ -20,7 +23,7 @@ public class Out {
     }
 
     public static void pln() {
-        System.out.println("\n");
+        System.out.print("\n");
     }
 
     public static void pln(Collection result) {
@@ -39,12 +42,20 @@ public class Out {
         System.out.println(Arrays.toString(array));
     }
 
+    public static void plnArray(boolean[] array) {
+        System.out.println(Arrays.toString(array));
+    }
+
     public static void plnArray(long[] array) {
         System.out.println(Arrays.toString(array));
     }
 
     public static void pln(float result) {
         System.out.println(result);
+    }
+
+    public static void pln(String prefix, int result) {
+        pln(prefix + ": " + result);
     }
 
     public static void pln(int result) {
@@ -99,4 +110,18 @@ public class Out {
         }
     }
 
+    public static void pln(int[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            final int[] row = matrix[i];
+            for (int k = 0; k < matrix.length; k++) {
+                Out.p(row[k]);
+                Out.p(" ");
+            }
+            Out.pln();
+        }
+    }
+
+    public static void plnBinary(int value) {
+        Out.pln(Integer.toBinaryString(value));
+    }
 }
