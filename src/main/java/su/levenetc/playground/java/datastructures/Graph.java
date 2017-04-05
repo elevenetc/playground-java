@@ -11,9 +11,22 @@ public class Graph {
 
     Node root;
     Set<Node> visited = new HashSet<>();
+    Map<Integer, Node> allNodes = new HashMap<>();
 
     public void set(Node root) {
         this.root = root;
+    }
+
+    public Graph addEdge(int valueA, int valueB) {
+        Node nodeA;
+        Node nodeB;
+        nodeA = allNodes.containsKey(valueA) ? allNodes.get(valueA) : new Node(valueA);
+        nodeB = allNodes.containsKey(valueB) ? allNodes.get(valueB) : new Node(valueB);
+        nodeA.addChild(nodeB);
+
+        if (!allNodes.containsKey(valueA)) allNodes.put(valueA, nodeA);
+        if (!allNodes.containsKey(valueB)) allNodes.put(valueB, nodeB);
+        return this;
     }
 
     public Node find(int value) {
@@ -49,6 +62,48 @@ public class Graph {
             Out.p(" > ");
             Out.p("{" + node.value + "}");
         });
+    }
+
+    public boolean hasCycle() {
+        HashSet<Node> white = new HashSet<>();
+        Set<Node> grey = new HashSet<>();
+        Set<Node> black = new HashSet<>();
+        for (int key : allNodes.keySet()) {
+            final Node node = allNodes.get(key);
+            white.add(node);
+        }
+
+        while (!white.isEmpty()) {
+            if (dfsHasCycle(white.iterator().next(), white, grey, black)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean dfsHasCycle(Node current, Set<Node> white, Set<Node> grey, Set<Node> black) {
+        if (current == null) return false;
+        move(current, white, grey);
+        final List<Node> children = current.getChildren();
+        for (Node child : children) {
+            if (black.contains(child)) {
+                continue;
+            }
+            if (grey.contains(child)) {
+                return true;
+            }
+            if (dfsHasCycle(child, white, grey, black)) {
+                return true;
+            }
+        }
+        move(current, grey, black);
+        return false;
+    }
+
+    private void move(Node node, Set<Node> from, Set<Node> to) {
+        from.remove(node);
+        to.add(node);
     }
 
     public void traverseIterative() {
@@ -109,12 +164,21 @@ public class Graph {
             this.value = value;
         }
 
+        public List<Node> getChildren() {
+            return children;
+        }
+
         public void addChild(Node child) {
             children.add(child);
         }
 
         public boolean isEmpty() {
             return children.isEmpty();
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
         }
     }
 
