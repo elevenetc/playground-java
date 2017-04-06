@@ -1,8 +1,11 @@
 package su.levenetc.playground.java.utils;
 
+import su.levenetc.playground.java.datastructures.Graph;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by elevenetc on 04/07/15.
@@ -123,5 +126,11 @@ public class Out {
 
     public static void plnBinary(int value) {
         Out.pln(Integer.toBinaryString(value));
+    }
+
+    public static void plnInverted(List list) {
+        for (int i = 0; i < list.size(); i++) {
+            Out.pln(list.get(i));
+        }
     }
 }

@@ -17,6 +17,37 @@ public class Graph {
         this.root = root;
     }
 
+    public List<Node> getTopologicalOrdered() {
+        if (allNodes.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        LinkedList<Node> stack = new LinkedList<>();
+        Set<Node> set = new HashSet<>();
+
+        for (int key : allNodes.keySet()) {
+            final Node node = allNodes.get(key);
+            exploreTopologically(node, stack, set);
+        }
+        return stack;
+    }
+
+    private void exploreTopologically(Node node, LinkedList<Node> stack, Set<Node> visited) {
+        if (visited.contains(node)) return;
+        visited.add(node);
+        if (node.isEmpty()) {
+            stack.add(node);
+            return;
+        }
+        for (Node child : node.getChildren()) {
+            if (!visited.contains(child)) {
+                exploreTopologically(child, stack, visited);
+            }
+        }
+
+        stack.add(node);
+    }
+
     public Graph addEdge(int valueA, int valueB) {
         Node nodeA;
         Node nodeB;
@@ -26,6 +57,7 @@ public class Graph {
 
         if (!allNodes.containsKey(valueA)) allNodes.put(valueA, nodeA);
         if (!allNodes.containsKey(valueB)) allNodes.put(valueB, nodeB);
+
         return this;
     }
 
