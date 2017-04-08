@@ -9,10 +9,25 @@ import java.util.List;
  */
 public class Utils {
 
-    public static boolean contains(int[] array, int value) {
-        for (int i : array) {
-            if (i == value) return true;
+    public static int[][] toArrays(List<List<Integer>> list) {
+        int[][] result = new int[list.size()][];
+        for (int i = 0; i < result.length; i++) {
+            final List<Integer> integers = list.get(i);
+            result[i] = new int[integers.size()];
+            for (int i1 = 0; i1 < result[i].length; i1++) {
+                result[i][i1] = integers.get(i1);
+            }
         }
+        return result;
+    }
+
+    public static boolean contains(int[][] arrays, int... array) {
+        for (int[] a : arrays) if (Arrays.equals(a, array)) return true;
+        return false;
+    }
+
+    public static boolean contains(int[] array, int value) {
+        for (int i : array) if (i == value) return true;
         return false;
     }
 
