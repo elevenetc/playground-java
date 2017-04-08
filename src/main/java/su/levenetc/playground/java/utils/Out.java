@@ -1,7 +1,5 @@
 package su.levenetc.playground.java.utils;
 
-import su.levenetc.playground.java.datastructures.Graph;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -23,6 +21,10 @@ public class Out {
     public static void pln(HashMap<String, String> hashMap) {
         for (String key : hashMap.keySet())
             Out.pln(key + ":" + hashMap.get(key));
+    }
+
+    public static void pln(Object a, Object b) {
+        pln(a + ": " + b);
     }
 
     public static void pln() {
@@ -129,7 +131,7 @@ public class Out {
     }
 
     public static void plnInverted(List list) {
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = list.size() - 1; i >= 0; i--) {
             Out.pln(list.get(i));
         }
     }

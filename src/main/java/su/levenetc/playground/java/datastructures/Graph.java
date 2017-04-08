@@ -17,6 +17,23 @@ public class Graph {
         this.root = root;
     }
 
+    public List<Integer> bfs(int source) {
+        List<Integer> visited = new ArrayList<>();
+        final Node node = allNodes.get(source);
+        LinkedList<Node> queue = new LinkedList<>();
+        queue.add(node);
+        while (!queue.isEmpty()) {
+            final Node polled = queue.poll();
+            visited.add(polled.value);
+            Out.pln("visited", polled.value);
+            final List<Node> children = polled.getChildren();
+            for (Node child : children) {
+                queue.add(child);
+            }
+        }
+        return visited;
+    }
+
     public List<Node> getTopologicalOrdered() {
         if (allNodes.isEmpty()) {
             return Collections.emptyList();
@@ -48,15 +65,15 @@ public class Graph {
         stack.add(node);
     }
 
-    public Graph addEdge(int valueA, int valueB) {
+    public Graph addEdge(int nodeValueA, int nodeValueB) {
         Node nodeA;
         Node nodeB;
-        nodeA = allNodes.containsKey(valueA) ? allNodes.get(valueA) : new Node(valueA);
-        nodeB = allNodes.containsKey(valueB) ? allNodes.get(valueB) : new Node(valueB);
+        nodeA = allNodes.containsKey(nodeValueA) ? allNodes.get(nodeValueA) : new Node(nodeValueA);
+        nodeB = allNodes.containsKey(nodeValueB) ? allNodes.get(nodeValueB) : new Node(nodeValueB);
         nodeA.addChild(nodeB);
 
-        if (!allNodes.containsKey(valueA)) allNodes.put(valueA, nodeA);
-        if (!allNodes.containsKey(valueB)) allNodes.put(valueB, nodeB);
+        if (!allNodes.containsKey(nodeValueA)) allNodes.put(nodeValueA, nodeA);
+        if (!allNodes.containsKey(nodeValueB)) allNodes.put(nodeValueB, nodeB);
 
         return this;
     }
@@ -185,33 +202,6 @@ public class Graph {
 
     interface TraverseHandler {
         void visit(Node node);
-    }
-
-    public static class Node {
-
-        int value;
-        List<Node> children = new ArrayList<>();
-
-        public Node(int value) {
-            this.value = value;
-        }
-
-        public List<Node> getChildren() {
-            return children;
-        }
-
-        public void addChild(Node child) {
-            children.add(child);
-        }
-
-        public boolean isEmpty() {
-            return children.isEmpty();
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
     }
 
     private static class PrintTraverseHandler implements TraverseHandler {

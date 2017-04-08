@@ -1,6 +1,11 @@
 import org.junit.Test;
 import su.levenetc.playground.java.datastructures.Graph;
+import su.levenetc.playground.java.datastructures.Node;
 import su.levenetc.playground.java.utils.Out;
+import su.levenetc.playground.java.utils.Utils;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,10 +23,10 @@ public class GraphTests {
     @Test
     public void testFind() {
         Graph graph = new Graph();
-        Graph.Node nodeA = new Graph.Node(0);
-        Graph.Node nodeB = new Graph.Node(1);
-        Graph.Node nodeC = new Graph.Node(2);
-        Graph.Node nodeD = new Graph.Node(3);
+        Node nodeA = new Node(0);
+        Node nodeB = new Node(1);
+        Node nodeC = new Node(2);
+        Node nodeD = new Node(3);
         nodeA.addChild(nodeB);
         nodeB.addChild(nodeC);
         nodeC.addChild(nodeD);
@@ -58,13 +63,24 @@ public class GraphTests {
         graph.traverseIterative();
     }
 
+    @Test
+    public void bfs() {
+        Graph graph = new Graph();
+        graph.addEdge(0, 1);
+        graph.addEdge(0, 2);
+        graph.addEdge(1, 3);
+        graph.addEdge(1, 4);
+        graph.addEdge(2, 5);
+        assertEquals(Utils.toList(0, 1, 2, 3, 4, 5), graph.bfs(0));
+    }
+
     static Graph createCycleGraph() {
         Graph graph = new Graph();
-        Graph.Node nodeA = new Graph.Node(0);
-        Graph.Node nodeB = new Graph.Node(1);
-        Graph.Node nodeC = new Graph.Node(2);
-        Graph.Node nodeD = new Graph.Node(3);
-        Graph.Node nodeE = new Graph.Node(4);
+        Node nodeA = new Node(0);
+        Node nodeB = new Node(1);
+        Node nodeC = new Node(2);
+        Node nodeD = new Node(3);
+        Node nodeE = new Node(4);
         nodeA.addChild(nodeB);
         nodeB.addChild(nodeC);
         nodeC.addChild(nodeD);
@@ -78,10 +94,10 @@ public class GraphTests {
 
     static Graph createNonCycleGraph() {
         Graph graph = new Graph();
-        Graph.Node nodeA = new Graph.Node(0);
-        Graph.Node nodeB = new Graph.Node(1);
-        Graph.Node nodeC = new Graph.Node(2);
-        Graph.Node nodeD = new Graph.Node(3);
+        Node nodeA = new Node(0);
+        Node nodeB = new Node(1);
+        Node nodeC = new Node(2);
+        Node nodeD = new Node(3);
         nodeA.addChild(nodeB);
         nodeB.addChild(nodeC);
         nodeC.addChild(nodeD);
