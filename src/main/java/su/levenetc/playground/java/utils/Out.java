@@ -23,6 +23,14 @@ public class Out {
             Out.pln(key + ":" + hashMap.get(key));
     }
 
+    public static void pln(String prefix, Object a, Object b, Object c) {
+        pln(prefix + ": (" + a + ", " + b + ", " + c + ")");
+    }
+
+    public static void pln(String prefix, Object a, Object b) {
+        pln(prefix + ": (" + a + ", " + b + ")");
+    }
+
     public static void pln(Object a, Object b) {
         pln(a + ": " + b);
     }

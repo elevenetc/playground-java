@@ -7,28 +7,37 @@ import java.io.*;
 import java.net.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by elevenetc on 16/07/15.
  */
 public class NetUtils {
-	public static String getParam(String url, String paramName) {
+    public static String getParam(String url, String paramName) {
 
-		try {
-			List<NameValuePair> values = URLEncodedUtils.parse(new URI(url), "UTF-8");
+        try {
+            List<NameValuePair> values = URLEncodedUtils.parse(new URI(url), "UTF-8");
 
-			for (NameValuePair pair : values) {
-				if (pair.getName().equals(paramName)) {
-					return pair.getValue();
-				}
-			}
+            for (NameValuePair pair : values) {
+                if (pair.getName().equals(paramName)) {
+                    return pair.getValue();
+                }
+            }
 
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
 
-		return null;
-	}
+        return null;
+    }
+
+    public static String executePost(String targetUrl, Map<String, String> bodyParams) throws IOException {
+        String params = "";
+        for (String key : bodyParams.keySet()) {
+            params += key + "=" + bodyParams.get(key) + "&";
+        }
+        return executePost(targetUrl, params);
+    }
 
     public static String executePost(String targetURL, String bodyParams) throws IOException {
 
@@ -46,19 +55,37 @@ public class NetUtils {
         wr.close();
 
         InputStream is = connection.getInputStream();
-        BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-        StringBuilder response = new StringBuilder();
-        String line;
-        while ((line = rd.readLine()) != null) {
-            response.append(line);
-            response.append('\r');
-        }
-        rd.close();
+
+        String result = streamToString(is);
+
+
+//        BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+//        StringBuilder response = new StringBuilder();
+//        String line;
+//        while ((line = rd.readLine()) != null) {
+//            response.append(line);
+//            response.append('\r');
+//        }
+//        rd.close();
 
         connection.disconnect();
 
-        return response.toString();
+        return result;
 
+    }
+
+    public static String streamToString(InputStream inputStream) throws IOException {
+        final int bufferSize = 1024;
+        final char[] buffer = new char[bufferSize];
+        final StringBuilder out = new StringBuilder();
+        Reader in = new InputStreamReader(inputStream, "UTF-8");
+        for (; ; ) {
+            int rsz = in.read(buffer, 0, buffer.length);
+            if (rsz < 0)
+                break;
+            out.append(buffer, 0, rsz);
+        }
+        return out.toString();
     }
 
     public static void createSocketServer(int port) throws IOException {

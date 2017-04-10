@@ -9,22 +9,31 @@ import java.util.List;
 public class Node {
 
     int value;
-    List<Node> children = new ArrayList<>();
+    List<Node> nextNodes = new ArrayList<>();
+    List<Node> prevNodes = new ArrayList<>();
 
     public Node(int value) {
         this.value = value;
     }
 
-    public List<Node> getChildren() {
-        return children;
+    public List<Node> getNextNodes() {
+        return nextNodes;
     }
 
-    public void addChild(Node child) {
-        children.add(child);
+    public List<Node> getPrevNodes() {
+        return prevNodes;
+    }
+
+    public void addPrev(Node child) {
+        prevNodes.add(child);
+    }
+
+    public void addNext(Node child) {
+        nextNodes.add(child);
     }
 
     public boolean isEmpty() {
-        return children.isEmpty();
+        return nextNodes.isEmpty();
     }
 
     @Override
