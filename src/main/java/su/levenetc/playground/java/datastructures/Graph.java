@@ -26,7 +26,7 @@ public class Graph {
             final Node polled = queue.poll();
             visited.add(polled.value);
             Out.pln("visited", polled.value);
-            final List<Node> children = polled.getChildren();
+            final List<Node> children = polled.getNextNodes();
             for (Node child : children) {
                 queue.add(child);
             }
@@ -56,7 +56,7 @@ public class Graph {
             stack.add(node);
             return;
         }
-        for (Node child : node.getChildren()) {
+        for (Node child : node.getNextNodes()) {
             if (!visited.contains(child)) {
                 exploreTopologically(child, stack, visited);
             }
@@ -70,7 +70,9 @@ public class Graph {
         Node nodeB;
         nodeA = allNodes.containsKey(nodeValueA) ? allNodes.get(nodeValueA) : new Node(nodeValueA);
         nodeB = allNodes.containsKey(nodeValueB) ? allNodes.get(nodeValueB) : new Node(nodeValueB);
-        nodeA.addChild(nodeB);
+
+        nodeA.addNext(nodeB);
+        nodeB.addPrev(nodeA);
 
         if (!allNodes.containsKey(nodeValueA)) allNodes.put(nodeValueA, nodeA);
         if (!allNodes.containsKey(nodeValueB)) allNodes.put(nodeValueB, nodeB);
@@ -113,8 +115,54 @@ public class Graph {
         });
     }
 
+    public List<Set<Node>> stronglyConnectedComponents() {
+        Set<Node> nodes = nodesToSet();
+        Deque<Node> finishStack = new LinkedList<>();
+        Set<Node> visited = new HashSet<>();
+        for (Node node : nodes) {
+            stronglyConnectedDfs(node, finishStack, visited);
+        }
+        visited.clear();
+        List<Set<Node>> components = new ArrayList<>();
+        while (!finishStack.isEmpty()) {
+            final Node node = finishStack.pop();
+            if(visited.contains(node)) continue;
+            HashSet<Node> component = new HashSet<>();
+            buildStronglyConnectedComponents(node, visited, component);
+            components.add(component);
+        }
+        return components;
+    }
+
+    private void buildStronglyConnectedComponents(Node node, Set<Node> visited, Set<Node> currentComponent) {
+
+        if (visited.contains(node)) return;
+
+        visited.add(node);
+        currentComponent.add(node);
+
+        final List<Node> prevNodes = node.getPrevNodes();
+        for (Node child : prevNodes) {
+            buildStronglyConnectedComponents(child, visited, currentComponent);
+        }
+    }
+
+    private void stronglyConnectedDfs(Node node, Deque<Node> finishStack, Set<Node> visited) {
+        if (visited.contains(node)) return;
+
+        visited.add(node);
+
+        final List<Node> children = node.getNextNodes();
+        for (Node child : children) {
+            if (!visited.contains(child)) {
+                stronglyConnectedDfs(child, finishStack, visited);
+            }
+        }
+        finishStack.push(node);
+    }
+
     public boolean hasCycle() {
-        HashSet<Node> white = new HashSet<>();
+        Set<Node> white = new HashSet<>();
         Set<Node> grey = new HashSet<>();
         Set<Node> black = new HashSet<>();
         for (int key : allNodes.keySet()) {
@@ -134,7 +182,7 @@ public class Graph {
     private boolean dfsHasCycle(Node current, Set<Node> white, Set<Node> grey, Set<Node> black) {
         if (current == null) return false;
         move(current, white, grey);
-        final List<Node> children = current.getChildren();
+        final List<Node> children = current.getNextNodes();
         for (Node child : children) {
             if (black.contains(child)) {
                 continue;
@@ -169,7 +217,7 @@ public class Graph {
             handler.visit(node);
             visited.add(node);
 
-            for (Node child : node.children) {
+            for (Node child : node.nextNodes) {
                 if (visited.contains(child)) continue;
                 stack.add(child);
             }
@@ -180,7 +228,7 @@ public class Graph {
         if (node == null || visited.contains(node)) return handler;
         handler.visit(node);
         visited.add(node);
-        for (Node child : node.children) {
+        for (Node child : node.nextNodes) {
             traverse(child, handler);
         }
         return handler;
@@ -192,7 +240,7 @@ public class Graph {
         if (node.value == value) return node;
         if (node.isEmpty()) return null;
         Node result = null;
-        for (Node child : node.children) {
+        for (Node child : node.nextNodes) {
             result = internalFind(child, value);
             visited.add(child);
             if (result != null) break;
@@ -220,5 +268,14 @@ public class Graph {
         public void visit(Node node) {
             size++;
         }
+    }
+
+    private Set<Node> nodesToSet() {
+        Set<Node> nodes = new HashSet<>();
+        for (int key : allNodes.keySet()) {
+            final Node node = allNodes.get(key);
+            nodes.add(node);
+        }
+        return nodes;
     }
 }
