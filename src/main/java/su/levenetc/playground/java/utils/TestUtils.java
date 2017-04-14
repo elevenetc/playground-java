@@ -1,11 +1,15 @@
 package su.levenetc.playground.java.utils;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by eleven on 25/01/2016.
  */
 public class TestUtils {
+
     public static <T extends Comparable<? super T>> void testSort(List<T> check) {
         Out.pln("Check:");
         Out.pln(check);

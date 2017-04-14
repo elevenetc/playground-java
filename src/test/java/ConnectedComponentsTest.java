@@ -5,6 +5,7 @@ import su.levenetc.playground.java.datastructures.Node;
 import java.util.List;
 import java.util.Set;
 
+import static org.junit.Assert.assertEquals;
 import static su.levenetc.playground.java.datastructures.Node.nodes;
 
 /**
@@ -18,8 +19,20 @@ public class ConnectedComponentsTest {
         graph.addEdge(1, 2);
         graph.addEdge(2, 0);
         graph.addEdge(1, 3);
-        final List<Set<Node>> components = graph.stronglyConnectedComponents();
-        AssertUtils.assertContains(components, nodes(3));
-        AssertUtils.assertContains(components, nodes(0, 1, 2));
+        final List<Set<Node>> connected = graph.stronglyConnectedComponents();
+        AssertUtils.assertContains(connected, nodes(3));
+        AssertUtils.assertContains(connected, nodes(0, 1, 2));
     }
+
+    @Test
+    public void test02() {
+        Graph graph = new Graph();
+        graph.addEdge(0, 1);
+        graph.addEdge(1, 2);
+        graph.addEdge(2, 0);
+        final List<Set<Node>> connected = graph.stronglyConnectedComponents();
+        assertEquals(1, connected.size());
+        AssertUtils.assertContains(connected, nodes(0, 1, 2));
+    }
+
 }

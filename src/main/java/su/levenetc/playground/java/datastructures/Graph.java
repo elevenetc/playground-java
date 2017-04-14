@@ -17,6 +17,58 @@ public class Graph {
         this.root = root;
     }
 
+    public Map<Integer, Set<Node>> getLayers2(int from) {
+        final Node node = allNodes.get(from);
+
+        Map<Integer, Set<Node>> layers = new HashMap<>();
+        final List<Node> nextNodes = node.getNextNodes();
+        final HashSet<Node> zeroLevel = new HashSet<>();
+        zeroLevel.add(node);
+        layers.put(0, zeroLevel);
+        for (Node nextNode : nextNodes) {
+            getLayers2Internal(layers, nextNode, 1);
+        }
+        return layers;
+    }
+
+    private void getLayers2Internal(Map<Integer, Set<Node>> layers, Node node, int depth) {
+        final Set<Node> layer;
+        if (layers.containsKey(depth)) {
+            layer = layers.get(depth);
+        } else {
+            layer = new HashSet<>();
+            layers.put(depth, layer);
+        }
+        layer.add(node);
+        depth = depth + 1;
+        for (Node child : node.getNextNodes()) {
+            getLayers2Internal(layers, child, depth);
+        }
+    }
+
+    public List<Set<Node>> getLayers(int from) {
+        Node node = allNodes.get(from);
+        List<Set<Node>> result = new ArrayList<>();
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(node);
+        int layerIndex = 0;
+        Set<Node> layer = new HashSet<>();
+        while (!queue.isEmpty()) {
+            final Node polled = queue.poll();
+            layer.add(polled);
+            Out.pln(polled.value);
+
+            final List<Node> children = polled.getNextNodes();
+            for (Node child : children) {
+                queue.add(child);
+            }
+
+            result.add(layer);
+            layer = new HashSet<>();
+        }
+        return result;
+    }
+
     public List<Integer> bfs(int source) {
         List<Integer> visited = new ArrayList<>();
         final Node node = allNodes.get(source);
@@ -126,7 +178,7 @@ public class Graph {
         List<Set<Node>> components = new ArrayList<>();
         while (!finishStack.isEmpty()) {
             final Node node = finishStack.pop();
-            if(visited.contains(node)) continue;
+            if (visited.contains(node)) continue;
             HashSet<Node> component = new HashSet<>();
             buildStronglyConnectedComponents(node, visited, component);
             components.add(component);

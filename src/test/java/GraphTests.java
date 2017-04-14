@@ -4,6 +4,9 @@ import su.levenetc.playground.java.datastructures.Node;
 import su.levenetc.playground.java.utils.Out;
 import su.levenetc.playground.java.utils.Utils;
 
+import java.util.Map;
+import java.util.Set;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -69,6 +72,24 @@ public class GraphTests {
         graph.addEdge(1, 4);
         graph.addEdge(2, 5);
         assertEquals(Utils.toList(0, 1, 2, 3, 4, 5), graph.bfs(0));
+    }
+
+    @Test
+    public void testLayers() {
+        Graph graph = new Graph();
+        graph.addEdge(0, 1);
+        graph.addEdge(0, 2);
+        graph.addEdge(1, 3);
+        graph.addEdge(1, 4);
+        graph.addEdge(2, 5);
+        graph.addEdge(2, 6);
+        graph.addEdge(0, 7);
+        graph.addEdge(7, 8);
+        final Map<Integer, Set<Node>> layers = graph.getLayers2(0);
+
+        AssertUtils.assertContains(layers, Node.nodes(0));
+        AssertUtils.assertContains(layers, Node.nodes(1, 2, 7));
+        AssertUtils.assertContains(layers, Node.nodes(3, 4, 5, 6, 8));
     }
 
     static Graph createCycleGraph() {
