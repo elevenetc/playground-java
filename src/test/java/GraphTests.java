@@ -4,9 +4,6 @@ import su.levenetc.playground.java.datastructures.Node;
 import su.levenetc.playground.java.utils.Out;
 import su.levenetc.playground.java.utils.Utils;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -27,9 +24,9 @@ public class GraphTests {
         Node nodeB = new Node(1);
         Node nodeC = new Node(2);
         Node nodeD = new Node(3);
-        nodeA.addChild(nodeB);
-        nodeB.addChild(nodeC);
-        nodeC.addChild(nodeD);
+        nodeA.addNext(nodeB);
+        nodeB.addNext(nodeC);
+        nodeC.addNext(nodeD);
         graph.set(nodeA);
         assertEquals(nodeC, graph.find(2));
         assertEquals(null, graph.find(10));
@@ -81,13 +78,13 @@ public class GraphTests {
         Node nodeC = new Node(2);
         Node nodeD = new Node(3);
         Node nodeE = new Node(4);
-        nodeA.addChild(nodeB);
-        nodeB.addChild(nodeC);
-        nodeC.addChild(nodeD);
-        nodeD.addChild(nodeE);
-        nodeE.addChild(nodeA);
-        nodeC.addChild(nodeE);
-        nodeE.addChild(nodeC);
+        nodeA.addNext(nodeB);
+        nodeB.addNext(nodeC);
+        nodeC.addNext(nodeD);
+        nodeD.addNext(nodeE);
+        nodeE.addNext(nodeA);
+        nodeC.addNext(nodeE);
+        nodeE.addNext(nodeC);
         graph.set(nodeA);
         return graph;
     }
@@ -98,9 +95,9 @@ public class GraphTests {
         Node nodeB = new Node(1);
         Node nodeC = new Node(2);
         Node nodeD = new Node(3);
-        nodeA.addChild(nodeB);
-        nodeB.addChild(nodeC);
-        nodeC.addChild(nodeD);
+        nodeA.addNext(nodeB);
+        nodeB.addNext(nodeC);
+        nodeC.addNext(nodeD);
         graph.set(nodeA);
         return graph;
     }
