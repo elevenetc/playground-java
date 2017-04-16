@@ -13,5 +13,6 @@ public class RotateLetterTest {
         assertEquals('a', rotate('z', 1));
         assertEquals('f', rotate('w', 87));
         assertEquals('j', rotate('a', 87));
+        assertEquals('z', rotate('f', 98));
     }
 }
