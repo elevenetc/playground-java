@@ -17,4 +17,12 @@ public class StringUtils {
 
         return sb.toString();
     }
+
+    public static boolean isCapital(char ch) {
+        return ch >= 'A' && ch <= 'Z';
+    }
+
+    public static boolean isLetter(char ch) {
+        return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z');
+    }
 }

@@ -71,6 +71,10 @@ public class Out {
         pln(prefix + ": " + result);
     }
 
+    public static void pln(char result) {
+        System.out.println(result);
+    }
+
     public static void pln(int result) {
         System.out.println(result);
     }
