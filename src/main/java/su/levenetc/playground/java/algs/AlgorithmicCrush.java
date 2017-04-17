@@ -7,26 +7,45 @@ import java.util.*;
  */
 public class AlgorithmicCrush {
 
-    static int size;
-    static int operations;
     static List<LinkedList<Row>> froms;
     static List<LinkedList<Row>> tos;
     static Set<Row> group;
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        size = scanner.nextInt();
-        operations = scanner.nextInt();
+    public static long getMax02(int[][] operations, int size) {
+
+        long[] array = new long[size + 1];
+        for (int i = 0; i < operations.length; i++) {
+            int[] operation = operations[i];
+            int from = operation[0];
+            int to = operation[1];
+            int value = operation[2];
+
+            array[from] += value;
+            array[to + 1] -= value;
+        }
+
+        long sum = 0;
+        long max = 0;
+        for (long value : array) {
+            sum += value;
+            max = Math.max(max, sum);
+
+        }
+        return max;
+    }
+
+    public static long getMax01(int[][] operations, int size) {
         long maxValue = 0;
 
         froms = fill(size);
         tos = fill(size);
         group = new HashSet<>();
 
-        for (int i = 0; i < operations; i++) {
-            int from = scanner.nextInt() - 1;
-            int to = scanner.nextInt() - 1;
-            int value = scanner.nextInt();
+        for (int i = 0; i < operations.length; i++) {
+            final int[] operation = operations[i];
+            int from = operation[0];
+            int to = operation[1];
+            int value = operation[2];
             Row row = new Row(from, to, value);
 
             if (froms.get(from) == null) {
@@ -46,7 +65,7 @@ public class AlgorithmicCrush {
             }
         }
 
-        System.out.println(maxValue);
+        return maxValue;
     }
 
     static <T> List<T> fill(int size) {
@@ -70,7 +89,6 @@ public class AlgorithmicCrush {
             iterations++;
             result += row.value;
         }
-        System.out.println(iterations);
 
         if (tos.get(index) != null) {
             LinkedList<Row> tosRows = tos.get(index);
@@ -78,12 +96,6 @@ public class AlgorithmicCrush {
                 group.remove(row);
             }
         }
-        return result;
-    }
-
-    static long[] concat(long[] first, long[] second) {
-        long[] result = Arrays.copyOf(first, first.length + second.length);
-        System.arraycopy(second, 0, result, first.length, second.length);
         return result;
     }
 
