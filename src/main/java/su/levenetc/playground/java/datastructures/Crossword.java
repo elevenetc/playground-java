@@ -14,6 +14,11 @@ public class Crossword {
 
         Queue<PlaceHolder> phs;
 
+        public void cross(Letter letterA, Letter letterB) {
+            letterA.cross = letterB;
+            letterB.cross = letterA;
+        }
+
         public void set(PlaceHolder... placeHolders) {
             Queue<PlaceHolder> queue = new LinkedList<>();
             for (PlaceHolder ph : placeHolders) queue.add(ph);
@@ -75,12 +80,6 @@ public class Crossword {
 
         public Letter getLetter(int index) {
             return letters.get(index);
-        }
-
-        public void setCross(Letter letter, int index) {
-            final Letter crossed = letters.get(index);
-            crossed.cross = letter;
-            letter.cross = crossed;
         }
 
         boolean isFit(String word) {
