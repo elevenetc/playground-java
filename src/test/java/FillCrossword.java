@@ -49,12 +49,38 @@ public class FillCrossword {
     public void fillCrossword03() {
         Graph graph = new Graph();
         String[] words = new String[]{
-                "---",
-                "-++",
-                "-++"
+                "++++",
+                "----",
+                "-+++",
+                "-+++"
         };
         graph.set(words);
-        graph.fill("abc", "abc");
+        graph.fill("abxw", "abz");
+        assertArrayEquals(new String[]{
+                "++++",
+                "abxw",
+                "b+++",
+                "z+++"
+        }, graph.toStringRows());
+    }
+
+    @Test
+    public void fillCrossword04() {
+        Graph graph = new Graph();
+        String[] words = new String[]{
+                "+++-",
+                "----",
+                "-+++",
+                "-+++"
+        };
+        graph.set(words);
+        graph.fill("abxw", "abz", "fw");
+        assertArrayEquals(new String[]{
+                "+++f",
+                "abxw",
+                "b+++",
+                "z+++"
+        }, graph.toStringRows());
     }
 
     @Test

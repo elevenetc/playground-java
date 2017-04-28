@@ -14,7 +14,11 @@ public class Crossword {
 
     public static class Graph {
 
+        CharMatrix charMatrix = new CharMatrix();
         Queue<PlaceHolder> phs;
+        Queue<PlaceHolder> horiz;
+        Queue<PlaceHolder> vert;
+        String[] rows;
 
         public void cross(Letter letterA, Letter letterB) {
             letterA.cross = letterB;
@@ -23,9 +27,12 @@ public class Crossword {
 
         public void set(String... rows) {
 
+            this.rows = rows;
+            charMatrix.set(rows);
+
             String[] columns = new String[rows.length];
-            Queue<PlaceHolder> horiz = new LinkedList<>();
-            Queue<PlaceHolder> vert = new LinkedList<>();
+            horiz = new LinkedList<>();
+            vert = new LinkedList<>();
 
             for (int y = 0; y < rows.length; y++) {
                 String row = rows[y];
@@ -58,9 +65,21 @@ public class Crossword {
                 }
             }
 
-            horiz.addAll(vert);
+            LinkedList<PlaceHolder> h = new LinkedList<>(horiz);
+            LinkedList<PlaceHolder> v = new LinkedList<>(vert);
+            h.addAll(v);
+            set(h);
+        }
 
-            set(horiz);
+        public String[] toStringRows() {
+            for (PlaceHolder ph : horiz) {
+                charMatrix.fill(ph.toString(), ph.x, ph.y, true);
+            }
+
+            for (PlaceHolder ph : vert) {
+                charMatrix.fill(ph.toString(), ph.x, ph.y, false);
+            }
+            return charMatrix.toRows();
         }
 
         public void set(PlaceHolder... placeHolders) {
@@ -107,14 +126,6 @@ public class Crossword {
             words.add(word);
             return false;
 
-        }
-
-        private static void setCrossLetters(Queue<PlaceHolder> horiz, Queue<PlaceHolder> vert) {
-            for (PlaceHolder hPh : horiz) {
-                for (PlaceHolder vPh : vert) {
-
-                }
-            }
         }
 
         private static void parsePlaceholder(String line, Queue<PlaceHolder> placeholders, int y, boolean isHorisontal) {
@@ -254,6 +265,10 @@ public class Crossword {
                     letter.ch = (char) -1;
                 }
             }
+        }
+
+        public String getFilled(String row) {
+            return row.replaceFirst("-+", toString());
         }
 
         @Override
