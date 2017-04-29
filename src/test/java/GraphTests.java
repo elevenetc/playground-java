@@ -92,6 +92,23 @@ public class GraphTests {
         AssertUtils.assertContains(layers, Node.nodes(3, 4, 5, 6, 8));
     }
 
+    @Test
+    public void testTopology01() {
+        Graph graph = new Graph();
+        graph.addEdge(0, 1);
+        assertEquals(Node.nodesList(0, 1), graph.getTopologicalOrdered());
+    }
+
+    @Test
+    public void testTopology02() {
+        Graph graph = new Graph();
+        graph.addEdge(4, 1);
+        graph.addEdge(1, 2);
+        graph.addEdge(1, 2);
+        graph.addEdge(3, 1);
+        assertEquals(Node.nodesList(4, 3, 1, 2), graph.getTopologicalOrdered());
+    }
+
     static Graph createCycleGraph() {
         Graph graph = new Graph();
         Node nodeA = new Node(0);

@@ -98,6 +98,7 @@ public class Graph {
             final Node node = allNodes.get(key);
             exploreTopologically(node, stack, set);
         }
+        Collections.reverse(stack);
         return stack;
     }
 

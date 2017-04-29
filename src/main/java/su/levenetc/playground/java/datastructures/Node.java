@@ -58,17 +58,24 @@ public class Node {
         return value == node.value;
     }
 
-    public static Set<Node> nodesSet(int... set) {
-        Set<Node> result = new HashSet<>();
-        for (int i : set)
+    public static List<Node> nodesList(int... nodes) {
+        List<Node> result = new ArrayList<>();
+        for (int i : nodes)
             result.add(new Node(i));
         return result;
     }
 
-    public static Node[] nodes(int... set) {
-        Node[] result = new Node[set.length];
-        for (int i = 0; i < set.length; i++)
-            result[i] = new Node(set[i]);
+    public static Set<Node> nodesSet(int... nodes) {
+        Set<Node> result = new HashSet<>();
+        for (int i : nodes)
+            result.add(new Node(i));
+        return result;
+    }
+
+    public static Node[] nodes(int... nodes) {
+        Node[] result = new Node[nodes.length];
+        for (int i = 0; i < nodes.length; i++)
+            result[i] = new Node(nodes[i]);
         return result;
     }
 }
