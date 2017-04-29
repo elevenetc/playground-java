@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by eugene.levenetc on 26/04/2017.
@@ -60,6 +62,7 @@ public class Crossword {
                     if (intersection != null) {
                         Letter letterA = v.getLetter(intersection[0], intersection[1]);
                         Letter letterB = h.getLetter(intersection[0], intersection[1]);
+                        if(letterA == null || letterB == null) continue;
                         cross(letterA, letterB);
                     }
                 }
@@ -130,18 +133,26 @@ public class Crossword {
 
         private static void parsePlaceholder(String line, Queue<PlaceHolder> placeholders, int y, boolean isHorisontal) {
             if (line.contains("--")) {
-                int x = line.indexOf('-');
-                String rawPh = line.replaceAll("\\+", "");
-                PlaceHolder ph;
-                if (isHorisontal) {
-                    ph = new PlaceHolder(x, y, rawPh.length());
-                } else {
-                    ph = new PlaceHolder(y, x, rawPh.length());
+
+                Pattern pattern = Pattern.compile("[\\-]{2,}");
+                Matcher matcher = pattern.matcher(line);
+
+                while (matcher.find()) {
+                    String rawPh = matcher.group();
+                    int x = matcher.start();
+
+                    PlaceHolder ph;
+                    if (isHorisontal) {
+                        ph = new PlaceHolder(x, y, rawPh.length());
+                    } else {
+                        ph = new PlaceHolder(y, x, rawPh.length());
+                    }
+
+                    ph.isHorizontal = isHorisontal;
+                    ph.buildCoordinates();
+                    placeholders.add(ph);
                 }
 
-                ph.isHorizontal = isHorisontal;
-                ph.buildCoordinates();
-                placeholders.add(ph);
             }
         }
     }
@@ -220,7 +231,7 @@ public class Crossword {
                 final Letter letter = letters.get(i);
                 final char ch = word.charAt(i);
 
-                if (!letter.isEmpty() && ch != letter.ch) {
+                if (!letter.isEmpty() && ch != letter.ch || (letter.isCross() && !letter.isEmpty() && ch != letter.cross.ch)) {
                     return false;
                 }
             }
@@ -231,6 +242,10 @@ public class Crossword {
 
                 if (letter.isEmpty()) {
                     letter.ch = ch;
+
+                    if (letter.isCross()) {
+                        letter.cross.ch = ch;
+                    }
                 }
             }
 
@@ -261,8 +276,10 @@ public class Crossword {
 
         public void unset() {
             for (Letter letter : letters) {
-                if (!letter.isCross()) {
-                    letter.ch = (char) -1;
+                letter.ch = (char) -1;
+
+                if (letter.isCross()) {
+                    letter.cross.ch = (char) -1;
                 }
             }
         }
@@ -297,6 +314,11 @@ public class Crossword {
 
         boolean isEmpty() {
             return ch == (char) -1;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(ch);
         }
     }
 

@@ -67,19 +67,112 @@ public class FillCrossword {
     @Test
     public void fillCrossword04() {
         Graph graph = new Graph();
-        String[] words = new String[]{
+        String[] rows = new String[]{
                 "+++-",
                 "----",
                 "-+++",
                 "-+++"
         };
-        graph.set(words);
+        graph.set(rows);
         graph.fill("abxw", "abz", "fw");
         assertArrayEquals(new String[]{
                 "+++f",
                 "abxw",
                 "b+++",
                 "z+++"
+        }, graph.toStringRows());
+    }
+
+    @Test
+    public void fillCrossword05() {
+        Graph graph = new Graph();
+        String[] rows = new String[]{
+                "+-++++++++",
+                "+-++++++++",
+                "+-++++++++",
+                "+-----++++",
+                "+-+++-++++",
+                "+-+++-++++",
+                "+++++-++++",
+                "++------++",
+                "+++++-++++",
+                "+++++-++++"
+        };
+        graph.set(rows);
+        graph.fill("LONDON", "DELHI", "ICELAND", "ANKARA");
+        assertArrayEquals(new String[]{
+                "+L++++++++",
+                "+O++++++++",
+                "+N++++++++",
+                "+DELHI++++",
+                "+O+++C++++",
+                "+N+++E++++",
+                "+++++L++++",
+                "++ANKARA++",
+                "+++++N++++",
+                "+++++D++++"
+        }, graph.toStringRows());
+    }
+
+    @Test
+    public void fillCrossword06() {
+        Graph graph = new Graph();
+        String[] rows = new String[]{
+                "+-++++++++",
+                "+-++++++++",
+                "+-------++",
+                "+-++++++++",
+                "+-++++++++",
+                "+------+++",
+                "+-+++-++++",
+                "+++++-++++",
+                "+++++-++++",
+                "++++++++++"
+        };
+        graph.set(rows);
+        graph.fill("AGRA", "NORWAY", "ENGLAND", "GWALIOR");
+        assertArrayEquals(new String[]{
+                "+E++++++++",
+                "+N++++++++",
+                "+GWALIOR++",
+                "+L++++++++",
+                "+A++++++++",
+                "+NORWAY+++",
+                "+D+++G++++",
+                "+++++R++++",
+                "+++++A++++",
+                "++++++++++"
+        }, graph.toStringRows());
+    }
+
+    @Test
+    public void fillCrossword07() {
+        Graph graph = new Graph();
+        String[] rows = new String[]{
+                "+-++++++++",
+                "+-++-+++++",
+                "+-------++",
+                "+-++-++-++",
+                "+-++-++-++",
+                "+-++-++-++",
+                "++++-++-++",
+                "+--------+",
+                "++++++++++",
+                "----------",
+        };
+        graph.set(rows);
+        graph.fill("CALIFORNIA","LASVEGAS","NIGERIA","CANADA","TELAVIV","ALASKA");
+        assertArrayEquals(new String[]{
+                "+C++++++++",
+                "+A++T+++++",
+                "+NIGERIA++",
+                "+A++L++L++",
+                "+D++A++A++",
+                "+A++V++S++",
+                "++++I++K++",
+                "+LASVEGAS+",
+                "++++++++++",
+                "CALIFORNIA"
         }, graph.toStringRows());
     }
 
