@@ -9,6 +9,14 @@ import java.util.List;
  */
 public class Utils {
 
+    public static <T> T get(List<T> list, int index) {
+        if (index < 0 || index > list.size() - 1) {
+            return null;
+        } else {
+            return list.get(index);
+        }
+    }
+
     public static int[][] toArrays(List<List<Integer>> list) {
         int[][] result = new int[list.size()][];
         for (int i = 0; i < result.length; i++) {
