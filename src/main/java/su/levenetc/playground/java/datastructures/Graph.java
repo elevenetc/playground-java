@@ -91,31 +91,30 @@ public class Graph {
             return Collections.emptyList();
         }
 
-        LinkedList<Node> stack = new LinkedList<>();
+        LinkedList<Node> resultStack = new LinkedList<>();
         Set<Node> set = new HashSet<>();
 
         for (int key : allNodes.keySet()) {
             final Node node = allNodes.get(key);
-            exploreTopologically(node, stack, set);
+            exploreTopologically(node, resultStack, set);
         }
-        Collections.reverse(stack);
-        return stack;
+        return resultStack;
     }
 
-    private void exploreTopologically(Node node, LinkedList<Node> stack, Set<Node> visited) {
+    private void exploreTopologically(Node node, LinkedList<Node> resultStack, Set<Node> visited) {
         if (visited.contains(node)) return;
         visited.add(node);
+
         if (node.isEmpty()) {
-            stack.add(node);
+            resultStack.add(node);
             return;
         }
+
         for (Node child : node.getNextNodes()) {
-            if (!visited.contains(child)) {
-                exploreTopologically(child, stack, visited);
-            }
+            exploreTopologically(child, resultStack, visited);
         }
 
-        stack.add(node);
+        resultStack.push(node);
     }
 
     public Graph addEdge(int nodeValueA, int nodeValueB) {

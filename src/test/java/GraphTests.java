@@ -104,7 +104,6 @@ public class GraphTests {
         Graph graph = new Graph();
         graph.addEdge(4, 1);
         graph.addEdge(1, 2);
-        graph.addEdge(1, 2);
         graph.addEdge(3, 1);
         assertEquals(Node.nodesList(4, 3, 1, 2), graph.getTopologicalOrdered());
     }
