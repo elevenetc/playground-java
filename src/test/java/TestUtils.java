@@ -35,6 +35,6 @@ public class TestUtils {
     public void testAssertions() {
         List<Set<Node>> sets = new ArrayList<>();
         sets.add(Node.nodesSet(1, 2, 3));
-        AssertUtils.assertContains(sets, new Node(1));
+        AssertUtils.assertContains(sets, new Node(1), new Node(2), new Node(3));
     }
 }
