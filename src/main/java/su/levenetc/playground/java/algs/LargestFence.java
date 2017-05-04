@@ -6,8 +6,15 @@ package su.levenetc.playground.java.algs;
  */
 public class LargestFence {
 
+    private static int[][] leftMap;
+    private static int[][] rightMap;
+
     public static int get(char[][] field) {
         int result = 0;
+
+        leftMap = leftMap(field);
+        rightMap = rightMap(field);
+
         for (int r = 0; r < field.length; r++) {
             char[] row = field[r];
             for (int c = 0; c < row.length; c++) {
@@ -49,7 +56,6 @@ public class LargestFence {
 
         if (field[r][c] == 'x') return false;
 
-
         int column = c;
         int colDir = width > 0 ? 1 : -1;
 
@@ -58,6 +64,8 @@ public class LargestFence {
 
         char[] rowA = field[r];
         char[] rowB = field[r + height + (-1) * rowDir];
+
+        //check rows
 
         while (column != c + width) {
             if (rowA[column] == 'x') {
@@ -68,6 +76,8 @@ public class LargestFence {
             }
             column += colDir;
         }
+
+        //check columns
 
         while (row != r + height) {
             if (field[row][c] == 'x') {
@@ -90,4 +100,57 @@ public class LargestFence {
             return value - 1;
         }
     }
+
+    public static int[][] leftMap(char[][] field) {
+
+        int[][] map = new int[field.length][field[0].length];
+
+        for (int r = 0; r < field.length; r++) {
+            final char[] row = field[r];
+            int counter = 0;
+            for (int i = 0; i < row.length; i++) {
+
+                if (field[r][i] == 'x') {
+                    map[r][i] = -1;
+                } else {
+                    map[r][i] = counter;
+                }
+
+                if (row[i] == 'x') {
+                    counter = 0;
+                } else {
+                    counter++;
+                }
+
+            }
+        }
+        return map;
+    }
+
+    public static int[][] rightMap(char[][] field) {
+
+        int[][] map = new int[field.length][field[0].length];
+
+        for (int r = 0; r < field.length; r++) {
+            final char[] row = field[r];
+            int counter = 0;
+            for (int i = row.length - 1; i >= 0; i--) {
+
+                if (field[r][i] == 'x') {
+                    map[r][i] = -1;
+                } else {
+                    map[r][i] = counter;
+                }
+
+                if (row[i] == 'x') {
+                    counter = 0;
+                } else {
+                    counter++;
+                }
+
+            }
+        }
+        return map;
+    }
+
 }

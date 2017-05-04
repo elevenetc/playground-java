@@ -2,6 +2,7 @@ import org.junit.Test;
 import su.levenetc.playground.java.algs.LargestFence;
 
 import static org.junit.Assert.*;
+import static su.levenetc.playground.java.utils.CharUtils.array;
 
 /**
  * Created by eugene.levenetc on 30/04/2017.
@@ -113,4 +114,35 @@ public class TestLargestFence {
         }));
 
     }
+
+    @Test
+    public void testLeftMap01() {
+        final int[][] map = LargestFence.leftMap(new char[][]{
+                array('x', '.', '.'),
+                array('x', '.', '.'),
+                array('x', '.', '.')
+        });
+
+        assertArrayEquals(new int[][]{
+                new int[]{-1, 0, 1},
+                new int[]{-1, 0, 1},
+                new int[]{-1, 0, 1}
+        }, map);
+    }
+
+    @Test
+    public void testLeftMap02() {
+        final int[][] map = LargestFence.rightMap(new char[][]{
+                array('x', '.', '.'),
+                array('x', '.', '.'),
+                array('x', '.', '.')
+        });
+
+        assertArrayEquals(new int[][]{
+                new int[]{-1, 1, 0},
+                new int[]{-1, 1, 0},
+                new int[]{-1, 1, 0}
+        }, map);
+    }
+
 }
