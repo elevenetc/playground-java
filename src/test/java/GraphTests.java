@@ -4,6 +4,8 @@ import su.levenetc.playground.java.datastructures.Node;
 import su.levenetc.playground.java.utils.Out;
 import su.levenetc.playground.java.utils.Utils;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -106,6 +108,22 @@ public class GraphTests {
         graph.addEdge(1, 2);
         graph.addEdge(3, 1);
         assertEquals(Node.nodesList(4, 3, 1, 2), graph.getTopologicalOrdered());
+    }
+
+    @Test
+    public void testBiBFS() {
+        Graph graph = new Graph();
+        graph.addBiEdge(1, 4);
+        graph.addBiEdge(1, 3);
+        graph.addBiEdge(1, 2);
+        graph.addBiEdge(3, 2);
+        graph.addBiEdge(4, 6);
+        graph.addBiEdge(6, 7);
+        graph.addBiEdge(2, 10);
+
+        final List<Node> path = graph.bfsShortestPath(2, 7);
+        final List<Node> shortest = Arrays.asList(Node.nodes(7, 6, 4, 1, 2));
+        assertEquals(shortest, path);
     }
 
     static Graph createCycleGraph() {

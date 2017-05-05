@@ -18,6 +18,10 @@ public class Node {
         this.value = value;
     }
 
+    public boolean isNeighbour(Node node) {
+        return nextNodes.contains(node);
+    }
+
     public List<Node> getNextNodes() {
         return nextNodes;
     }

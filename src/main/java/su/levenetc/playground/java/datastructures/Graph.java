@@ -69,6 +69,50 @@ public class Graph {
         return result;
     }
 
+    public List<Node> bfsShortestPath(int from, int to) {
+        final Node start = allNodes.get(from);
+        Set<Node> visited = new HashSet<>();
+        Queue<Node> queue = new LinkedList<>();
+        Deque<Node> stack = new LinkedList<>();
+        queue.add(start);
+        stack.push(start);
+        boolean found = false;
+        while (!queue.isEmpty() || !found) {
+            final Node polled = queue.poll();
+
+            if (visited.contains(polled)) continue;
+
+            visited.add(polled);
+
+            for (Node child : polled.getNextNodes()) {
+                if (visited.contains(child)) continue;
+
+                queue.add(child);
+                stack.push(child);
+
+                if (child.value == to) {
+                    found = true;
+                    break;
+                }
+            }
+
+
+        }
+
+        List<Node> result = new ArrayList<>();
+        Node current = stack.pop();
+        result.add(current);
+        while (!stack.isEmpty()) {
+            final Node popped = stack.pop();
+            if (popped.isNeighbour(current)) {
+                result.add(popped);
+                current = popped;
+            }
+        }
+
+        return result;
+    }
+
     public List<Integer> bfs(int source) {
         List<Integer> visited = new ArrayList<>();
         final Node node = allNodes.get(source);
@@ -77,11 +121,7 @@ public class Graph {
         while (!queue.isEmpty()) {
             final Node polled = queue.poll();
             visited.add(polled.value);
-            Out.pln("visited", polled.value);
-            final List<Node> children = polled.getNextNodes();
-            for (Node child : children) {
-                queue.add(child);
-            }
+            queue.addAll(polled.getNextNodes());
         }
         return visited;
     }
@@ -115,6 +155,12 @@ public class Graph {
         }
 
         resultStack.push(node);
+    }
+
+    public Graph addBiEdge(int nodeValueA, int nodeValueB) {
+        addEdge(nodeValueA, nodeValueB);
+        addEdge(nodeValueB, nodeValueA);
+        return this;
     }
 
     public Graph addEdge(int nodeValueA, int nodeValueB) {
