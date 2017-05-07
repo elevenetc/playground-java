@@ -8,27 +8,36 @@ import java.util.List;
  * https://www.hackerrank.com/challenges/equal-stacks
  */
 public class MaxHeightOfStacks {
+
     public static int get(int[] h1, int[] h2, int[] h3) {
         int sum1 = 0;
         int sum2 = 0;
         int sum3 = 0;
 
+        for (int i : h1) sum1 += i;
+        for (int i : h2) sum2 += i;
+        for (int i : h3) sum3 += i;
+        return get(h1, h2, h3, sum1, sum2, sum3);
+    }
+
+    public static int get(int[] h1, int[] h2, int[] h3, int sum1, int sum2, int sum3) {
+
         int n1 = 0;
         int n2 = 0;
         int n3 = 0;
 
-        while (sum1 != sum2 && sum1 != sum3) {
+        while (sum1 != sum2 || sum1 != sum3) {
 
             if (sum1 > sum2 && sum1 > sum3) {
                 sum1 -= h1[n1];
-                //System.out.println("min1:" + h1[n1]);
+                System.out.println("min1:" + h1[n1]);
                 n1++;
                 //continue;
             }
 
             if (sum2 > sum1 && sum2 > sum3) {
                 sum2 -= h2[n2];
-                //System.out.println("min2:" + h2[n2]);
+                System.out.println("min2:" + h2[n2]);
                 n2++;
 
                 //continue;
@@ -36,17 +45,21 @@ public class MaxHeightOfStacks {
 
             if (sum3 > sum2 && sum3 > sum1) {
                 sum3 -= h3[n3];
-                //System.out.println("min3:" + h3[n3]);
+                System.out.println("min3:" + h3[n3]);
                 n3++;
                 //continue;
             }
+
+            if (sum1 == 0 || sum2 == 0 || sum3 == 0) return 0;
         }
 
-        //return sum1;
+        return sum1;
+    }
 
+    public static int get01(int[] h1, int[] h2, int[] h3) {
         List<Integer> s1 = calcSum(h1);
         List<Integer> s2 = calcSum(h2);
-        List<Integer> s3 = calcSum(h2);
+        List<Integer> s3 = calcSum(h3);
 
         return findCommonMax(s1, s2, s3);
     }

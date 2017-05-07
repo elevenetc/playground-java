@@ -15,4 +15,13 @@ public class TestMaxHeightOfStacks {
                 new int[]{1, 1, 4, 1}
         ));
     }
+
+    @Test
+    public void test02() {
+        assertEquals(0, MaxHeightOfStacks.get(
+                new int[]{1, 1, 1, 1, 2},
+                new int[]{3, 7},
+                new int[]{1, 3, 1}
+        ));
+    }
 }
