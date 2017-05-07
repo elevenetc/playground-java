@@ -4,8 +4,6 @@ import su.levenetc.playground.java.datastructures.Node;
 import su.levenetc.playground.java.utils.Out;
 import su.levenetc.playground.java.utils.Utils;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -111,7 +109,7 @@ public class GraphTests {
     }
 
     @Test
-    public void testBiBFS() {
+    public void testBFSShortest01() {
         Graph graph = new Graph();
         graph.addBiEdge(1, 4);
         graph.addBiEdge(1, 3);
@@ -121,9 +119,56 @@ public class GraphTests {
         graph.addBiEdge(6, 7);
         graph.addBiEdge(2, 10);
 
-        final List<Node> path = graph.bfsShortestPath(2, 7);
-        final List<Node> shortest = Arrays.asList(Node.nodes(7, 6, 4, 1, 2));
-        assertEquals(shortest, path);
+//        final List<Node> path = graph.bfsShortestPathLength(2, 7);
+//        assertEquals(shortest, path);
+    }
+
+    @Test
+    public void testBFSShortest02() {
+        Graph graph = new Graph();
+        graph.addBiEdge(1, 2);
+        graph.addBiEdge(3, 4);
+
+//        final List<Node> path = graph.bfsShortestPathLength(1, 4);
+//        assertEquals(shortest, path);
+    }
+
+    @Test
+    public void testBFSShortest03() {
+        Graph graph = new Graph();
+        graph.addBiEdge(0, 1);
+        graph.addBiEdge(0, 2);
+        graph.addBiEdge(0, 3);
+        graph.addBiEdge(2, 1);
+        graph.addBiEdge(3, 1);
+
+//        final List<Node> path = graph.bfsShortestPathLength(0, 1);
+//        assertEquals(shortest, path);
+    }
+
+    @Test
+    public void testBFSShortest04() {
+        Graph graph = new Graph();
+        graph.addBiEdge(0, 1);
+        graph.addBiEdge(1, 2);
+        graph.addBiEdge(2, 0);
+
+//        final List<Node> path = graph.bfsShortestPathLength(0, 2);
+//        assertEquals(shortest, path);
+    }
+
+    @Test
+    public void testBFSShortest05() {
+        Graph graph = new Graph();
+        graph.addBiEdge(0, 1);
+        graph.addBiEdge(1, 3);
+        graph.addBiEdge(3, 2);
+        graph.addBiEdge(2, 0);
+        graph.addBiEdge(0, 3);
+        graph.addBiEdge(3, 10);
+
+        final int dist = graph.bfsShortestPathLength(0, 10);
+        assertEquals(2, dist);
     }
 
     static Graph createCycleGraph() {

@@ -69,44 +69,35 @@ public class Graph {
         return result;
     }
 
-    public List<Node> bfsShortestPath(int from, int to) {
+    public int bfsShortestPathLength(int from, int to) {
         final Node start = allNodes.get(from);
         Set<Node> visited = new HashSet<>();
         Queue<Node> queue = new LinkedList<>();
-        Deque<Node> stack = new LinkedList<>();
+        Map<Node, Integer> distances = new HashMap<>();
         queue.add(start);
-        stack.push(start);
+        visited.add(start);
+        distances.put(start, 0);
         boolean found = false;
-        while (!queue.isEmpty() || !found) {
-            final Node polled = queue.poll();
+        int result = 0;
+        while (!queue.isEmpty() && !found) {
 
-            if (visited.contains(polled)) continue;
+            Node node = queue.poll();
+            List<Node> children = node.getNextNodes();
 
-            visited.add(polled);
-
-            for (Node child : polled.getNextNodes()) {
+            for (Node child : children) {
                 if (visited.contains(child)) continue;
 
+
+                visited.add(child);
+
                 queue.add(child);
-                stack.push(child);
+                distances.put(child, distances.get(node) + 1);
 
                 if (child.value == to) {
                     found = true;
+                    result = distances.get(node) + 1;
                     break;
                 }
-            }
-
-
-        }
-
-        List<Node> result = new ArrayList<>();
-        Node current = stack.pop();
-        result.add(current);
-        while (!stack.isEmpty()) {
-            final Node popped = stack.pop();
-            if (popped.isNeighbour(current)) {
-                result.add(popped);
-                current = popped;
             }
         }
 
