@@ -2,43 +2,20 @@ package su.levenetc.playground.java.algs;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Created by eugene.levenetc on 07/05/2017.
  * https://www.hackerrank.com/challenges/equal-stacks
  */
 public class MaxHeightOfStacks {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        int n1 = in.nextInt();
-        int n2 = in.nextInt();
-        int n3 = in.nextInt();
-        int h1[] = new int[n1];
-        int h2[] = new int[n2];
-        int h3[] = new int[n3];
+    public static int get(int[] h1, int[] h2, int[] h3) {
         int sum1 = 0;
         int sum2 = 0;
         int sum3 = 0;
 
-        for (int h1_i = 0; h1_i < n1; h1_i++) {
-            h1[h1_i] = in.nextInt();
-            sum1 += h1[h1_i];
-        }
-
-        for (int h2_i = 0; h2_i < n2; h2_i++) {
-            h2[h2_i] = in.nextInt();
-            sum2 += h2[h2_i];
-        }
-
-        for (int h3_i = 0; h3_i < n3; h3_i++) {
-            h3[h3_i] = in.nextInt();
-            sum3 += h3[h3_i];
-        }
-
-        n1 = 0;
-        n2 = 0;
-        n3 = 0;
+        int n1 = 0;
+        int n2 = 0;
+        int n3 = 0;
 
         while (sum1 != sum2 && sum1 != sum3) {
 
@@ -65,13 +42,13 @@ public class MaxHeightOfStacks {
             }
         }
 
-        System.out.println(sum1);
+        //return sum1;
 
-        //List<Integer> sum1 = calcSum(h1);
-        //List<Integer> sum2 = calcSum(h2);
-        //List<Integer> sum3 = calcSum(h2);
+        List<Integer> s1 = calcSum(h1);
+        List<Integer> s2 = calcSum(h2);
+        List<Integer> s3 = calcSum(h2);
 
-        //System.out.println(findCommonMax(sum1, sum2, sum3));
+        return findCommonMax(s1, s2, s3);
     }
 
     static int findCommonMax(List<Integer> sum1, List<Integer> sum2, List<Integer> sum3) {
