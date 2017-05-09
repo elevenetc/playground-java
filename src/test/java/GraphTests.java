@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by eugene.levenetc on 17/03/2017.
@@ -169,6 +171,26 @@ public class GraphTests {
 
         final int dist = graph.bfsShortestPathLength(0, 10);
         assertEquals(2, dist);
+    }
+
+    @Test
+    public void isBiPartite01() {
+        Graph graph = new Graph();
+        graph.addBiEdge(4, 3);
+        graph.addBiEdge(4, 1);
+        graph.addBiEdge(4, 2);
+        graph.addBiEdge(5, 2);
+        assertTrue(graph.isBiPartite());
+    }
+
+    @Test
+    public void isBiPartite02() {
+        Graph graph = new Graph();
+        graph.addBiEdge(1, 4);
+        graph.addBiEdge(1, 3);
+        graph.addBiEdge(1, 2);
+        graph.addBiEdge(3, 2);
+        assertFalse(graph.isBiPartite());
     }
 
     static Graph createCycleGraph() {

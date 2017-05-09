@@ -337,6 +337,50 @@ public class Graph {
         return result;
     }
 
+    public boolean isBiPartite() {
+        final Node start = allNodes.entrySet().iterator().next().getValue();
+
+        Queue<Node> queue = new LinkedList<>();
+        Set<Node> black = new HashSet<>();
+        Set<Node> white = new HashSet<>();
+        Set<Node> visited = new HashSet<>();
+
+        visited.add(start);
+        queue.add(start);
+        black.add(start);
+
+        while (!queue.isEmpty()) {
+
+
+            Node parent = queue.poll();
+            boolean isParentBlack = black.contains(parent);
+            List<Node> children = parent.getNextNodes();
+
+
+            for (Node child : children) {
+                if (visited.contains(child)) {
+                    if (isParentBlack) {
+                        if (black.contains(child)) return false;
+                    } else {
+                        if (white.contains(child)) return false;
+                    }
+                } else {
+
+                    queue.add(child);
+                    visited.add(child);
+
+                    if (isParentBlack) {
+                        white.add(child);
+                    } else {
+                        black.add(child);
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
     interface TraverseHandler {
         void visit(Node node);
     }
