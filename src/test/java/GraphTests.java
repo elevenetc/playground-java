@@ -7,9 +7,7 @@ import su.levenetc.playground.java.utils.Utils;
 import java.util.Map;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created by eugene.levenetc on 17/03/2017.
