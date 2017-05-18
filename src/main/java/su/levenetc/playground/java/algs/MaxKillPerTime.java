@@ -45,7 +45,7 @@ public class MaxKillPerTime {
                 if (hitTimes == 0) {
                     return killedMonsters;
                 } else if (hitTimes < 0) {
-                    return 0;
+                    return --killedMonsters;
                 }
             }
 

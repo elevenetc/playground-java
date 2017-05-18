@@ -41,4 +41,18 @@ public class MaxKillPerTimeTests {
                 new int[]{100, 100, 100, 100})
         );
     }
+
+    @Test
+    public void test06() {
+        assertEquals(4, MaxKillPerTime.getMaxMonsters(1, 400,
+                new int[]{100, 100, 100, 100})
+        );
+    }
+
+    @Test
+    public void test07() {
+        assertEquals(3, MaxKillPerTime.getMaxMonsters(1, 399,
+                new int[]{100, 100, 100, 100})
+        );
+    }
 }
