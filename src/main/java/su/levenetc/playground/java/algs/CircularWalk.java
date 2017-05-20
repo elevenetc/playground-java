@@ -47,7 +47,6 @@ public class CircularWalk {
                     rightStepIndex = 0;
                 }
 
-
                 child = nodes[rightStepIndex];
                 if (child == null) {
                     nodes[rightStepIndex] = new Node(rightStepIndex);
@@ -90,11 +89,14 @@ public class CircularWalk {
         while (!queue.isEmpty()) {
 
             final Node poll = queue.poll();
+            boolean wasStep = false;
 
             if (!poll.left.isEmpty()) {
 
                 for (Node child : poll.left) {
-                    if (child.value == to) return result;
+                    if (child.value == to) {
+                        return ++result;
+                    }
 
                     if (!visited[child.value]) {
                         visited[child.value] = true;
@@ -103,23 +105,29 @@ public class CircularWalk {
                     }
                 }
 
-                result++;
+                wasStep = true;
             }
 
             if (!poll.right.isEmpty()) {
 
                 for (Node child : poll.right) {
-                    if (child.value == to) return result;
+                    if (child.value == to) {
+                        return ++result;
+                    }
 
                     if (!visited[child.value]) {
                         visited[child.value] = true;
                         queue.add(child);
                     }
                 }
+                wasStep = true;
+            }
+
+            if (wasStep) {
                 result++;
             }
         }
-        return result;
+        return 0;
     }
 
     static class Node {
