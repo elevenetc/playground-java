@@ -25,4 +25,18 @@ public class CircularWalkTests {
                 1, 10, 1, 1, 1
         }));
     }
+
+    @Test
+    public void test3() {
+        assertEquals(1, CircularWalk.find(0, 1, new int[]{
+                10, 10, 1, 1, 1
+        }));
+    }
+
+    @Test
+    public void test4() {
+        assertEquals(3, CircularWalk.find(0, 3, new int[]{
+                1, 1, 1, 1, 1, 1
+        }));
+    }
 }

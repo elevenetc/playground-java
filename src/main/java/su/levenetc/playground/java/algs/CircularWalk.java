@@ -110,6 +110,14 @@ public class CircularWalk {
 
             final Node poll = queue.poll();
 
+            if (willFindOnLeft(node, node.left, to)) {
+                return distances[poll.value] + 1;
+            }
+
+            if (willFindOnRight(node, node.right, to)) {
+                return distances[poll.value] + 1;
+            }
+
             if (!poll.left.isEmpty()) {
 
                 for (Node child : poll.left) {
