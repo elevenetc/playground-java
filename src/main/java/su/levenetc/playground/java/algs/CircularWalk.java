@@ -9,11 +9,24 @@ import java.util.Queue;
  * Created by eugene.levenetc on 18/05/2017.
  */
 public class CircularWalk {
-    public static int find(int points, int from, int to, int r0, int g, int seed, int p) {
+
+    public static int find(int from, int to, int[] dists) {
+        return find(dists.length, from, to, 0, 0, 0, 0, dists);
+    }
+
+    public static int find(int points, int from, int to, int r0, int g, int seed, int p, int[] dists) {
+        if (from == to) return 0;
         int steps[] = new int[points];
         Node[] nodes = new Node[points];
         steps[0] = r0;
+        if (buildGraph(points, r0, g, seed, p, steps, nodes, from, dists)) {
+            return findSteps(nodes, from, to);
+        } else {
+            return -1;
+        }
+    }
 
+    private static boolean buildGraph(int points, int r0, int g, int seed, int p, int[] steps, Node[] nodes, int from, int[] dists) {
         for (int i = 0; i < points; i++) {
 
             Node node = nodes[i];
@@ -23,10 +36,17 @@ public class CircularWalk {
             }
 
             int stepsAmount;
-            if (i == 0) stepsAmount = r0;
-            else stepsAmount = (steps[i - 1] * g + seed) % p;
+            if (dists == null) {
+                if (i == 0) stepsAmount = r0;
+                else stepsAmount = (steps[i - 1] * g + seed) % p;
+            } else {
+                stepsAmount = dists[i];
+            }
+
             steps[i] = stepsAmount;
 
+
+            if (i == from && stepsAmount == 0) return false;
             if (stepsAmount == 0) continue;
 
             if (stepsAmount > points - 1) {
@@ -73,61 +93,77 @@ public class CircularWalk {
                 stepsAmount--;
             }
         }
-
-        return findSteps(nodes, from, to);
+        return true;
     }
 
     static int findSteps(Node[] nodes, int from, int to) {
-        int result = 0;
         final Node node = nodes[from];
 
         Queue<Node> queue = new LinkedList<>();
         boolean[] visited = new boolean[nodes.length];
+        int[] distances = new int[nodes.length];
         visited[from] = true;
+        distances[from] = 0;
         queue.add(node);
 
         while (!queue.isEmpty()) {
 
             final Node poll = queue.poll();
-            boolean wasStep = false;
 
             if (!poll.left.isEmpty()) {
 
                 for (Node child : poll.left) {
                     if (child.value == to) {
-                        return ++result;
+                        return distances[poll.value] + 1;
                     }
 
                     if (!visited[child.value]) {
                         visited[child.value] = true;
+                        distances[child.value] = distances[poll.value] + 1;
 
                         queue.add(child);
                     }
                 }
-
-                wasStep = true;
             }
 
             if (!poll.right.isEmpty()) {
 
                 for (Node child : poll.right) {
                     if (child.value == to) {
-                        return ++result;
+                        return distances[poll.value] + 1;
                     }
 
                     if (!visited[child.value]) {
                         visited[child.value] = true;
+                        distances[child.value] = distances[poll.value] + 1;
                         queue.add(child);
                     }
                 }
-                wasStep = true;
-            }
-
-            if (wasStep) {
-                result++;
             }
         }
-        return 0;
+        return -1;
+    }
+
+    static boolean willFindOnRight(Node node, List<Node> children, int to) {
+        if (children.isEmpty()) return false;
+        if (node.value + children.size() >= to) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    static boolean willFindOnLeft(Node node, List<Node> children, int to) {
+        if (children.isEmpty()) return false;
+        if (node.value + children.size() >= to) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    static boolean isInRightZone(int from, int steps, int target, int total) {
+        return false;
     }
 
     static class Node {
