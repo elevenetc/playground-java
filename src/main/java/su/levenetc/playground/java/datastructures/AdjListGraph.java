@@ -9,34 +9,57 @@ import java.util.List;
 public class AdjListGraph {
 
     List<Integer>[] nodes;
+    private boolean directed;
 
-    public AdjListGraph(int n) {
-        nodes = (ArrayList<Integer>[]) new ArrayList[n];
+    public static AdjListGraph directed(int n) {
+        return new AdjListGraph(n, true);
     }
 
-    public void addEdge(int nodeA, int nodeB) {
+    public static AdjListGraph nonDirected(int n) {
+        return new AdjListGraph(n, false);
+    }
+
+    private AdjListGraph(int n, boolean directed) {
+        nodes = (ArrayList<Integer>[]) new ArrayList[n];
+        this.directed = directed;
+    }
+
+    public void addEdge(int nodeFrom, int nodeTo) {
         List<Integer> listA;
         List<Integer> listB;
-        if (nodes[nodeA] == null) {
+        if (nodes[nodeFrom] == null) {
             listA = new ArrayList<>();
-            nodes[nodeA] = listA;
+            nodes[nodeFrom] = listA;
         } else {
-            listA = nodes[nodeA];
+            listA = nodes[nodeFrom];
         }
 
-        if (nodes[nodeB] == null) {
+        if (nodes[nodeTo] == null) {
             listB = new ArrayList<>();
-            nodes[nodeB] = listB;
+            nodes[nodeTo] = listB;
         } else {
-            listB = nodes[nodeB];
+            listB = nodes[nodeTo];
         }
 
-        listA.add(nodeB);
-        listB.add(nodeA);
+        if (directed) {
+            listA.add(nodeTo);
+        } else {
+            listA.add(nodeTo);
+            listB.add(nodeFrom);
+        }
     }
 
-    public boolean connected(int nodeA, int nodeB) {
-        if (nodes[nodeA] == null || nodes[nodeB] == null) return false;
-        return nodes[nodeA].contains(nodeB) && nodes[nodeB].contains(nodeA);
+    public boolean contains(int node) {
+        return node <= nodes.length - 1 && nodes[node] != null;
+    }
+
+    public boolean connected(int nodeFrom, int nodeTo) {
+        if (nodes[nodeFrom] == null || nodes[nodeTo] == null) return false;
+
+        if (directed) {
+            return nodes[nodeFrom].contains(nodeTo);
+        } else {
+            return nodes[nodeFrom].contains(nodeTo) && nodes[nodeTo].contains(nodeFrom);
+        }
     }
 }
