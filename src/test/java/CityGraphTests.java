@@ -52,4 +52,36 @@ public class CityGraphTests {
         assertEquals("Yes", graph.isConnectedCmd(6, 2));
         assertEquals("No", graph.isConnectedCmd(2, 6));
     }
+
+    @Test
+    public void test04() {
+        CityGraph graph = new CityGraph(2);
+        graph.addEdge(1, 2);
+
+        graph.createNewCityFrom(2);
+        graph.createNewCityFrom(3);
+        graph.createNewCityFrom(4);
+        graph.createNewCityFrom(100);
+
+        assertEquals("No", graph.isConnectedCmd(50, 100));
+        assertEquals("No", graph.isConnectedCmd(1000, 500));
+        assertEquals("No", graph.isConnectedCmd(3, 2));
+        assertEquals("No", graph.isConnectedCmd(4, 3));
+        assertEquals("No", graph.isConnectedCmd(5, 4));
+        assertEquals("No", graph.isConnectedCmd(100, 5));
+        assertEquals("Yes", graph.isConnectedCmd(100, 6));
+    }
+
+    @Test
+    public void test05() {
+        CityGraph graph = new CityGraph(3);
+        graph.addEdge(1, 2);
+        graph.addEdge(2, 3);
+        graph.addEdge(3, 1);
+        graph.addEdge(1, 3);
+
+        assertEquals("Yes", graph.isConnectedCmd(1, 3));
+        assertEquals("Yes", graph.isConnectedCmd(3, 1));
+
+    }
 }

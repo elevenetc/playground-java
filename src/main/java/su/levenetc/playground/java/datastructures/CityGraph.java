@@ -48,19 +48,15 @@ public class CityGraph {
 
     public void addEdge(int from, int to) {
 
-        Node nodeFrom;
-        Node nodeTo;
+        Node nodeFrom = nodes.get(from);
+        Node nodeTo = nodes.get(to);
 
-        if (nodes.containsKey(from)) {
-            nodeFrom = nodes.get(from);
-        } else {
+        if (nodeFrom == null) {
             nodeFrom = new Node(from);
             nodes.put(from, nodeFrom);
         }
 
-        if (nodes.containsKey(to)) {
-            nodeTo = nodes.get(to);
-        } else {
+        if (nodeTo == null) {
             nodeTo = new Node(to);
             nodes.put(to, nodeTo);
         }
@@ -70,24 +66,26 @@ public class CityGraph {
 
     boolean isConnected(int from, int to) {
         Queue<Node> queue = new LinkedList<>();
-        boolean[] visited = new boolean[nodes.size() + 1];
+        Set<Node> visited = new HashSet<>();
         Node start = nodes.get(from);
         Node finish = nodes.get(to);
 
-        visited[start.value] = true;
+        if (start == null || finish == null) return false;
+
+        visited.add(start);
         queue.add(start);
 
         while (!queue.isEmpty()) {
             Node polled = queue.poll();
 
             for (Node child : polled.children) {
-                if (visited[child.value]) continue;
+                if (visited.contains(child)) continue;
 
-                if (child == finish) {
+                if (child.value == finish.value) {
                     return true;
                 }
 
-                visited[child.value] = true;
+                visited.add(child);
                 queue.add(child);
             }
         }
@@ -106,6 +104,16 @@ public class CityGraph {
 
         void addChild(Node child) {
             children.add(child);
+        }
+
+        @Override
+        public int hashCode() {
+            return 1;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return ((Node) obj).value == value;
         }
     }
 }
