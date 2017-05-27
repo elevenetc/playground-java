@@ -7,10 +7,16 @@ import java.util.*;
  */
 public class FileSys {
 
-    static Map<String, Set<Integer>> filesCounter = new HashMap<>();
-    static Set<String> files = new HashSet<>();
+    Map<String, Set<Integer>> filesCounter = new HashMap<>();
+    Set<String> files = new HashSet<>();
 
-    public static String createFile(String name) {
+
+
+    public Set<String> getFiles() {
+        return files;
+    }
+
+    public String createFile(String name) {
         String result;
         if (files.contains(name)) {
 
@@ -30,7 +36,20 @@ public class FileSys {
         return result;
     }
 
-    static int getMinCounter(String name) {
+    public String rename(String from, String to) {
+        deleteFile(from);
+        return createFile(to);
+    }
+
+    public String deleteFile(String name) {
+        final int counter = getCounter(name);
+        final String rawName = getRawName(name);
+        filesCounter.get(rawName).remove(counter);
+        files.remove(name);
+        return name;
+    }
+
+    int getMinCounter(String name) {
         Set<Integer> counter = filesCounter.get(name);
         Iterator<Integer> it = counter.iterator();
         int prev = -1;
@@ -50,7 +69,7 @@ public class FileSys {
         return cur;
     }
 
-    static void addCounter(String name, int counterId) {
+    void addCounter(String name, int counterId) {
         Set<Integer> counter;
         if (filesCounter.containsKey(name)) {
             counter = filesCounter.get(name);
@@ -61,7 +80,7 @@ public class FileSys {
         counter.add(counterId);
     }
 
-    static String getRawName(String name) {
+    String getRawName(String name) {
         if (hasCounter(name)) {
             return name.split("\\(")[0];
         } else {
@@ -69,7 +88,7 @@ public class FileSys {
         }
     }
 
-    static int getCounter(String name) {
+    int getCounter(String name) {
         if (hasCounter(name)) {
             String tmp = name.split("\\(")[1];
             return Integer.parseInt(tmp.substring(0, tmp.length() - 1));
@@ -78,7 +97,7 @@ public class FileSys {
         }
     }
 
-    static boolean hasCounter(String name) {
+    boolean hasCounter(String name) {
         return name.charAt(name.length() - 1) == ')';
     }
 }

@@ -1,13 +1,17 @@
 package su.levenetc.playground.java.utils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by eugene.levenetc on 08/04/2017.
  */
 public class Utils {
+
+    public static <T> Set<T> set(T... values) {
+        Set<T> result = new HashSet<>();
+        result.addAll(Arrays.asList(values));
+        return result;
+    }
 
     public static <T> T get(List<T> list, int index) {
         if (index < 0 || index > list.size() - 1) {
