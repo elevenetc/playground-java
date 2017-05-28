@@ -1,6 +1,8 @@
 import org.junit.Test;
 import su.levenetc.playground.java.datastructures.AdjListGraph;
 
+import java.util.Set;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -40,5 +42,42 @@ public class TestAdjListGraph {
         assertTrue(graph.contains(0));
         assertTrue(graph.contains(1));
         assertFalse(graph.contains(100));
+    }
+
+    @Test
+    public void test04() {
+        AdjListGraph graph = AdjListGraph.directed(3);
+        graph.addEdge(0, 1);
+        graph.addEdge(1, 2);
+        graph.connectedComponents();
+
+    }
+
+    @Test
+    public void test05() {
+        AdjListGraph graph = AdjListGraph.directed(3);
+        graph.addEdge(0, 1);
+        graph.addEdge(1, 2);
+        assertTrue(graph.connected(0, 1));
+        assertTrue(graph.connected(1, 2));
+        graph.reverse();
+        assertTrue(graph.connected(1, 0));
+        assertTrue(graph.connected(2, 1));
+    }
+
+    @Test
+    public void test06() {
+        AdjListGraph graph = AdjListGraph.directed(6);
+        graph.addEdge(0, 1);
+        graph.addEdge(1, 2);
+        graph.addEdge(2, 0);
+
+        graph.addEdge(2, 3);
+
+        graph.addEdge(3, 4);
+        graph.addEdge(4, 5);
+        graph.addEdge(5, 3);
+
+        final Set<Set<Integer>> components = graph.connectedComponents();
     }
 }
