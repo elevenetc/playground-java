@@ -28,4 +28,12 @@ public class TestStringPermutation {
         );
     }
 
+    @Test
+    public void test03() {
+        AssertUtils.assertContains(
+                StringPermutation.permutate2(20, '-', '*'),
+                "**", "-*", "*-"
+        );
+    }
+
 }

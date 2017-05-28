@@ -16,26 +16,6 @@ public class StringPermutation {
         return result;
     }
 
-    public static Set<String> permutate2(int length, char a, char b) {
-        char[] chars = new char[length];
-        Set<String> result = new HashSet<>();
-        Arrays.fill(chars, a);
-        permutate2Internal(chars, length, a, b, result);
-        return result;
-    }
-
-    private static void permutate2Internal(char[] chars, int length, char a, char b, Set<String> result) {
-        for (int i = 0; i < chars.length; i++) {
-            if (chars[i] == a) {
-                char[] copy = new char[length];
-                System.arraycopy(chars, 0, copy, 0, chars.length);
-                copy[i] = b;
-                result.add(new String(copy));
-                permutate2Internal(copy, length, a, b, result);
-            }
-        }
-    }
-
     private static void permutateInternal(String[] letters, int right, Set<String> result) {
 
         if (right == 1) {
@@ -50,12 +30,35 @@ public class StringPermutation {
                 swap(letters, alwaysLeft ? left : 0, right - 1);
             }
         }
-
     }
 
     private static void swap(String[] letters, int left, int right) {
         String temp = letters[left];
         letters[left] = letters[right];
         letters[right] = temp;
+    }
+
+    public static Set<String> permutate2(int length, char a, char b) {
+        char[] chars = new char[length];
+        Set<String> result = new HashSet<>();
+        Arrays.fill(chars, a);
+        permutate2Internal(chars, length, a, b, result);
+        return result;
+    }
+
+    private static void permutate2Internal(char[] chars, int length, char a, char b, Set<String> result) {
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] == a) {
+                char[] copy = new char[length];
+                System.arraycopy(chars, 0, copy, 0, chars.length);
+                copy[i] = b;
+
+                String str = new String(copy);
+                if (result.contains(str)) continue;
+                result.add(str);
+
+                permutate2Internal(copy, length, a, b, result);
+            }
+        }
     }
 }
