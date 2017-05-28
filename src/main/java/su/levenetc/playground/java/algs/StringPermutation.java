@@ -1,5 +1,6 @@
 package su.levenetc.playground.java.algs;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,6 +14,26 @@ public class StringPermutation {
         final Set<String> result = new HashSet<>();
         permutateInternal(letters, letters.length, result);
         return result;
+    }
+
+    public static Set<String> permutate2(int length, char a, char b) {
+        char[] chars = new char[length];
+        Set<String> result = new HashSet<>();
+        Arrays.fill(chars, a);
+        permutate2Internal(chars, length, a, b, result);
+        return result;
+    }
+
+    private static void permutate2Internal(char[] chars, int length, char a, char b, Set<String> result) {
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] == a) {
+                char[] copy = new char[length];
+                System.arraycopy(chars, 0, copy, 0, chars.length);
+                copy[i] = b;
+                result.add(new String(copy));
+                permutate2Internal(copy, length, a, b, result);
+            }
+        }
     }
 
     private static void permutateInternal(String[] letters, int right, Set<String> result) {

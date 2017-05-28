@@ -41,8 +41,8 @@ public class AssertUtils {
         }
     }
 
-    public static <T> void assertContains(Set<T> set, T... objects) {
-        for (T object : objects) {
+    public static <T> void assertContains(Set<T> set, T... expects) {
+        for (T object : expects) {
             assertTrue(set.contains(object));
         }
     }
