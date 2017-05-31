@@ -1,5 +1,7 @@
 package su.levenetc.playground.java.utils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -11,11 +13,23 @@ import java.util.List;
 public class Out {
 
     public static void plnBin(String prefix, int val) {
-        Out.pln(prefix + ": " + Integer.toBinaryString(val));
+        Out.pln(prefix + ": " + binValue(val));
+    }
+
+    public static void pBin(int val) {
+        Out.p(binValue(val));
     }
 
     public static void plnBin(int val) {
-        Out.pln(Integer.toBinaryString(val));
+        Out.pln(binValue(val));
+    }
+
+    @NotNull
+    public static String binValue(int val) {
+        StringBuilder binValue = new StringBuilder(Integer.toBinaryString(val));
+        final int rem = 32 - binValue.length();
+        for (int i = 0; i < rem; i++) binValue.insert(0, new char[]{'0'}, 0, 1);
+        return binValue.toString();
     }
 
     public static void pln(HashMap<String, String> hashMap) {
