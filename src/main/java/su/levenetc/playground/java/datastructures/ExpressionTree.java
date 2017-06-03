@@ -1,9 +1,9 @@
 package su.levenetc.playground.java.datastructures;
 
+import java.util.Deque;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
-
-import su.levenetc.playground.java.utils.Out;
 
 /**
  * Created by eugene.levenetc on 01/06/2017.
@@ -11,7 +11,6 @@ import su.levenetc.playground.java.utils.Out;
 public class ExpressionTree {
 
     private Map<Type, String> expressions = new HashMap<>();
-    private Graph infixGraph;
     private Node root;
 
     public ExpressionTree() {
@@ -28,64 +27,98 @@ public class ExpressionTree {
         this.root = root;
     }
 
-    private void buildTree(String expression, Type type) {
+    public void buildTree(String expression, Type type) {
         if (type == Type.INFIX) {
             buildInfixGraph(expression);
         }
     }
 
     private void buildInfixGraph(String expression) {
-        infixGraph = new Graph();
         final int length = expression.length();
+        Deque<Node> stack = new LinkedList<>();
         for (int i = 0; i < length; i++) {
             char ch = expression.charAt(i);
 
             if (isOperator(ch)) {
+                Node operand = stack.pop();
+                Node operator = new Node(ch);
+                operator.left = operand;
+                stack.push(operator);
+            } else if (isOperand(ch)) {
 
-            } else {
+                Node operand = new Node(ch);
+                if (!stack.isEmpty()) {
+                    final Node operator = stack.pop();
+                    operator.right = operand;
+                    stack.push(operator);
+                } else {
+                    stack.push(operand);
+                }
 
             }
         }
+        root = stack.pop();
     }
 
     static boolean isOperator(char ch) {
         return ch == '-' || ch == '+' || ch == '/' || ch == '*';
     }
 
+    static boolean isLevelOperator(char ch) {
+        return ch == '/' || ch == '*';
+    }
+
     static boolean isOperand(char ch) {
-        return !isOperator(ch);
+        return (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9');
     }
 
-    public void print(Type type) {
-        Out.pln();
+    public String toString(Type type) {
+        StringBuilder result = new StringBuilder();
         if (type == Type.INFIX) {
-            printInOrder(root);
+            buildInOrder(root, result, 0);
         } else if (type == Type.PREFIX) {
-            printPreOrder(root);
+            buildPreOrder(root, result);
         } else if (type == Type.POSTFIX) {
-            printPostOrder(root);
+            buildPostOrder(root, result);
         }
+        return result.toString();
     }
 
-    private void printPostOrder(Node node) {
+    private void buildPostOrder(Node node, StringBuilder result) {
         if (node == null) return;
-        printPostOrder(node.left);
-        printPostOrder(node.right);
-        Out.p(node.value);
+        buildPostOrder(node.left, result);
+        buildPostOrder(node.right, result);
+        result.append(node.value);
     }
 
-    private void printPreOrder(Node node) {
+    private void buildPreOrder(Node node, StringBuilder result) {
         if (node == null) return;
-        Out.p(node.value);
-        printPreOrder(node.left);
-        printPreOrder(node.right);
+        result.append(node.value);
+        buildPreOrder(node.left, result);
+        buildPreOrder(node.right, result);
     }
 
-    private void printInOrder(Node node) {
+    private void buildInOrder(Node node, StringBuilder result, int level) {
         if (node == null) return;
-        printInOrder(node.left);
-        Out.p(node.value);
-        printInOrder(node.right);
+
+        if (isLevelOperator(node.value)) {
+            level++;
+            result.append('(');
+        }
+
+        buildInOrder(node.left, result, level);
+
+        if (isLevelOperator(node.value)) {
+            result.append(')');
+        }
+
+        result.append(node.value);
+
+        buildInOrder(node.right, result, level);
+    }
+
+    public Node getRoot() {
+        return root;
     }
 
     public enum Type {
@@ -100,6 +133,11 @@ public class ExpressionTree {
 
         public Node(char value) {
             this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("(%c)", value);
         }
     }
 }
