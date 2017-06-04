@@ -60,6 +60,29 @@ public class ExpressionTree {
         root = stack.pop();
     }
 
+    static Node makeExp(String expression, int index) {
+        final char ch = expression.charAt(index);
+        if (isOpenBracket(ch)) {
+            return makeExp(expression, ++index);
+        } else if (isOperand(ch)) {
+            int closeIndex = index + 2;
+            char close = expression.charAt(closeIndex);
+            while (isCloseBracket(close)) {
+                closeIndex++;
+                close = expression.charAt(closeIndex);
+            }
+            expression.substring(index, closeIndex);
+        }
+    }
+
+    static boolean isOpenBracket(char ch) {
+        return ch == '(';
+    }
+
+    static boolean isCloseBracket(char ch) {
+        return ch == ')';
+    }
+
     static boolean isOperator(char ch) {
         return ch == '-' || ch == '+' || ch == '/' || ch == '*';
     }
