@@ -13,7 +13,13 @@ public class CalcEquationTests {
         //assertEquals(1, (CalcEquation.calc(1, 1, 1, 1)));
 //        assertEquals(3, (CalcEquation.calc(10, 12, 50, 50)));
 //        assertEquals(3, (CalcEquation.calc(10, 23, 50, 50)));
-        assertEquals(2, (CalcEquation.calc(51, 11, 50, 50 )));
+        assertEquals(2, (CalcEquation.calc2(51, 11, 50, 50)));
+        assertEquals(2, (CalcEquation.calc(51, 11, 50, 50)));
 //        assertEquals(0, (CalcEquation.calc(51, 11, 19, 50)));
+    }
+
+    @Test
+    public void test02() {
+
     }
 }
