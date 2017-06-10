@@ -13,4 +13,6 @@ public interface FlowNode {
     void setPrev(FlowNode prev);
 
     void setNext(FlowNode next);
+
+    FlowNode thenOneOf(FlowNode... nextSteps);
 }

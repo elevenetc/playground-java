@@ -1,5 +1,6 @@
 package su.levenetc.playground.java.datastructures.multibranch;
 
+import su.levenetc.playground.java.datastructures.multibranch.parts.ForkNode;
 import su.levenetc.playground.java.datastructures.multibranch.parts.QueueNode;
 import su.levenetc.playground.java.utils.Out;
 
@@ -57,8 +58,9 @@ public class BaseFlowNode<Input> implements FlowNode {
 
     }
 
+    @Override
     public FlowNode thenOneOf(FlowNode... nextSteps) {
-        return flowBuilder.thenOneOf(this, nextSteps);
+        return new ForkNode().addBranch(this, nextSteps);
     }
 
     @Override

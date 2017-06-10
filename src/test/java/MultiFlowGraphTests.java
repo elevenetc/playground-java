@@ -27,13 +27,17 @@ public class MultiFlowGraphTests {
         final StepX stepX = new StepX(graph);
         final StepFinal stepFinal = new StepFinal(graph);
 
-        final FlowNode branchA = stepA.then(stepB).then(stepC).then(stepD);
-        final FlowNode branchB = stepA.then(stepX).then(stepC);
+        final FlowNode result = stepA
+                .then(stepB)
+                .then(stepC)
+                .thenOneOf(
+                        stepZ,
+                        stepX
+                );
 
-        if (branchA == null) {
+        if (result == null) {
 
         }
-
 
         final FlowNode last = graph.startWith(stepA)
                 .thenOneOf(

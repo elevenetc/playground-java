@@ -47,4 +47,9 @@ public class QueueNode implements FlowNode {
     public void setNext(FlowNode next) {
         this.next = next;
     }
+
+    @Override
+    public FlowNode thenOneOf(FlowNode... nextSteps) {
+        return new ForkNode().addBranch(this, nextSteps);
+    }
 }

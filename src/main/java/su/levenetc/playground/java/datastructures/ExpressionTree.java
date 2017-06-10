@@ -40,9 +40,8 @@ public class ExpressionTree {
             char ch = expression.charAt(i);
 
             if (isOperator(ch)) {
-                Node operand = stack.pop();
                 Node operator = new Node(ch);
-                operator.left = operand;
+                operator.left = stack.pop();
                 stack.push(operator);
             } else if (isOperand(ch)) {
 
@@ -54,6 +53,8 @@ public class ExpressionTree {
                 } else {
                     stack.push(operand);
                 }
+
+            } else if (isOpenBracket(ch)) {
 
             }
         }
@@ -73,6 +74,7 @@ public class ExpressionTree {
             }
             expression.substring(index, closeIndex);
         }
+        return null;
     }
 
     static boolean isOpenBracket(char ch) {

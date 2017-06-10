@@ -1,7 +1,7 @@
 package su.levenetc.playground.java.datastructures.multibranch.parts;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import su.levenetc.playground.java.datastructures.multibranch.FlowNode;
 
@@ -10,34 +10,46 @@ import su.levenetc.playground.java.datastructures.multibranch.FlowNode;
  */
 public class ForkNode implements FlowNode {
 
-    public FlowNode from;
-    public List<List<FlowNode>> paths = new LinkedList<>();
-
+    public FlowNode prev;
     public FlowNode next;
+    public Set<FlowNode> branches = new HashSet<>();
 
-    @Override
-    public FlowNode then(FlowNode next) {
-        this.next = next;
+    public ForkNode addBranch(FlowNode from, FlowNode... next) {
+        prev = from;
+        from.setNext(this);
+        for (FlowNode nextNode : next) {
+            branches.add(nextNode);
+        }
         return this;
     }
 
     @Override
-    public FlowNode next() {
+    public FlowNode then(FlowNode next) {
         return null;
+    }
+
+    @Override
+    public FlowNode next() {
+        return next;
     }
 
     @Override
     public FlowNode prev() {
-        return null;
+        return prev;
     }
 
     @Override
     public void setPrev(FlowNode prev) {
-
+        this.prev = prev;
     }
 
     @Override
     public void setNext(FlowNode next) {
+        this.next = next;
+    }
 
+    @Override
+    public FlowNode thenOneOf(FlowNode... nextSteps) {
+        return addBranch(this, nextSteps);
     }
 }
