@@ -1,7 +1,6 @@
 package su.levenetc.playground.java.datastructures.multibranch;
 
-import java.util.LinkedList;
-
+import su.levenetc.playground.java.datastructures.multibranch.parts.ForkNode;
 import su.levenetc.playground.java.utils.Out;
 
 /**
@@ -9,10 +8,28 @@ import su.levenetc.playground.java.utils.Out;
  */
 public class MultiFlowGraph {
 
-    public BaseFlowNode startWith(BaseFlowNode root) {
-        final LinkedList<BaseFlowNode> rootBranch = new LinkedList<>();
-        rootBranch.add(root);
+    private FlowNode root;
+    private FlowNode current;
+
+    public FlowNode startWith(FlowNode root) {
+        this.root = root;
         return root;
+    }
+
+    public FlowNode getCurrent() {
+        return current;
+    }
+
+    public void start() {
+        current = root;
+    }
+
+    public void next() {
+        current = current.next();
+    }
+
+    public boolean isFork() {
+        return current instanceof ForkNode;
     }
 
     void goTo(BaseFlowNode from, Class<? extends BaseFlowNode> target) {

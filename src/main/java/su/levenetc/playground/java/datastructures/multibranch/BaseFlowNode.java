@@ -1,5 +1,6 @@
 package su.levenetc.playground.java.datastructures.multibranch;
 
+import su.levenetc.playground.java.datastructures.multibranch.parts.BasicNode;
 import su.levenetc.playground.java.datastructures.multibranch.parts.ForkNode;
 import su.levenetc.playground.java.datastructures.multibranch.parts.QueueNode;
 import su.levenetc.playground.java.utils.Out;
@@ -33,34 +34,39 @@ public class BaseFlowNode<Input> implements FlowNode {
 
     public FlowNode then(FlowNode next) {
         QueueNode queueNode = new QueueNode();
-        queueNode.then(this);
+        queueNode.then(new BasicNode(this));
+
+        if (next instanceof BaseFlowNode) {
+            next = new BasicNode((BaseFlowNode) next);
+        }
+
         queueNode.then(next);
         return queueNode;
     }
 
     @Override
     public FlowNode next() {
-        return null;
+        throw new IllegalStateException("next() should be call on " + getClass().getSimpleName());
     }
 
     @Override
     public FlowNode prev() {
-        return null;
+        throw new IllegalStateException("prev() should be call on " + getClass().getSimpleName());
     }
 
     @Override
     public void setPrev(FlowNode prev) {
-
+        throw new IllegalStateException("setPrev() should be call on " + getClass().getSimpleName());
     }
 
     @Override
     public void setNext(FlowNode next) {
-
+        throw new IllegalStateException("setNext() should be call on " + getClass().getSimpleName());
     }
 
     @Override
     public FlowNode thenOneOf(FlowNode... nextSteps) {
-        return new ForkNode().addBranch(this, nextSteps);
+        return new ForkNode().addBranch(new BasicNode(this), nextSteps);
     }
 
     @Override

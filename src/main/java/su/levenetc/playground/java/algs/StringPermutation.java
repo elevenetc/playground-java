@@ -16,6 +16,20 @@ public class StringPermutation {
         return result;
     }
 
+    public static Set<String> permutate2(int length, char a, char b) {
+        char[] chars = new char[length];
+        Set<String> result = new HashSet<>();
+        Arrays.fill(chars, a);
+        permutate2Internal(chars, length, a, b, result);
+        return result;
+    }
+
+    public static Set<String> permutate3(String str) {
+        Set<String> result = new HashSet<>();
+        permutate3Internal("", str, result);
+        return result;
+    }
+
     private static void permutateInternal(String[] letters, int right, Set<String> result) {
 
         if (right == 1) {
@@ -32,20 +46,6 @@ public class StringPermutation {
         }
     }
 
-    private static void swap(String[] letters, int left, int right) {
-        String temp = letters[left];
-        letters[left] = letters[right];
-        letters[right] = temp;
-    }
-
-    public static Set<String> permutate2(int length, char a, char b) {
-        char[] chars = new char[length];
-        Set<String> result = new HashSet<>();
-        Arrays.fill(chars, a);
-        permutate2Internal(chars, length, a, b, result);
-        return result;
-    }
-
     private static void permutate2Internal(char[] chars, int length, char a, char b, Set<String> result) {
         for (int i = 0; i < chars.length; i++) {
             if (chars[i] == a) {
@@ -60,5 +60,24 @@ public class StringPermutation {
                 permutate2Internal(copy, length, a, b, result);
             }
         }
+    }
+
+    private static void permutate3Internal(String prefix, String str, Set<String> result) {
+        int length = str.length();
+        if (length == 0)
+            result.add(prefix);
+        else
+            for (int i = 0; i < length; i++)
+                permutate3Internal(
+                        prefix + str.charAt(i),
+                        str.substring(0, i) + str.substring(i + 1, length),
+                        result
+                );
+    }
+
+    private static void swap(String[] letters, int left, int right) {
+        String temp = letters[left];
+        letters[left] = letters[right];
+        letters[right] = temp;
     }
 }

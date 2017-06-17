@@ -14,7 +14,9 @@ public class ExpressionTreeTests {
     public void test01() {
         ExpressionTree tree = new ExpressionTree();
         //(A+B)*(Z+X)
+        //((A+B)*(Z+X))
         tree.buildTree("Z*(A+B)", INFIX);
+        //tree.buildTree("Z*(A+B)", INFIX);
         //tree.buildTree("Z*(A+B+C)/2", INFIX);
         final Node root = tree.getRoot();
         Out.pln(tree.toString(INFIX));

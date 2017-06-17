@@ -20,6 +20,16 @@ public class LeastSumArraysTest {
 
     @Test
     public void test3() {
-        assertEquals(102, LeastSumArrays.get(new int[]{1, 2, 5}, new int[]{1, 6, 3}));
+        assertEquals(3, LeastSumArrays.get(new int[]{1, 2, 5}, new int[]{1, 6, 3}));
+    }
+
+    @Test
+    public void test4() {
+        assertEquals(11, LeastSumArrays.get(new int[]{10, 1}, new int[]{10, 1}));
+    }
+
+    @Test
+    public void test5() {
+        assertEquals(2, LeastSumArrays.get(new int[]{1, 2}, new int[]{2, 1}));
     }
 }
