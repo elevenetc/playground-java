@@ -6,39 +6,43 @@ package su.levenetc.playground.java.algs;
 public class QuickSort {
 
     public static int[] sort(int... unsorted) {
-        sort(unsorted, 0, unsorted.length - 1);
+        splitAndSort(unsorted, 0, unsorted.length - 1);
         return unsorted;
     }
 
-    private static void sort(int[] unsorted, int left, int right) {
+    private static void splitAndSort(int[] unsorted, int left, int right) {
         if (left >= right) return;
-        int pos = split(unsorted, left, right);
-        sort(unsorted, left, pos - 1);
-        sort(unsorted, pos + 1, right);
+        int pos = sort(unsorted, left, right);
+        splitAndSort(unsorted, left, pos - 1);
+        splitAndSort(unsorted, pos + 1, right);
     }
 
-    private static int split(int[] unsorted, int left, int right) {
+    private static int sort(int[] unsorted, int left, int right) {
 
-        int pivot = left;
+        final int pivot = left;
+        final int pivotValue = unsorted[pivot];
         int l = left + 1;
         int r = right;
+
         while (l <= r) {
 
-            if (unsorted[l] <= unsorted[pivot]) {
+            if (unsorted[l] <= pivotValue) {
                 l++;
-                continue;
-            }
-            if (unsorted[r] > unsorted[pivot]) {
+            } else if (unsorted[r] > pivotValue) {
                 r--;
-                continue;
+            } else {
+                swap(unsorted, l, r);
+                l++;
+                r++;
             }
-            swap(unsorted, l++, r--);
+
         }
-        if (unsorted[pivot] > unsorted[r]) {
+        if (pivotValue > unsorted[r]) {
             swap(unsorted, pivot, r);
             return r;
+        } else {
+            return pivot;
         }
-        return pivot;
 
     }
 
