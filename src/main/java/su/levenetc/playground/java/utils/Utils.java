@@ -1,11 +1,19 @@
 package su.levenetc.playground.java.utils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by eugene.levenetc on 08/04/2017.
  */
 public class Utils {
+
+    public static int[] array(int... values) {
+        return values;
+    }
 
     public static <T> Set<T> set(T... values) {
         Set<T> result = new HashSet<>();

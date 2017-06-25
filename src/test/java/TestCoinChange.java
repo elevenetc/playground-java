@@ -12,4 +12,9 @@ public class TestCoinChange {
     public void test01() {
         assertEquals(10, CoinChange.coinChange(10, 1));
     }
+
+    @Test
+    public void test02() {
+        assertEquals(2, CoinChange.coinChange(7, 2, 1, 5));
+    }
 }
