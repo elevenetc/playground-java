@@ -15,6 +15,11 @@ public class TestCoinChange {
 
     @Test
     public void test02() {
-        assertEquals(2, CoinChange.coinChange(7, 2, 1, 5));
+        assertEquals(2, CoinChange.coinChange(7, 2, 1, 5, 10));
+    }
+
+    @Test
+    public void test03() {
+        assertEquals(-1, CoinChange.coinChange(5, 7, 10, 15));
     }
 }
