@@ -21,6 +21,8 @@ public class LinkedListPalindrome {
             slow = slow.next;
         }
 
+        slow = reverse(slow);
+
         ListNode<Integer> left = node;
         ListNode<Integer> right = slow;
 
@@ -76,6 +78,11 @@ public class LinkedListPalindrome {
         T value;
         ListNode<T> next;
 
+
+        @Override
+        public String toString() {
+            return "{" + value + "}";
+        }
     }
 
     public static <T> ListNode<T> getList(T... values) {

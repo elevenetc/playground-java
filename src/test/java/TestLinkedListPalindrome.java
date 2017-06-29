@@ -18,4 +18,24 @@ public class TestLinkedListPalindrome {
     public void test02() {
         assertTrue(isListPalindrome(getList(1, 2, 2, 1)));
     }
+
+    @Test
+    public void test03() {
+        assertTrue(isListPalindrome(getList(1, 2, 1)));
+    }
+
+    @Test
+    public void test04() {
+        assertTrue(isListPalindrome(getList(1, 1)));
+    }
+
+    @Test
+    public void test05() {
+        assertFalse(isListPalindrome(getList(1, 2)));
+    }
+
+    @Test
+    public void test06() {
+        assertFalse(isListPalindrome(getList(1, 2, 3, 4, 1)));
+    }
 }
