@@ -1,7 +1,8 @@
 import org.junit.Test;
-import su.levenetc.playground.java.algs.StringPermutation;
 
 import java.util.Set;
+
+import su.levenetc.playground.java.algs.StringPermutation;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -24,14 +25,6 @@ public class TestStringPermutation {
     public void test02() {
         AssertUtils.assertContains(
                 StringPermutation.permutate2(2, '-', '*'),
-                "**", "-*", "*-"
-        );
-    }
-
-    @Test
-    public void test03() {
-        AssertUtils.assertContains(
-                StringPermutation.permutate2(20, '-', '*'),
                 "**", "-*", "*-"
         );
     }

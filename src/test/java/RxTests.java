@@ -122,7 +122,7 @@ public class RxTests {
                     }
                 });
 
-        ThreadsUtils.sleep(30 * 1000);
+        ThreadsUtils.sleep(3 * 1000);
     }
 
     @Test
@@ -168,6 +168,6 @@ public class RxTests {
                     }
                 });
 
-        ThreadsUtils.sleep(30 * 1000);
+        ThreadsUtils.sleep(3 * 1000);
     }
 }
