@@ -12,12 +12,12 @@ public class RxBus {
 	public static void run() {
 		Subscription sub = Bus.getInstance().getObservable().subscribe(Out::pln);
 
-		Bus.getInstance().publish("Hello A");
-		Bus.getInstance().publish("Hello B");
+		Bus.getInstance().publish("hello A");
+		Bus.getInstance().publish("hello B");
 		sub.unsubscribe();
-		Bus.getInstance().publish("Hello C");
+		Bus.getInstance().publish("hello C");
 		Bus.getInstance().getObservable().subscribe(Out::pln);
-		Bus.getInstance().publish("Hello D");
+		Bus.getInstance().publish("hello D");
 	}
 
 	private static class Bus {

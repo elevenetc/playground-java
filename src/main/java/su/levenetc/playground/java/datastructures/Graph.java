@@ -1,8 +1,8 @@
 package su.levenetc.playground.java.datastructures;
 
-import su.levenetc.playground.java.utils.Out;
-
 import java.util.*;
+
+import su.levenetc.playground.java.utils.Out;
 
 /**
  * Created by eugene.levenetc on 17/03/2017.
@@ -18,13 +18,14 @@ public class Graph {
     }
 
     public Map<Integer, Set<Node>> getLayers2(int from) {
-        final Node node = allNodes.get(from);
-
-        Map<Integer, Set<Node>> layers = new HashMap<>();
-        final List<Node> nextNodes = node.getNextNodes();
+        final Node root = allNodes.get(from);
+        final Map<Integer, Set<Node>> layers = new HashMap<>();
         final HashSet<Node> zeroLevel = new HashSet<>();
-        zeroLevel.add(node);
+
+        zeroLevel.add(root);
         layers.put(0, zeroLevel);
+
+        final List<Node> nextNodes = root.getNextNodes();
         for (Node nextNode : nextNodes) {
             getLayers2Internal(layers, nextNode, 1);
         }

@@ -7,6 +7,6 @@ import su.levenetc.playground.java.utils.Out;
  */
 public class FormatString {
 	public static void run() {
-		Out.pln(String.format("Hello: %2$s, %1$d", 1, "F"));
+		Out.pln(String.format("hello: %2$s, %1$d", 1, "F"));
 	}
 }

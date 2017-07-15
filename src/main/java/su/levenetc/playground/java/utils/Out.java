@@ -12,8 +12,16 @@ import java.util.List;
  */
 public class Out {
 
+    public static void plnBin(Object prefix, int val) {
+        plnBin(prefix.toString(), val);
+    }
+
     public static void plnBin(String prefix, int val) {
         Out.pln(prefix + ": " + binValue(val));
+    }
+
+    public static void pBin(String prefix, int val) {
+        Out.p(prefix + ": " + binValue(val));
     }
 
     public static void pBin(int val) {
@@ -55,6 +63,10 @@ public class Out {
 
     public static void pln(Collection result) {
         System.out.println(Arrays.toString(result.toArray()));
+    }
+
+    public static void p(String prefix, Object result) {
+        System.out.print(prefix + ":" + result);
     }
 
     public static void p(Object result) {
@@ -128,6 +140,10 @@ public class Out {
 
     public static void bin(int value) {
         pln(Integer.toString(value, 2));
+    }
+
+    public static String toBin(int value) {
+        return Integer.toString(value, 2);
     }
 
     public static void hex(int value) {
