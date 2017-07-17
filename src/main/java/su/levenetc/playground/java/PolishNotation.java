@@ -7,6 +7,7 @@ import java.util.LinkedList;
  * Created by eugene.levenetc on 17/07/2017.
  */
 public class PolishNotation {
+
     public static int evaluateReverse(String... params) {
 
         Deque<String> stack = new LinkedList<>();

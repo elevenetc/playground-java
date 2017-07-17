@@ -12,4 +12,9 @@ public class TestPolishNotation {
     public void test01() {
         assertEquals(9, PolishNotation.evaluateReverse("2", "1", "+", "3", "*"));
     }
+
+    @Test
+    public void test02() {
+        assertEquals(6, PolishNotation.evaluateReverse("4", "13", "5", "/", "+"));
+    }
 }
