@@ -1,7 +1,8 @@
 package su.levenetc.playground.java.algs;
 
 public class SellWithMaxRevenue {
-    public static int getOneMax(int[] prices) {
+
+    public static int sellOnce1(int[] prices) {
         int max = -1;
         for (int i = 0; i < prices.length - 1; i++) {
             final int buy = prices[i];
@@ -15,7 +16,19 @@ public class SellWithMaxRevenue {
         return max;
     }
 
-    public static int getMaxSum(int[] prices) {
+    public static int sellOnce2(int[] prices) {
+        int min = prices[0];
+        int max = 0;
+
+        for (int p : prices) {
+            max = Math.max(max, p - min);
+            min = Math.min(min, p);
+        }
+
+        return max;
+    }
+
+    public static int sellMultipleTimes(int[] prices) {
 
         if (prices.length <= 1) return -1;
 
