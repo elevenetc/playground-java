@@ -41,4 +41,20 @@ public class SellWithMaxRevenueTests {
         assertEquals(60, SellWithMaxRevenue.getMaxSum(array(50, 100, 10, 20)));
     }
 
+    @Test
+    public void test08() {
+        assertEquals(13, SellWithMaxRevenue.getMaxSum(array(1, 4, 5, 7, 6, 3, 2, 9)));
+    }
+
+    @Test
+    public void test09() {
+        assertEquals(3, SellWithMaxRevenue.getMaxSum(array(1, 4)));
+    }
+
+    @Test
+    public void test10() {
+        assertEquals(-1, SellWithMaxRevenue.getMaxSum(array(1)));
+        assertEquals(-1, SellWithMaxRevenue.getMaxSum(array()));
+    }
+
 }

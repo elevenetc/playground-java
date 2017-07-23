@@ -17,6 +17,8 @@ public class SellWithMaxRevenue {
 
     public static int getMaxSum(int[] prices) {
 
+        if (prices.length <= 1) return -1;
+
         int buyIndex = 0;
         int current = 1;
         int result = 0;
