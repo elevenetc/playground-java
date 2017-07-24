@@ -16,12 +16,16 @@ public class Out {
         plnBin(prefix.toString(), val);
     }
 
-    public static void plnBin(int val, String postfix) {
-        pln(binValue(val), postfix);
+    public static void plnBinPostfix(int val) {
+        pln(binValue(val), String.valueOf(val));
     }
 
     public static void plnBin(String prefix, int val) {
         Out.pln(prefix + ": " + binValue(val));
+    }
+
+    public static void plnBin(int val, String postfix) {
+        pln(binValue(val), postfix);
     }
 
     public static void pBin(String prefix, int val) {
