@@ -30,4 +30,11 @@ public class TestMedianFromDataStream {
         structure.add(4);
         assertEquals(2.5, structure.median(), 0);
     }
+
+    @Test
+    public void test03() {
+        structure.add(1);
+        structure.add(2);
+        assertEquals(1.5, structure.median(), 0);
+    }
 }
