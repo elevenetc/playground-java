@@ -4,7 +4,7 @@ import su.levenetc.playground.java.algs.SetMatrixZeroes;
 
 import static org.junit.Assert.assertArrayEquals;
 
-public class SetMatrxiZeroesTests {
+public class SetMatrixZeroesTests {
     @Test
     public void test01() {
         assertArrayEquals(new int[][]{

@@ -206,18 +206,19 @@ public class MedianOfTwoSortedArrays {
         /* b[0, 1, 2, ..., bLen-1, bLen] */
         /* a[0, 1, 2, ..., aLen-1, aLen] */
         int k = (aLen + bLen + 1) / 2;
-        double v = (double) findKth(a, 0, aLen - 1, b, 0, bLen - 1, k);
+        double left = (double) findKth(a, 0, aLen - 1, b, 0, bLen - 1, k);
 
         if ((aLen + bLen) % 2 == 0) {
             k++;
-            double v2 = (double) findKth(a, 0, aLen - 1, b, 0, bLen - 1, k);
-            v = (v + v2) / 2;
+            double right = (double) findKth(a, 0, aLen - 1, b, 0, bLen - 1, k);
+            return (left + right) / 2;
         }
 
-        return v;
+        return left;
     }
 
     public static int findKth(int a[], int aStart, int aEnd, int b[], int bStart, int bEnd, int k) {
+
         if (aStart > aEnd)
             return b[bStart + k - 1];
         if (bStart > bEnd)

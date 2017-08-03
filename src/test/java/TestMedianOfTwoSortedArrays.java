@@ -83,4 +83,10 @@ public class TestMedianOfTwoSortedArrays {
         //assertEquals(30, ver3(array(0, 10, 20, 30, 40, 50), array(5, 15, 25, 35, 45, 55, 65)), 0);
         assertEquals(30, ver4(array(0, 10, 20, 30, 40, 50), array(5, 15, 25, 35, 45, 55, 65)), 0);
     }
+
+    @Test
+    public void test10() {
+        //3 + 4 = 7
+        assertEquals(3, ver4(array(0, 1, 2), array(3, 4, 5, 6)), 0);
+    }
 }
