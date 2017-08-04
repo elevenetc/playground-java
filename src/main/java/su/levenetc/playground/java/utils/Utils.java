@@ -1,15 +1,17 @@
 package su.levenetc.playground.java.utils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by eugene.levenetc on 08/04/2017.
  */
 public class Utils {
+
+    public static List<Integer> range(int from, int to) {
+        List<Integer> result = new LinkedList<>();
+        for (int i = from; i <= to; i++) result.add(i);
+        return result;
+    }
 
     public static int[] array(int... values) {
         return values;
