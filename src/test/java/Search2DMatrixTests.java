@@ -1,14 +1,13 @@
 import org.junit.Test;
 
-import su.levenetc.playground.java.algs.Search2DMatrix;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static su.levenetc.playground.java.algs.Search2DMatrix.search;
 
 public class Search2DMatrixTests {
     @Test
     public void test01() {
-        assertTrue(Search2DMatrix.search(new int[][]{
+        assertTrue(search(new int[][]{
                 new int[]{1, 3, 5},
                 new int[]{15, 20, 35},
                 new int[]{40, 50, 60}
@@ -17,7 +16,7 @@ public class Search2DMatrixTests {
 
     @Test
     public void test02() {
-        assertFalse(Search2DMatrix.search(new int[][]{
+        assertFalse(search(new int[][]{
                 new int[]{1, 3, 5},
                 new int[]{15, 20, 35},
                 new int[]{40, 50, 60}
@@ -26,7 +25,7 @@ public class Search2DMatrixTests {
 
     @Test
     public void test03() {
-        assertTrue(Search2DMatrix.search(new int[][]{
+        assertTrue(search(new int[][]{
                 new int[]{1, 3, 5},
                 new int[]{15, 20, 35},
                 new int[]{40, 50, 60}
@@ -35,7 +34,7 @@ public class Search2DMatrixTests {
 
     @Test
     public void test06() {
-        assertTrue(Search2DMatrix.search(new int[][]{
+        assertTrue(search(new int[][]{
                 new int[]{1, 3, 5, 6},
                 new int[]{15, 20, 35, 36},
                 new int[]{40, 50, 60, 61},
@@ -45,7 +44,7 @@ public class Search2DMatrixTests {
 
     @Test
     public void test07() {
-        assertFalse(Search2DMatrix.search(new int[][]{
+        assertFalse(search(new int[][]{
                 new int[]{1, 3, 5, 6},
                 new int[]{15, 20, 35, 36},
                 new int[]{40, 50, 60, 61},
