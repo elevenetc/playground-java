@@ -8,6 +8,7 @@ public class Rotate2DMatrix {
         int leftBound = 0;
         int rightBound = matrix.length - 1;
 
+        boolean even = (matrix.length / 2) % 2 == 0;
         int half = matrix.length / 2;
 
         while (half > 0) {
@@ -16,8 +17,8 @@ public class Rotate2DMatrix {
                 rotateInternal(matrix, rowIndex, colIndex, leftBound, rightBound);
             }
 
-            rightBound++;
-            leftBound--;
+            rightBound--;
+            leftBound++;
             rowIndex++;
 
             half--;
@@ -39,6 +40,6 @@ public class Rotate2DMatrix {
         matrix[rowIndex][colIndex] = leftBottom;
         matrix[colIndex][rightBound] = leftTop;
         matrix[size - rowIndex][rightBound - colIndex] = rightTop;
-        matrix[size - colIndex][rightBound] = rightBottom;
+        matrix[size - colIndex][leftBound] = rightBottom;
     }
 }

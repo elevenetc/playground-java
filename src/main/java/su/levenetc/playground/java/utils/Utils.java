@@ -13,6 +13,18 @@ public class Utils {
         return result;
     }
 
+    public static int[] arrayRange(int from, int to) {
+        int length = to - from + 1;
+        int[] result = new int[length];
+        int value = from;
+        for (int i = 0; i < length; i++) {
+            result[i] = value;
+            value++;
+        }
+        return result;
+    }
+
+
     public static int[] array(int... values) {
         return values;
     }
