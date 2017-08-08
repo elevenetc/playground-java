@@ -43,11 +43,11 @@ public class Rotate2DMatrixTests {
                 new int[]{24, 19, 14, 9, 4},
                 new int[]{25, 20, 15, 10, 5}
         }, rotate(new int[][]{
-                Utils.arrayRange(1, 5),
-                Utils.arrayRange(6, 10),
-                Utils.arrayRange(11, 15),
-                Utils.arrayRange(16, 20),
-                Utils.arrayRange(21, 25)
+                Utils.range(1, 5),
+                Utils.range(6, 10),
+                Utils.range(11, 15),
+                Utils.range(16, 20),
+                Utils.range(21, 25)
 
         }));
     }

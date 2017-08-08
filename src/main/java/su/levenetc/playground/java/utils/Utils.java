@@ -7,19 +7,25 @@ import java.util.*;
  */
 public class Utils {
 
-    public static List<Integer> range(int from, int to) {
+    public static List<Integer> listRange(int from, int to) {
         List<Integer> result = new LinkedList<>();
-        for (int i = from; i <= to; i++) result.add(i);
+        for (int i = from; i <= to; i++) {
+            result.add(i);
+        }
         return result;
     }
 
-    public static int[] arrayRange(int from, int to) {
+    public static int[] range(int from, int to) {
+        return range(from, to, 1);
+    }
+
+    public static int[] range(int from, int to, int step) {
         int length = to - from + 1;
-        int[] result = new int[length];
+        int[] result = new int[(int) Math.ceil(length / (float) step)];
         int value = from;
-        for (int i = 0; i < length; i++) {
-            result[i] = value;
-            value++;
+        for (int i = 0; i < result.length; i++) {
+            result[i] += value;
+            value += step;
         }
         return result;
     }

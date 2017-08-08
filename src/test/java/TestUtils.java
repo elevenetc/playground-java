@@ -1,11 +1,14 @@
 import org.junit.Test;
-import su.levenetc.playground.java.datastructures.Node;
-import su.levenetc.playground.java.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import su.levenetc.playground.java.datastructures.Node;
+import su.levenetc.playground.java.utils.StringUtils;
+import su.levenetc.playground.java.utils.Utils;
+
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -15,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 public class TestUtils {
 
     @Test
-    public void isLetter(){
+    public void isLetter() {
         assertTrue(StringUtils.isLetter('L'));
         assertTrue(StringUtils.isLetter('a'));
         assertFalse(StringUtils.isLetter('.'));
@@ -36,5 +39,13 @@ public class TestUtils {
         List<Set<Node>> sets = new ArrayList<>();
         sets.add(Node.nodesSet(1, 2, 3));
         AssertUtils.assertContains(sets, new Node(1), new Node(2), new Node(3));
+    }
+
+    @Test
+    public void testRange() {
+        assertArrayEquals(Utils.array(1, 2, 3), Utils.range(1, 3));
+        assertArrayEquals(Utils.array(1, 2, 3), Utils.range(1, 3, 1));
+        assertArrayEquals(Utils.array(1, 2, 3, 4), Utils.range(1, 4));
+        assertArrayEquals(Utils.array(0, 5, 10, 15), Utils.range(0, 15, 5));
     }
 }
