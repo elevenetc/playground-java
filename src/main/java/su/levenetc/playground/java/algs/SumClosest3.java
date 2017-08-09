@@ -1,44 +1,44 @@
 package su.levenetc.playground.java.algs;
 
+import java.util.Arrays;
+
 public class SumClosest3 {
-    public static int get(int sum, int... array) {
 
-        int valueMin = Integer.MAX_VALUE;
-        int valueMid = Integer.MAX_VALUE;
-        int valueMax = Integer.MAX_VALUE;
+    public static int get(int target, int... nums) {
 
-        int diffMin = Integer.MAX_VALUE;
-        int diffMid = Integer.MAX_VALUE;
-        int diffMax = Integer.MAX_VALUE;
+        int minDiff = Integer.MAX_VALUE;
+        int result = 0;
 
-        for (int i = 0; i < array.length; i++) {
+        Arrays.sort(nums);
 
-            int value = array[i];
-            int diff = Math.abs(sum - value);
+        for (int a = 0; a < nums.length; a++) {
 
-            if (diff < diffMin) {
+            int b = a + 1;
+            int c = nums.length - 1;
 
-                diffMax = diffMid;
-                valueMax = valueMid;
+            while (b < c) {
 
-                diffMid = diffMin;
-                valueMid = valueMin;
+                int sum = nums[a] + nums[b] + nums[c];
+                int diff = Math.abs(sum - target);
 
-                diffMin = diff;
-                valueMin = value;
+                if (sum == target) return sum;
 
-            } else if (diff < diffMid) {
-                diffMax = diffMid;
-                valueMax = valueMid;
+                if (diff < minDiff) {
+                    minDiff = diff;
+                    result = sum;
+                }
 
-                diffMid = diff;
-                valueMid = value;
-            } else if (diff < diffMax) {
-                diffMax = diff;
-                valueMax = value;
+                if (sum > target) {
+                    c--;
+                } else {
+                    b++;
+                }
             }
         }
 
-        return valueMin + valueMid + valueMax;
+
+        return result;
     }
+
+
 }

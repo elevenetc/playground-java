@@ -32,6 +32,11 @@ public class Out {
     public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
+
+    public static void three(Object a, Object b, Object c) {
+        pln(String.format("%s, %s, %s", a, b, c));
+    }
+
     public static void plnBin(Object prefix, int val) {
         plnBin(prefix.toString(), val);
     }
@@ -97,12 +102,20 @@ public class Out {
         System.out.print(prefix + ":" + result);
     }
 
+    public static void pSpace(Object value) {
+        System.out.print(" " + value.toString());
+    }
+
     public static void p(Object result) {
         System.out.print(result.toString());
     }
 
     public static void pln(Object result) {
         System.out.println(result);
+    }
+
+    public static void pln(int[] array) {
+        plnArray(array);
     }
 
     public static void plnArray(int[] array) {
