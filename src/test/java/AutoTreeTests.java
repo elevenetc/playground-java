@@ -4,6 +4,7 @@ import java.util.List;
 
 import su.levenetc.playground.java.datastructures.AutoTree;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static su.levenetc.playground.java.datastructures.AutoTree.array;
@@ -31,5 +32,24 @@ public class AutoTreeTests {
         AutoTree fields = user.next();
         assertNotNull(fields.isCompletable("n"));
         assertNotNull(fields.isCompletable("age"));
+    }
+
+    @Test
+    public void test02() {
+
+        AutoTree tree = branch("select")
+                .then("user")
+                .then(array("name", "age"))
+                .then("where");
+
+        assertEquals(
+                "where",
+                tree.autocomplete("sel").autocomplete("us").autocomplete("na").name()
+        );
+
+        assertEquals(
+                "where",
+                tree.autocomplete("sel").autocomplete("user").autocomplete("ag").name()
+        );
     }
 }

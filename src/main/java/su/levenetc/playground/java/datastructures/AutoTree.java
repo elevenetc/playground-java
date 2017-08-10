@@ -18,6 +18,11 @@ public class AutoTree {
         return next;
     }
 
+    public AutoTree autocomplete(String value) {
+        AutoTree result = isCompletable(value);
+        return result == null ? this : result;
+    }
+
     public AutoTree isCompletable(String value) {
         char[] toComplete = value.toCharArray();
         for (String variant : variants) {
@@ -47,6 +52,10 @@ public class AutoTree {
         next = new AutoTree(variant);
         next.prev = this;
         return next;
+    }
+
+    public String name() {
+        return variants.get(0);
     }
 
     @Override
