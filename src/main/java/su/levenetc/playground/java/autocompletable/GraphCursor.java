@@ -3,23 +3,23 @@ package su.levenetc.playground.java.autocompletable;
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class TreeCursor {
+public class GraphCursor {
 
     private Completable root;
     private Completable current;
     private Deque<Completable> stack = new LinkedList<>();
 
-    public TreeCursor(Completable root) {
+    public GraphCursor(Completable root) {
         this.root = root;
     }
 
-    public TreeCursor pop() {
+    public GraphCursor pop() {
         stack.pop();
         current = stack.peek();
         return this;
     }
 
-    public TreeCursor completeAndNext(String value) {
+    public GraphCursor completeAndNext(String value) {
         Completable complete;
         if (current == null) {
             complete = root.complete(value);
@@ -32,7 +32,7 @@ public class TreeCursor {
         return this;
     }
 
-    public TreeCursor complete(String value) {
+    public GraphCursor complete(String value) {
         Completable complete;
         if (current == null) {
             complete = root.complete(value);

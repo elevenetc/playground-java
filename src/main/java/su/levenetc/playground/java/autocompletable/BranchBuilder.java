@@ -33,7 +33,7 @@ public class BranchBuilder {
         List<Completable> vars = new LinkedList<>();
         for (String variant : variants) vars.add(new SingleNode(variant));
 
-        ForkNode node = new ForkNode(vars);//TODO: replace with ArrayNode?
+        ArrayNode node = new ArrayNode(vars);//TODO: replace with ArrayNode?
 
         if (current == null) {
             current = node;
@@ -78,9 +78,9 @@ public class BranchBuilder {
     public BranchBuilder then(Completable... completable) {
 
         if (current == null) {
-            current = new ForkNode(Arrays.asList(completable));
+            current = new ArrayNode(Arrays.asList(completable));
         } else {
-            ForkNode node = new ForkNode(Arrays.asList(completable));
+            ArrayNode node = new ArrayNode(Arrays.asList(completable));
             current.setNext(node);
             node.setPrev(current);
         }

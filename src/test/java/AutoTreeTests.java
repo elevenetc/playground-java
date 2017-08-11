@@ -2,8 +2,8 @@ import org.junit.Test;
 
 import su.levenetc.playground.java.autocompletable.BranchBuilder;
 import su.levenetc.playground.java.autocompletable.Completable;
+import su.levenetc.playground.java.autocompletable.GraphCursor;
 import su.levenetc.playground.java.autocompletable.SingleNode;
-import su.levenetc.playground.java.autocompletable.TreeCursor;
 
 import static org.junit.Assert.assertEquals;
 import static su.levenetc.playground.java.autocompletable.BranchBuilder.from;
@@ -55,7 +55,7 @@ public class AutoTreeTests {
 
         Completable root = from(select, insert).isLast();
 
-        TreeCursor cursor = new TreeCursor(root);
+        GraphCursor cursor = new GraphCursor(root);
 
         cursor
                 .completeAndNext("sel")
