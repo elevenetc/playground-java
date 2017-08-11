@@ -13,6 +13,12 @@ public class TreeCursor {
         this.root = root;
     }
 
+    public TreeCursor pop() {
+        stack.pop();
+        current = stack.peek();
+        return this;
+    }
+
     public TreeCursor completeAndNext(String value) {
         Completable complete;
         if (current == null) {

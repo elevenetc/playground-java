@@ -12,6 +12,22 @@ public class BranchBuilder {
         return then(-1, variants);
     }
 
+    public BranchBuilder isOptional() {
+        //TODO: set current as optional
+        return this;
+    }
+
+    public BranchBuilder dependOn(int tag) {
+        //TODO: set current depend on tag
+        //TODO: pass hashmap as dependency map
+        return this;
+    }
+
+    public BranchBuilder switchByTag(int tag, String variant) {
+        //TODO: find and switch selected by tag: name to age
+        return this;
+    }
+
     public BranchBuilder then(int tag, String... variants) {
 
         List<Completable> vars = new LinkedList<>();

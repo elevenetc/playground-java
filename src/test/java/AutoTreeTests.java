@@ -1,7 +1,5 @@
 import org.junit.Test;
 
-import java.util.Deque;
-
 import su.levenetc.playground.java.autocompletable.BranchBuilder;
 import su.levenetc.playground.java.autocompletable.Completable;
 import su.levenetc.playground.java.autocompletable.SingleNode;
@@ -36,12 +34,15 @@ public class AutoTreeTests {
 
         final int FIELDS = 1;
         final int TABLES = 2;
+        final int VALUES = 3;
 
         Completable select = from("select")
                 .then("where")
-                .then(FIELDS, "name", "age")
+                .then(FIELDS, "name", "age").dependOn(TABLES)
                 .then("from")
                 .then(TABLES, "students", "teachers")
+                .then("limit").isOptional()
+                .then("value")
                 .isLast();
 
         Completable insert = from("insert")
@@ -49,7 +50,7 @@ public class AutoTreeTests {
                 .then(FIELDS, "name", "age")
                 .then("into")
                 .then("values")
-                .then("Maria", "32")
+                .then(VALUES, "Maria", "32").dependOn(FIELDS)
                 .isLast();
 
         Completable root = from(select, insert).isLast();
@@ -64,6 +65,7 @@ public class AutoTreeTests {
                 .complete("st");
 
         assertEquals("students", ((SingleNode) cursor.current()).getVariant());
-        Deque<Completable> stack = cursor.stack();
+        cursor.pop();
+        assertEquals("from", ((SingleNode) cursor.current()).getVariant());
     }
 }
