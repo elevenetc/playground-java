@@ -1,8 +1,11 @@
 import org.junit.Test;
 
+import java.util.Deque;
+
 import su.levenetc.playground.java.autocompletable.BranchBuilder;
 import su.levenetc.playground.java.autocompletable.Completable;
 import su.levenetc.playground.java.autocompletable.SingleNode;
+import su.levenetc.playground.java.autocompletable.TreeCursor;
 
 import static org.junit.Assert.assertEquals;
 import static su.levenetc.playground.java.autocompletable.BranchBuilder.from;
@@ -31,29 +34,36 @@ public class AutoTreeTests {
     @Test
     public void test04() {
 
+        final int FIELDS = 1;
+        final int TABLES = 2;
+
         Completable select = from("select")
                 .then("where")
-                .then("name", "age")
+                .then(FIELDS, "name", "age")
                 .then("from")
-                .then("students", "teachers")
+                .then(TABLES, "students", "teachers")
                 .isLast();
+
         Completable insert = from("insert")
                 .then("into")
-                .then("name", "age")
+                .then(FIELDS, "name", "age")
                 .then("into")
                 .then("values")
-                .then("data")
+                .then("Maria", "32")
                 .isLast();
 
         Completable root = from(select, insert).isLast();
 
-        Completable students = root
+        TreeCursor cursor = new TreeCursor(root);
+
+        cursor
                 .completeAndNext("sel")
                 .completeAndNext("wh")
                 .completeAndNext("n")
                 .completeAndNext("from")
                 .complete("st");
 
-        assertEquals("students", ((SingleNode) students).getVariant());
+        assertEquals("students", ((SingleNode) cursor.current()).getVariant());
+        Deque<Completable> stack = cursor.stack();
     }
 }

@@ -9,6 +9,10 @@ public class BranchBuilder {
     Completable current;
 
     public BranchBuilder then(String... variants) {
+        return then(-1, variants);
+    }
+
+    public BranchBuilder then(int tag, String... variants) {
 
         List<Completable> vars = new LinkedList<>();
         for (String variant : variants) vars.add(new SingleNode(variant));
