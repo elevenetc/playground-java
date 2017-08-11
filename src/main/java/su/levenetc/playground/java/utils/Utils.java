@@ -7,6 +7,19 @@ import java.util.*;
  */
 public class Utils {
 
+    public static boolean isCompletable(String full, String prefix) {
+        if (prefix.length() > full.length()) return false;
+        if (prefix.length() == 0) return false;
+        char[] chars = prefix.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            char ch = chars[i];
+            if (full.charAt(i) != ch) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static List<Integer> listRange(int from, int to) {
         List<Integer> result = new LinkedList<>();
         for (int i = from; i <= to; i++) {

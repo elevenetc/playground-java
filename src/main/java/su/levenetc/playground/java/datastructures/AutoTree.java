@@ -1,16 +1,21 @@
 package su.levenetc.playground.java.datastructures;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+
+import su.levenetc.playground.java.autocompletable.Completable;
 
 public class AutoTree {
 
     private List<String> variants;
     private AutoTree next;
     private AutoTree prev;
-    private boolean optional;
+
+    private String selected;
 
     public AutoTree(String... variants) {
+        //TODO: add AutoTree array constructor
         this.variants = Arrays.asList(variants);
     }
 
@@ -18,12 +23,12 @@ public class AutoTree {
         return next;
     }
 
-    public AutoTree autocomplete(String value) {
-        AutoTree result = isCompletable(value);
-        return result == null ? this : result;
+    public AutoTree complete(String value) {
+        return tryToComplete(value);
     }
 
-    public AutoTree isCompletable(String value) {
+    public AutoTree tryToComplete(String value) {
+
         char[] toComplete = value.toCharArray();
         for (String variant : variants) {
             char[] variantChars = variant.toCharArray();
@@ -37,6 +42,7 @@ public class AutoTree {
                 }
             }
             if (invalid) continue;
+            selected = variant;
             return next;
         }
         return null;
@@ -54,8 +60,14 @@ public class AutoTree {
         return next;
     }
 
-    public String name() {
-        return variants.get(0);
+    public List<String> buildBranch() {
+        List<String> result = new LinkedList<>();
+        AutoTree p = prev;
+        while (p != null) {
+            result.add(p.selected);
+            p = p.prev;
+        }
+        return result;
     }
 
     @Override
@@ -75,7 +87,7 @@ public class AutoTree {
         return getRoot(prev);
     }
 
-    public static List<AutoTree> or(AutoTree... branches) {
+    public static List or(AutoTree... branches) {
         for (int i = 0; i < branches.length; i++) {
             branches[i] = getRoot(branches[i]);
         }
@@ -87,7 +99,8 @@ public class AutoTree {
     }
 
     public static AutoTree array(String... variant) {
-        return new AutoTree(variant);
+        AutoTree autoTree = new AutoTree(variant);
+        return autoTree;
     }
 }
 

@@ -48,4 +48,14 @@ public class TestUtils {
         assertArrayEquals(Utils.array(1, 2, 3, 4), Utils.range(1, 4));
         assertArrayEquals(Utils.array(0, 5, 10, 15), Utils.range(0, 15, 5));
     }
+
+    @Test
+    public void testIsCompletable() {
+        assertTrue(Utils.isCompletable("hello", "he"));
+        assertTrue(Utils.isCompletable("hello", "h"));
+        assertTrue(Utils.isCompletable("hello", "hello"));
+        assertFalse(Utils.isCompletable("hello", "zo"));
+        assertFalse(Utils.isCompletable("hello", "hez"));
+        assertFalse(Utils.isCompletable("hello", "helloz"));
+    }
 }

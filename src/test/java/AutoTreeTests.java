@@ -1,55 +1,59 @@
 import org.junit.Test;
 
-import java.util.List;
-
-import su.levenetc.playground.java.datastructures.AutoTree;
+import su.levenetc.playground.java.autocompletable.BranchBuilder;
+import su.levenetc.playground.java.autocompletable.Completable;
+import su.levenetc.playground.java.autocompletable.SingleNode;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static su.levenetc.playground.java.datastructures.AutoTree.array;
-import static su.levenetc.playground.java.datastructures.AutoTree.branch;
-import static su.levenetc.playground.java.datastructures.AutoTree.or;
+import static su.levenetc.playground.java.autocompletable.BranchBuilder.from;
 
 public class AutoTreeTests {
-    @Test
-    public void test01() {
-        final List<AutoTree> roots = or(
-                branch("select")
-                        .then("user")
-                        .then(array("name", "age"))
-                        .then("where"),
-                branch("delete from")
-        );
-
-        AutoTree selectRoot = roots.get(0);
-        assertNotNull(selectRoot.isCompletable("se"));
-        assertNull(selectRoot.isCompletable("x"));
-
-        AutoTree user = selectRoot.next();
-        assertNotNull(user.isCompletable("us"));
-
-        AutoTree fields = user.next();
-        assertNotNull(fields.isCompletable("n"));
-        assertNotNull(fields.isCompletable("age"));
-    }
 
     @Test
     public void test02() {
+        BranchBuilder builder = new BranchBuilder();
+        Completable root = builder.then("a").then("b").then("c").isLast();
+    }
 
-        AutoTree tree = branch("select")
-                .then("user")
-                .then(array("name", "age"))
-                .then("where");
+    @Test
+    public void test03() {
+        BranchBuilder builder = new BranchBuilder();
+        Completable tree = builder
+                .then("aaa")
+                .then("bbb")
+                .then("xxx", "yyy")
+                .then("ccc")
+                .isLast();
 
-        assertEquals(
-                "where",
-                tree.autocomplete("sel").autocomplete("us").autocomplete("na").name()
-        );
+        Completable complete = tree.completeAndNext("a").completeAndNext("b").complete("x");
+    }
 
-        assertEquals(
-                "where",
-                tree.autocomplete("sel").autocomplete("user").autocomplete("ag").name()
-        );
+    @Test
+    public void test04() {
+
+        Completable select = from("select")
+                .then("where")
+                .then("name", "age")
+                .then("from")
+                .then("students", "teachers")
+                .isLast();
+        Completable insert = from("insert")
+                .then("into")
+                .then("name", "age")
+                .then("into")
+                .then("values")
+                .then("data")
+                .isLast();
+
+        Completable root = from(select, insert).isLast();
+
+        Completable students = root
+                .completeAndNext("sel")
+                .completeAndNext("wh")
+                .completeAndNext("n")
+                .completeAndNext("from")
+                .complete("st");
+
+        assertEquals("students", ((SingleNode) students).getVariant());
     }
 }
