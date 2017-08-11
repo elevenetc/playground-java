@@ -33,7 +33,7 @@ public class BranchBuilder {
         List<Completable> vars = new LinkedList<>();
         for (String variant : variants) vars.add(new SingleNode(variant));
 
-        ForkNode node = new ForkNode(vars);
+        ForkNode node = new ForkNode(vars);//TODO: replace with ArrayNode?
 
         if (current == null) {
             current = node;
