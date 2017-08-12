@@ -2,11 +2,9 @@ package su.levenetc.playground.java.autocompletable;
 
 import su.levenetc.playground.java.utils.Utils;
 
-public class SingleNode implements Completable {
+public class SingleNode extends BaseNode {
 
     String variant;
-    Completable next;
-    Completable prev;
 
     public SingleNode(String variant) {
         this.variant = variant;
@@ -25,26 +23,6 @@ public class SingleNode implements Completable {
         } else {
             return null;
         }
-    }
-
-    @Override
-    public void setNext(Completable completable) {
-        next = completable;
-    }
-
-    @Override
-    public void setPrev(Completable completable) {
-        prev = completable;
-    }
-
-    @Override
-    public Completable getPrev() {
-        return prev;
-    }
-
-    @Override
-    public Completable getNext() {
-        return next;
     }
 
     @Override

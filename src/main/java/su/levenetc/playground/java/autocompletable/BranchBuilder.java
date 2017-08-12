@@ -8,10 +8,6 @@ public class BranchBuilder {
 
     Completable current;
 
-    public BranchBuilder then(String... variants) {
-        return then(-1, variants);
-    }
-
     public BranchBuilder isOptional() {
         //TODO: set current as optional
         return this;
@@ -28,12 +24,29 @@ public class BranchBuilder {
         return this;
     }
 
-    public BranchBuilder then(int tag, String... variants) {
+    public BranchBuilder thenMultiple(String... variants) {
+        return then(ArrayNode.TYPE.MULTIPLE, -1, variants);
+    }
+
+    public BranchBuilder thenMultiple(int tag, String... variants) {
+        return then(ArrayNode.TYPE.MULTIPLE, tag, variants);
+    }
+
+    public BranchBuilder thenOneOf(String... variants) {
+        return then(ArrayNode.TYPE.SINGLE, -1, variants);
+    }
+
+    public BranchBuilder thenOneOf(int tag, String... variants) {
+        return then(ArrayNode.TYPE.SINGLE, tag, variants);
+    }
+
+    private BranchBuilder then(ArrayNode.TYPE type, int tag, String... variants) {
 
         List<Completable> vars = new LinkedList<>();
         for (String variant : variants) vars.add(new SingleNode(variant));
 
-        ArrayNode node = new ArrayNode(vars);//TODO: replace with ArrayNode?
+        ArrayNode node = new ArrayNode(vars, type);
+        node.setTag(tag);
 
         if (current == null) {
             current = node;
@@ -75,12 +88,20 @@ public class BranchBuilder {
         return this;
     }
 
-    public BranchBuilder then(Completable... completable) {
+    public BranchBuilder thenMultiple(Completable... completable) {
+        return then(ArrayNode.TYPE.MULTIPLE, completable);
+    }
+
+    public BranchBuilder thenOneOf(Completable... completable) {
+        return then(ArrayNode.TYPE.SINGLE, completable);
+    }
+
+    private BranchBuilder then(ArrayNode.TYPE type, Completable... completable) {
 
         if (current == null) {
-            current = new ArrayNode(Arrays.asList(completable));
+            current = new ArrayNode(Arrays.asList(completable), type);
         } else {
-            ArrayNode node = new ArrayNode(Arrays.asList(completable));
+            ArrayNode node = new ArrayNode(Arrays.asList(completable), type);
             current.setNext(node);
             node.setPrev(current);
         }

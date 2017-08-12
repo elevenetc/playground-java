@@ -2,17 +2,17 @@ package su.levenetc.playground.java.autocompletable;
 
 import java.util.List;
 
-public class ArrayNode implements Completable {
+public class ArrayNode extends BaseNode {
 
-
-    private Completable prev;
-    private Completable next;
     private List<Completable> variants;
     private TYPE type;
 
     public ArrayNode(List<Completable> variants, TYPE type) {
         this.variants = variants;
         this.type = type;
+        for (Completable variant : variants) {
+            variant.setParent(this);
+        }
     }
 
     @Override
@@ -39,27 +39,14 @@ public class ArrayNode implements Completable {
 
     @Override
     public void setNext(Completable next) {
-
-        this.next = next;
+        super.setNext(next);
         for (Completable variant : variants) {
             variant.setNext(next);
         }
     }
 
-    @Override
-    public void setPrev(Completable prev) {
-
-        this.prev = prev;
-    }
-
-    @Override
-    public Completable getPrev() {
-        return prev;
-    }
-
-    @Override
-    public Completable getNext() {
-        return next;
+    public List<Completable> getVariants() {
+        return variants;
     }
 
     enum TYPE {

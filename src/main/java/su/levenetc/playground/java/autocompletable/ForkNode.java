@@ -2,12 +2,9 @@ package su.levenetc.playground.java.autocompletable;
 
 import java.util.List;
 
-public class ForkNode implements Completable {
-
+public class ForkNode extends BaseNode {
 
     private List<Completable> variants;
-    Completable prev;
-    Completable next;
 
     public ForkNode(List<Completable> variants) {
 
@@ -37,26 +34,11 @@ public class ForkNode implements Completable {
     }
 
     @Override
-    public void setNext(Completable completable) {
-        next = completable;
+    public void setNext(Completable next) {
+        super.setNext(next);
         for (Completable variant : variants) {
-            variant.setNext(completable);
+            variant.setNext(next);
         }
-    }
-
-    @Override
-    public void setPrev(Completable completable) {
-        prev = completable;
-    }
-
-    @Override
-    public Completable getPrev() {
-        return prev;
-    }
-
-    @Override
-    public Completable getNext() {
-        return next;
     }
 
     @Override

@@ -22,7 +22,7 @@ public class AutoTreeTests {
         Completable tree = builder
                 .then("aaa")
                 .then("bbb")
-                .then("xxx", "yyy")
+                .thenOneOf("xxx", "yyy")
                 .then("ccc")
                 .isLast();
 
@@ -38,19 +38,20 @@ public class AutoTreeTests {
 
         Completable select = from("select")
                 .then("where")
-                .then(FIELDS, "name", "age").dependOn(TABLES)
+                .thenMultiple(FIELDS, "name", "age").dependOn(TABLES)
                 .then("from")
-                .then(TABLES, "students", "teachers")
+                .thenOneOf(TABLES, "students", "teachers")
                 .then("limit").isOptional()
                 .then("value")
                 .isLast();
 
         Completable insert = from("insert")
                 .then("into")
-                .then(FIELDS, "name", "age")
+                .thenMultiple(FIELDS, "name", "age")
                 .then("into")
                 .then("values")
-                .then(VALUES, "Maria", "32").dependOn(FIELDS)
+                //TODO: add one value
+                .thenMultiple(VALUES, "Maria", "32").dependOn(FIELDS)
                 .isLast();
 
         Completable root = from(select, insert).isLast();
@@ -64,8 +65,25 @@ public class AutoTreeTests {
                 .completeAndNext("from")
                 .complete("st");
 
-        assertEquals("students", ((SingleNode) cursor.current()).getVariant());
+        assertEquals("students", ((SingleNode) cursor.last()).getVariant());
         cursor.pop();
-        assertEquals("from", ((SingleNode) cursor.current()).getVariant());
+        assertEquals("from", ((SingleNode) cursor.last()).getVariant());
+    }
+
+    @Test
+    public void testChangeOneOf() {
+        int TABLES = 1;
+        Completable root = from("from")
+                .thenOneOf(TABLES, "users", "friends")
+                .isLast();
+
+        GraphCursor cursor = new GraphCursor(root);
+
+        cursor = cursor.completeAndNext("fr").complete("us");
+        assertEquals("users", ((SingleNode) cursor.last()).getVariant());
+
+        cursor.change(TABLES).to("friends");
+
+        assertEquals("friends", ((SingleNode) cursor.last()).getVariant());
     }
 }
