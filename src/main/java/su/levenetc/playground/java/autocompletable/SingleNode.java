@@ -33,4 +33,19 @@ public class SingleNode extends BaseNode {
     public String getVariant() {
         return variant;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SingleNode that = (SingleNode) o;
+
+        return variant != null ? variant.equals(that.variant) : that.variant == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return variant != null ? variant.hashCode() : 0;
+    }
 }

@@ -3,13 +3,20 @@ package su.levenetc.playground.java.autocompletable;
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class GraphCursor {
+/**
+ * Contains current state of graph and makes basic operations
+ */
+public class GraphModel {
 
     private Completable root;
     private Completable last;
     private LinkedList<Completable> stack = new LinkedList<>();
 
-    public GraphCursor(Completable root) {
+    public static GraphModel from(Completable root){
+        return new GraphModel(root);
+    }
+
+    public GraphModel(Completable root) {
         this.root = root;
     }
 
@@ -26,13 +33,13 @@ public class GraphCursor {
         return null;
     }
 
-    public GraphCursor pop() {
+    public GraphModel pop() {
         stack.pop();
         last = stack.peek();
         return this;
     }
 
-    public GraphCursor completeAndNext(String value) {
+    public GraphModel completeAndNext(String value) {
         Completable complete;
         if (last == null) {
             complete = root.complete(value);
@@ -45,7 +52,7 @@ public class GraphCursor {
         return this;
     }
 
-    public GraphCursor complete(String value) {
+    public GraphModel complete(String value) {
         Completable complete;
         if (last == null) {
             complete = root.complete(value);
@@ -68,7 +75,7 @@ public class GraphCursor {
 
     private void replace(Completable from, Completable to) {
         for (Completable node : stack) {
-            if(node == from){
+            if (node == from) {
                 int i = stack.indexOf(node);
                 stack.set(i, to);
                 last = stack.peek();
@@ -81,13 +88,13 @@ public class GraphCursor {
 
         private final ArrayNode array;
         private final Completable nodeToChange;
-        private final GraphCursor graphCursor;
+        private final GraphModel graphModel;
 
-        public Editor(ArrayNode array, Completable nodeToChange, GraphCursor graphCursor) {
+        Editor(ArrayNode array, Completable nodeToChange, GraphModel graphModel) {
 
             this.array = array;
             this.nodeToChange = nodeToChange;
-            this.graphCursor = graphCursor;
+            this.graphModel = graphModel;
         }
 
         public void to(String newVariant) {
@@ -95,7 +102,7 @@ public class GraphCursor {
                 if (variant instanceof SingleNode) {
                     SingleNode sNode = (SingleNode) variant;
                     if (newVariant.equals(sNode.getVariant())) {
-                        graphCursor.replace(nodeToChange, sNode);
+                        graphModel.replace(nodeToChange, sNode);
                         break;
                     }
                 }

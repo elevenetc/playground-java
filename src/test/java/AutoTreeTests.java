@@ -1,19 +1,31 @@
 import org.junit.Test;
 
+import java.util.Deque;
+
 import su.levenetc.playground.java.autocompletable.BranchBuilder;
 import su.levenetc.playground.java.autocompletable.Completable;
-import su.levenetc.playground.java.autocompletable.GraphCursor;
+import su.levenetc.playground.java.autocompletable.GraphModel;
 import su.levenetc.playground.java.autocompletable.SingleNode;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static su.levenetc.playground.java.autocompletable.BranchBuilder.from;
 
 public class AutoTreeTests {
 
     @Test
-    public void test02() {
-        BranchBuilder builder = new BranchBuilder();
-        Completable root = builder.then("a").then("b").then("c").isLast();
+    public void testBasicStack() {
+        Completable root = new BranchBuilder()
+                .then("a")
+                .then("b")
+                .then("c")
+                .isLast();
+        GraphModel model = GraphModel.from(root);
+        Deque<Completable> stack = model.stack();
+        assertTrue(stack.isEmpty());
+
+        model.complete("a").last();
+        Completable last = model.last();
     }
 
     @Test
@@ -56,18 +68,18 @@ public class AutoTreeTests {
 
         Completable root = from(select, insert).isLast();
 
-        GraphCursor cursor = new GraphCursor(root);
+        GraphModel model = new GraphModel(root);
 
-        cursor
+        model
                 .completeAndNext("sel")
                 .completeAndNext("wh")
                 .completeAndNext("n")
                 .completeAndNext("from")
                 .complete("st");
 
-        assertEquals("students", ((SingleNode) cursor.last()).getVariant());
-        cursor.pop();
-        assertEquals("from", ((SingleNode) cursor.last()).getVariant());
+        assertEquals("students", ((SingleNode) model.last()).getVariant());
+        model.pop();
+        assertEquals("from", ((SingleNode) model.last()).getVariant());
     }
 
     @Test
@@ -77,7 +89,7 @@ public class AutoTreeTests {
                 .thenOneOf(TABLES, "users", "friends")
                 .isLast();
 
-        GraphCursor cursor = new GraphCursor(root);
+        GraphModel cursor = new GraphModel(root);
 
         cursor = cursor.completeAndNext("fr").complete("us");
         assertEquals("users", ((SingleNode) cursor.last()).getVariant());
