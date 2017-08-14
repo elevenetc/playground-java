@@ -12,12 +12,13 @@ public class GraphModel {
     private Completable last;
     private LinkedList<Completable> stack = new LinkedList<>();
 
-    public static GraphModel from(Completable root){
+    public static GraphModel from(Completable root) {
         return new GraphModel(root);
     }
 
     public GraphModel(Completable root) {
         this.root = root;
+        last = root;
     }
 
     public Editor change(int tag) {
@@ -40,29 +41,19 @@ public class GraphModel {
     }
 
     public GraphModel completeAndNext(String value) {
-        Completable complete;
-        if (last == null) {
-            complete = root.complete(value);
-            last = root.completeAndNext(value);
-        } else {
-            complete = last.complete(value);
-            last = last.completeAndNext(value);
-        }
-        stack.push(complete);
+        last = last.completeAndNext(value);
+        stack.push(last);
         return this;
     }
 
-    public GraphModel complete(String value) {
-        Completable complete;
-        if (last == null) {
-            complete = root.complete(value);
-            last = root.complete(value);
-        } else {
-            complete = last.complete(value);
-            last = last.complete(value);
-        }
-        stack.push(complete);
+    public GraphModel completeCurrent(String value) {
+        last = last.complete(value);
+        stack.push(last);
         return this;
+    }
+
+    public Completable root() {
+        return last;
     }
 
     public Completable last() {

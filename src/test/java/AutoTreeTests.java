@@ -1,3 +1,4 @@
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Deque;
@@ -13,6 +14,24 @@ import static su.levenetc.playground.java.autocompletable.BranchBuilder.from;
 
 public class AutoTreeTests {
 
+    private static final String varInit = "init";
+    private static final String varA = "aaa";
+    private static final String varB = "bbb";
+    private static final String varC = "ccc";
+
+    private Completable branchAbc;
+    private GraphModel modelAbc;
+
+    @Before
+    public void before() {
+        branchAbc = new BranchBuilder()
+                .then(varA)
+                .then(varB)
+                .then(varC)
+                .isLast();
+        modelAbc = GraphModel.from(branchAbc);
+    }
+
     @Test
     public void testBasicStack() {
         Completable root = new BranchBuilder()
@@ -24,7 +43,7 @@ public class AutoTreeTests {
         Deque<Completable> stack = model.stack();
         assertTrue(stack.isEmpty());
 
-        model.complete("a").last();
+        model.completeCurrent("a").last();
         Completable last = model.last();
     }
 
@@ -75,7 +94,7 @@ public class AutoTreeTests {
                 .completeAndNext("wh")
                 .completeAndNext("n")
                 .completeAndNext("from")
-                .complete("st");
+                .completeCurrent("st");
 
         assertEquals("students", ((SingleNode) model.last()).getVariant());
         model.pop();
@@ -91,11 +110,46 @@ public class AutoTreeTests {
 
         GraphModel cursor = new GraphModel(root);
 
-        cursor = cursor.completeAndNext("fr").complete("us");
+        cursor = cursor.completeAndNext("fr").completeCurrent("us");
         assertEquals("users", ((SingleNode) cursor.last()).getVariant());
 
         cursor.change(TABLES).to("friends");
 
         assertEquals("friends", ((SingleNode) cursor.last()).getVariant());
+    }
+
+    @Test
+    public void testCompleteCurrent() {
+        Completable last = modelAbc.completeCurrent("a").last();
+        assertEquals(varA, ((SingleNode) last).getVariant());
+    }
+
+    @Test
+    public void testCompleteAndNext() {
+        Completable last = modelAbc.completeAndNext("a").last();
+        assertEquals(varB, ((SingleNode) last).getVariant());
+    }
+
+    @Test
+    public void testLastAndRoot() {
+        assertTrue(modelAbc.last() instanceof SingleNode);
+        assertEquals(varA, ((SingleNode) modelAbc.last()).getVariant());
+        assertEquals(varA, ((SingleNode) modelAbc.root()).getVariant());
+    }
+
+    @Test
+    public void testBasicPop() {
+
+        modelAbc
+                .completeAndNext("a")
+                .completeAndNext("b")
+                .completeCurrent("c");
+
+        assertEquals(varC, ((SingleNode) modelAbc.last()).getVariant());
+        modelAbc.pop();
+        assertEquals(varB, ((SingleNode) modelAbc.last()).getVariant());
+        modelAbc.pop();
+        assertEquals(varA, ((SingleNode) modelAbc.last()).getVariant());
+
     }
 }
