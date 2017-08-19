@@ -11,18 +11,9 @@ public class SingleNode extends BaseNode {
     }
 
     @Override
-    public Completable complete(String value) {
+    public Node complete(String value) {
         if (Utils.isCompletable(value, value)) return this;
         else return null;
-    }
-
-    @Override
-    public Completable completeAndNext(String value) {
-        if (Utils.isCompletable(value, value)) {
-            return next;
-        } else {
-            return null;
-        }
     }
 
     @Override

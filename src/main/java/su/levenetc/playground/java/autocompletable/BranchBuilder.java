@@ -6,7 +6,7 @@ import java.util.List;
 
 public class BranchBuilder {
 
-    Completable current;
+    Node current;
 
     public BranchBuilder isOptional() {
         //TODO: set current as optional
@@ -42,7 +42,7 @@ public class BranchBuilder {
 
     private BranchBuilder then(ArrayNode.TYPE type, int tag, String... variants) {
 
-        List<Completable> vars = new LinkedList<>();
+        List<Node> vars = new LinkedList<>();
         for (String variant : variants) vars.add(new SingleNode(variant));
 
         ArrayNode node = new ArrayNode(vars, type);
@@ -59,7 +59,7 @@ public class BranchBuilder {
         return this;
     }
 
-    public static BranchBuilder from(Completable... completable) {
+    public static BranchBuilder from(Node... completable) {
         ForkNode node = new ForkNode(Arrays.asList(completable));
         BranchBuilder builder = new BranchBuilder();
         builder.current = node;
@@ -88,15 +88,15 @@ public class BranchBuilder {
         return this;
     }
 
-    public BranchBuilder thenMultiple(Completable... completable) {
-        return then(ArrayNode.TYPE.MULTIPLE, completable);
+    public BranchBuilder thenMultiple(Node... node) {
+        return then(ArrayNode.TYPE.MULTIPLE, node);
     }
 
-    public BranchBuilder thenOneOf(Completable... completable) {
-        return then(ArrayNode.TYPE.SINGLE, completable);
+    public BranchBuilder thenOneOf(Node... node) {
+        return then(ArrayNode.TYPE.SINGLE, node);
     }
 
-    private BranchBuilder then(ArrayNode.TYPE type, Completable... completable) {
+    private BranchBuilder then(ArrayNode.TYPE type, Node... completable) {
 
         if (current == null) {
             current = new ArrayNode(Arrays.asList(completable), type);
@@ -109,11 +109,11 @@ public class BranchBuilder {
         return this;
     }
 
-    public Completable isLast() {
+    public Node isLast() {
         return getRoot(current);
     }
 
-    private Completable getRoot(Completable node) {
+    private Node getRoot(Node node) {
         if (node.getPrev() == null) {
             return node;
         } else {

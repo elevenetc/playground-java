@@ -4,8 +4,8 @@ import org.junit.Test;
 import java.util.Deque;
 
 import su.levenetc.playground.java.autocompletable.BranchBuilder;
-import su.levenetc.playground.java.autocompletable.Completable;
-import su.levenetc.playground.java.autocompletable.GraphModel;
+import su.levenetc.playground.java.autocompletable.FlatModel;
+import su.levenetc.playground.java.autocompletable.Node;
 import su.levenetc.playground.java.autocompletable.SingleNode;
 
 import static org.junit.Assert.assertEquals;
@@ -19,8 +19,8 @@ public class AutoTreeTests {
     private static final String varB = "bbb";
     private static final String varC = "ccc";
 
-    private Completable branchAbc;
-    private GraphModel modelAbc;
+    private Node branchAbc;
+    private FlatModel modelAbc;
 
     @Before
     public void before() {
@@ -29,35 +29,35 @@ public class AutoTreeTests {
                 .then(varB)
                 .then(varC)
                 .isLast();
-        modelAbc = GraphModel.from(branchAbc);
+        modelAbc = FlatModel.from(branchAbc);
     }
 
     @Test
     public void testBasicStack() {
-        Completable root = new BranchBuilder()
+        Node root = new BranchBuilder()
                 .then("a")
                 .then("b")
                 .then("c")
                 .isLast();
-        GraphModel model = GraphModel.from(root);
-        Deque<Completable> stack = model.stack();
+        FlatModel model = FlatModel.from(root);
+        Deque<Node> stack = model.stack();
         assertTrue(stack.isEmpty());
 
-        model.completeCurrent("a").last();
-        Completable last = model.last();
+        model.append("a").last();
+        Node last = model.last();
     }
 
     @Test
     public void test03() {
         BranchBuilder builder = new BranchBuilder();
-        Completable tree = builder
+        Node tree = builder
                 .then("aaa")
                 .then("bbb")
                 .thenOneOf("xxx", "yyy")
                 .then("ccc")
                 .isLast();
 
-        Completable complete = tree.completeAndNext("a").completeAndNext("b").complete("x");
+        Node complete = tree.completeAndNext("a").completeAndNext("b").complete("x");
     }
 
     @Test
@@ -67,7 +67,7 @@ public class AutoTreeTests {
         final int TABLES = 2;
         final int VALUES = 3;
 
-        Completable select = from("select")
+        Node select = from("select")
                 .then("where")
                 .thenMultiple(FIELDS, "name", "age").dependOn(TABLES)
                 .then("from")
@@ -76,7 +76,7 @@ public class AutoTreeTests {
                 .then("value")
                 .isLast();
 
-        Completable insert = from("insert")
+        Node insert = from("insert")
                 .then("into")
                 .thenMultiple(FIELDS, "name", "age")
                 .then("into")
@@ -85,9 +85,9 @@ public class AutoTreeTests {
                 .thenMultiple(VALUES, "Maria", "32").dependOn(FIELDS)
                 .isLast();
 
-        Completable root = from(select, insert).isLast();
+        Node root = from(select, insert).isLast();
 
-        GraphModel model = new GraphModel(root);
+        FlatModel model = new FlatModel(root);
 
         model
                 .completeAndNext("sel")
@@ -104,11 +104,11 @@ public class AutoTreeTests {
     @Test
     public void testChangeOneOf() {
         int TABLES = 1;
-        Completable root = from("from")
+        Node root = from("from")
                 .thenOneOf(TABLES, "users", "friends")
                 .isLast();
 
-        GraphModel cursor = new GraphModel(root);
+        FlatModel cursor = new FlatModel(root);
 
         cursor = cursor.completeAndNext("fr").completeCurrent("us");
         assertEquals("users", ((SingleNode) cursor.last()).getVariant());
@@ -120,13 +120,13 @@ public class AutoTreeTests {
 
     @Test
     public void testCompleteCurrent() {
-        Completable last = modelAbc.completeCurrent("a").last();
+        Node last = modelAbc.append("a").last();
         assertEquals(varA, ((SingleNode) last).getVariant());
     }
 
     @Test
     public void testCompleteAndNext() {
-        Completable last = modelAbc.completeAndNext("a").last();
+        Node last = modelAbc.completeAndNext("a").last();
         assertEquals(varB, ((SingleNode) last).getVariant());
     }
 

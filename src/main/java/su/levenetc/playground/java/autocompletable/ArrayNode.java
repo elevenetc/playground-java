@@ -4,21 +4,21 @@ import java.util.List;
 
 public class ArrayNode extends BaseNode {
 
-    private List<Completable> variants;
+    private List<Node> variants;
     private TYPE type;
 
-    public ArrayNode(List<Completable> variants, TYPE type) {
+    public ArrayNode(List<Node> variants, TYPE type) {
         this.variants = variants;
         this.type = type;
-        for (Completable variant : variants) {
+        for (Node variant : variants) {
             variant.setParent(this);
         }
     }
 
     @Override
-    public Completable complete(String value) {
-        for (Completable variant : variants) {
-            Completable complete = variant.complete(value);
+    public Node complete(String value) {
+        for (Node variant : variants) {
+            Node complete = variant.complete(value);
             if (complete != null) {
                 return complete;
             }
@@ -27,25 +27,14 @@ public class ArrayNode extends BaseNode {
     }
 
     @Override
-    public Completable completeAndNext(String value) {
-        for (Completable variant : variants) {
-            Completable complete = variant.completeAndNext(value);
-            if (complete != null) {
-                return complete;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public void setNext(Completable next) {
+    public void setNext(Node next) {
         super.setNext(next);
-        for (Completable variant : variants) {
+        for (Node variant : variants) {
             variant.setNext(next);
         }
     }
 
-    public List<Completable> getVariants() {
+    public List<Node> getVariants() {
         return variants;
     }
 

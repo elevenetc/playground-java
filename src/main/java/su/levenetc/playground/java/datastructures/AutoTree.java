@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import su.levenetc.playground.java.autocompletable.Completable;
-
 public class AutoTree {
 
     private List<String> variants;

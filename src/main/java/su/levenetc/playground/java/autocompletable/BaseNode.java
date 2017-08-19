@@ -1,10 +1,10 @@
 package su.levenetc.playground.java.autocompletable;
 
-public abstract class BaseNode implements Completable {
+public abstract class BaseNode implements Node {
 
-    protected Completable prev;
-    protected Completable next;
-    protected Completable parent;
+    protected Node prev;
+    protected Node next;
+    protected Node parent;
     protected int tag;
 
     public int getTag() {
@@ -16,32 +16,32 @@ public abstract class BaseNode implements Completable {
     }
 
     @Override
-    public void setNext(Completable next) {
+    public void setNext(Node next) {
         this.next = next;
     }
 
     @Override
-    public void setPrev(Completable prev) {
+    public void setPrev(Node prev) {
         this.prev = prev;
     }
 
     @Override
-    public Completable getPrev() {
+    public Node getPrev() {
         return prev;
     }
 
     @Override
-    public Completable getNext() {
+    public Node getNext() {
         return next;
     }
 
     @Override
-    public void setParent(Completable parent) {
+    public void setParent(Node parent) {
         this.parent = parent;
     }
 
     @Override
-    public Completable getParent() {
+    public Node getParent() {
         return parent;
     }
 }

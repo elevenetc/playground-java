@@ -8,7 +8,7 @@ import su.levenetc.playground.java.utils.Out;
 public class CompletableSample {
 
 	public static void run() {
-//		Completable.fromAction(() -> {
+//		Node.fromAction(() -> {
 //			Out.plnCurrentThread();
 //			throw new RuntimeException("!");
 //		}).subscribe(CompletableSample::zzz, () -> Out.pln("onComplete"));
