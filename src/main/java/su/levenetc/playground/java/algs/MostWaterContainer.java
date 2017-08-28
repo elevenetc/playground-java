@@ -1,7 +1,7 @@
 package su.levenetc.playground.java.algs;
 
 public class MostWaterContainer {
-    public static int[] get(int... values) {
+    public static int[] get1(int... values) {
         int left = 0;
         int right = values.length - 1;
         int maxLeft = left;
@@ -34,6 +34,30 @@ public class MostWaterContainer {
             } else {
                 right--;
             }
+        }
+
+        return new int[]{maxLeft, maxRight};
+    }
+
+    public static int[] get2(int... values) {
+
+        int maxVolume = 0;
+        int left = 0;
+        int right = values.length - 1;
+        int maxLeft = 0;
+        int maxRight = 0;
+
+        while (left < right) {
+            int volume = (right - left) * Math.min(values[left], values[right]);
+            if (volume > maxVolume) {
+                maxVolume = volume;
+                maxLeft = left;
+                maxRight = right;
+            }
+            if (values[left] < values[right])
+                left++;
+            else
+                right--;
         }
 
         return new int[]{maxLeft, maxRight};
