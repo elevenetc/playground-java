@@ -45,7 +45,7 @@ public class FlatModel {
 
     public FlatModel pop() {
         list.pop();
-        last = list.peek();
+        //last = list.peek();
         return this;
     }
 
@@ -53,7 +53,7 @@ public class FlatModel {
         if (list.isEmpty()) {
             Node complete = root.complete(value);
             if (complete != null) {
-                list.add(completed(complete, ));
+                list.add(completed(complete, value));
                 addNextIfExists();
                 return true;
             } else {
@@ -66,7 +66,8 @@ public class FlatModel {
 
             }
         }
-        return this;
+        //return this;
+        return true;
     }
 
     private void addNextIfExists() {
@@ -87,7 +88,8 @@ public class FlatModel {
     }
 
     public Deque<Node> stack() {
-        return list;
+        //return list;
+        return null;
     }
 
     private void replace(Node from, Node to) {
@@ -95,8 +97,8 @@ public class FlatModel {
             Node node = wrapper.node;
             if (node == from) {
                 int i = list.indexOf(node);
-                list.set(i, to);
-                last = list.peek();
+                //list.set(i, to);
+                //last = list.peek();
                 break;
             }
         }
