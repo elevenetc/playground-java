@@ -43,6 +43,17 @@ public class Utils {
         return result;
     }
 
+    public static LinkedList<Integer> linkedList(int... values) {
+        LinkedList<Integer> result = new LinkedList<>();
+        for (int value : values) result.add(value);
+        return result;
+    }
+
+    public static List<Integer> list(int... values) {
+        LinkedList<Integer> result = new LinkedList<>();
+        for (int value : values) result.add(value);
+        return result;
+    }
 
     public static int[] array(int... values) {
         return values;
