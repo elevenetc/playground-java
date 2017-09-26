@@ -174,6 +174,10 @@ public class Out {
         pln(Thread.currentThread());
     }
 
+    public static void plnCurrentThread(Object tag) {
+        pln(currentThread() + ": " + tag);
+    }
+
     public static void plnCurrentThread(String tag) {
         pln(currentThread() + ": " + tag);
     }
