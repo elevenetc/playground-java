@@ -20,7 +20,7 @@ public class AddTwoHugeNumbers {
             int lastTop = top.removeLast();
             int value = lastBottom + lastTop;
             if (value >= 10) {
-                value = 10 - value;
+                value = value - 10;
                 if (top.isEmpty()) {
                     result.addFirst(1);
                 } else {
