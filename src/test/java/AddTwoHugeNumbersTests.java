@@ -1,6 +1,7 @@
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static su.levenetc.playground.java.algs.AddTwoHugeNumbers.concatInt;
 import static su.levenetc.playground.java.algs.AddTwoHugeNumbers.fixLeadingZeroAndSplit;
 import static su.levenetc.playground.java.algs.AddTwoHugeNumbers.formattedSum;
 import static su.levenetc.playground.java.algs.AddTwoHugeNumbers.removeLeadingZeroes;
@@ -43,8 +44,13 @@ public class AddTwoHugeNumbersTests {
 
     @Test
     public void formattedTests() {
-        assertEquals(list(2, 0, 0, 0, 2), formattedSum(linkedList(1, 1), linkedList(1, 1)));
-        assertEquals(list(4), formattedSum(linkedList(2), linkedList(2)));
+//        assertEquals(list(223, 104, 105), formattedSum(linkedList(123, 4, 5), linkedList(100, 100, 100)));
+//        assertEquals(list(0), formattedSum(linkedList(0), linkedList(0)));
+//        assertEquals(list(1234, 1234, 0), formattedSum(linkedList(1234, 1234, 0), linkedList(0)));
+//        assertEquals(list(1234, 123, 0), formattedSum(linkedList(0), linkedList(1234, 123, 0)));
+        //assertEquals(list(9999, 0, 0, 0, 0, 0), formattedSum(linkedList(1), linkedList(9998, 9999, 9999, 9999, 9999, 9999)));
+        assertEquals(list(1, 0), formattedSum(linkedList(1), linkedList(9999)));
+
     }
 
     @Test
@@ -55,4 +61,14 @@ public class AddTwoHugeNumbersTests {
         assertEquals(linkedList(6, 8, 1, 1), removeLeadingZeroes(linkedList(6, 8, 1, 1)));
         assertEquals(linkedList(9, 1), removeLeadingZeroes(linkedList(9, 0, 0, 0, 1)));
     }
+
+    @Test
+    public void concatIntsTests() {
+        assertEquals(123, concatInt(1, 2, 3));
+        assertEquals(13, concatInt(1, 3));
+        assertEquals(3, concatInt(3));
+        assertEquals(54563, concatInt(5, 4, 5, 6, 3));
+    }
+
+
 }

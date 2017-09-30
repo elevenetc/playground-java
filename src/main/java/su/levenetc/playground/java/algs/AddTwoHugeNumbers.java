@@ -15,10 +15,12 @@ public class AddTwoHugeNumbers {
         for (Integer bValue : b) {
             bList.addAll(fixLeadingZeroAndSplit(bValue));
         }
-        return sum(aList, bList);
+        LinkedList<Integer> result = sum(aList, bList);
+
+        return removeLeadingZeroes(result);
     }
 
-    public static List<Integer> sum(List<Integer> a, List<Integer> b) {
+    public static LinkedList<Integer> sum(List<Integer> a, List<Integer> b) {
         LinkedList<Integer> top = splitInts(a);
         LinkedList<Integer> bottom = splitInts(b);
         LinkedList<Integer> result = new LinkedList<>();
@@ -105,32 +107,52 @@ public class AddTwoHugeNumbers {
     public static LinkedList<Integer> removeLeadingZeroes(LinkedList<Integer> values) {
         LinkedList<Integer> result = new LinkedList<>();
         while (values.size() >= 4) {
+
             int value4 = values.removeLast();
             int value3 = values.removeLast();
             int value2 = values.removeLast();
             int value1 = values.removeLast();
 
             if (value1 != 0) {
-                result.add(value1);
-                result.add(value2);
-                result.add(value3);
-                result.add(value4);
+                result.addFirst(concatInt(value1, value2, value3, value4));
             } else if (value2 != 0) {
-                result.add(value2);
-                result.add(value3);
-                result.add(value4);
+                result.addFirst(concatInt(value2, value3, value4));
             } else if (value3 != 0) {
-                result.add(value3);
-                result.add(value4);
+                result.addFirst(concatInt(value3, value4));
             } else {
-                result.add(value4);
+                result.addFirst(value4);
             }
         }
 
-        while (!values.isEmpty()) {
-            result.addFirst(values.removeLast());
+        if (values.size() > 0) {
+            int[] rest = listToArray(values);
+            result.addFirst(concatInt(rest));
         }
 
+        return result;
+    }
+
+    public static int concatInt(int... values) {
+        if (values.length == 0) return 0;
+        if (values.length == 1) return values[0];
+        int i = values.length - 1;
+        int mult = 10;
+        int result = values[i];
+        while (i >= 0) {
+            i--;
+            if (i >= 0) {
+                result += mult * values[i];
+                mult *= 10;
+            }
+        }
+        return result;
+    }
+
+    static int[] listToArray(List<Integer> values) {
+        int[] result = new int[values.size()];
+        for (int i = 0; i < values.size(); i++) {
+            result[i] = values.get(i);
+        }
         return result;
     }
 }
