@@ -35,21 +35,40 @@ public class AddTwoHugeNumbers {
             int lastTop = top.removeLast();
             int value = lastBottom + lastTop;
             if (value >= 10) {
+
                 value = value - 10;
+                result.addFirst(value);
+
                 if (top.isEmpty()) {
                     result.addFirst(1);
                 } else {
-                    int newLast = top.getLast() + 1;
-                    top.set(top.size() - 1, newLast);
+                    int newTopLast = top.getLast() + 1;
+                    top.set(top.size() - 1, newTopLast);
                 }
+
+            } else {
+                result.addFirst(value);
             }
 
-            result.addFirst(value);
+
         }
 
         while (!top.isEmpty()) {
             int last = top.removeLast();
-            result.addFirst(last);
+            if (last >= 10) {
+                LinkedList<Integer> split = splitInt(last);
+                int f = split.getFirst();
+                int l = split.getLast();
+                result.addFirst(l);
+                if (top.isEmpty()) {
+                    result.addFirst(f);
+                } else {
+                    top.set(top.size() - 1, top.getLast() + f);
+                }
+            } else {
+                result.addFirst(last);
+            }
+
         }
 
         return result;

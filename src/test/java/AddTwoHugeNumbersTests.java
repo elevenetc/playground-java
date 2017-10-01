@@ -44,21 +44,30 @@ public class AddTwoHugeNumbersTests {
 
     @Test
     public void formattedTests() {
-//        assertEquals(list(223, 104, 105), formattedSum(linkedList(123, 4, 5), linkedList(100, 100, 100)));
-//        assertEquals(list(0), formattedSum(linkedList(0), linkedList(0)));
-//        assertEquals(list(1234, 1234, 0), formattedSum(linkedList(1234, 1234, 0), linkedList(0)));
-//        assertEquals(list(1234, 123, 0), formattedSum(linkedList(0), linkedList(1234, 123, 0)));
-        //assertEquals(list(9999, 0, 0, 0, 0, 0), formattedSum(linkedList(1), linkedList(9998, 9999, 9999, 9999, 9999, 9999)));
+        assertEquals(list(223, 104, 105), formattedSum(linkedList(123, 4, 5), linkedList(100, 100, 100)));
+        assertEquals(list(0), formattedSum(linkedList(0), linkedList(0)));
+        assertEquals(list(1234, 1234, 0), formattedSum(linkedList(1234, 1234, 0), linkedList(0)));
+        assertEquals(list(1234, 123, 0), formattedSum(linkedList(0), linkedList(1234, 123, 0)));
+        assertEquals(list(9999, 0, 0, 0, 0, 0), formattedSum(linkedList(1), linkedList(9998, 9999, 9999, 9999, 9999, 9999)));
         assertEquals(list(1, 0), formattedSum(linkedList(1), linkedList(9999)));
+        assertEquals(list(1000), formattedSum(linkedList(1), linkedList(999)));
+        assertEquals(list(1, 0, 0, 0, 0, 0, 0), formattedSum(linkedList(1), linkedList(9999, 9999, 9999, 9999, 9999, 9999)));
+        assertEquals(list(8339, 6819), formattedSum(linkedList(8339, 4510), linkedList(2309)));
+        assertEquals(list(9876, 5434, 0), formattedSum(linkedList(9876, 5432, 1999), linkedList(1, 8001)));
+        assertEquals(list(1, 0, 0, 0, 0, 0, 0), formattedSum(linkedList(1), linkedList(9999, 9999, 9999, 9999, 9999, 9999)));
+        assertEquals(list(1, 0), formattedSum(linkedList(1), linkedList(9999)));
+        assertEquals(list(1000), formattedSum(linkedList(1), linkedList(999)));
+    }
 
+    @Test
+    public void zzz(){
+        assertEquals(list(9876, 5434, 0), formattedSum(linkedList(9876, 5432, 1999), linkedList(1, 8001)));
     }
 
     @Test
     public void removeLeadingZeroesTests() {
         assertEquals(linkedList(1), removeLeadingZeroes(linkedList(0, 0, 0, 1)));
-        assertEquals(linkedList(1, 1), removeLeadingZeroes(linkedList(0, 0, 1, 1)));
-        assertEquals(linkedList(8, 1, 1), removeLeadingZeroes(linkedList(0, 8, 1, 1)));
-        assertEquals(linkedList(6, 8, 1, 1), removeLeadingZeroes(linkedList(6, 8, 1, 1)));
+        assertEquals(linkedList(11), removeLeadingZeroes(linkedList(0, 0, 1, 1)));
         assertEquals(linkedList(9, 1), removeLeadingZeroes(linkedList(9, 0, 0, 0, 1)));
     }
 
