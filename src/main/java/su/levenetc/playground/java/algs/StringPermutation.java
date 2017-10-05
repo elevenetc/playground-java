@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import su.levenetc.playground.java.utils.StringUtils;
+
 /**
  * Created by eugene.levenetc on 23/04/2017.
  */
@@ -27,6 +29,12 @@ public class StringPermutation {
     public static Set<String> permutate3(String str) {
         Set<String> result = new HashSet<>();
         permutate3Internal("", str, result);
+        return result;
+    }
+
+    public static Set<String> permutate4(String str) {
+        HashSet<String> result = new HashSet<>();
+        permute4Internal(str, 0, str.length() - 1, result);
         return result;
     }
 
@@ -73,6 +81,20 @@ public class StringPermutation {
                         str.substring(0, i) + str.substring(i + 1, length),
                         result
                 );
+    }
+
+    private static void permute4Internal(final String string, final int left, final int right, Set<String> result) {
+        if (left == string.length() - 1) {
+            result.add(string);
+        } else {
+            for (int i = left; i <= right; i++) {
+                permute4Internal(StringUtils.swap(string, left, i),
+                        left + 1,
+                        right,
+                        result
+                );
+            }
+        }
     }
 
     private static void swap(String[] letters, int left, int right) {

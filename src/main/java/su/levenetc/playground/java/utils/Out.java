@@ -114,6 +114,10 @@ public class Out {
         System.out.println(result);
     }
 
+    public static void plnTime(Object result) {
+        System.out.println(SysUtils.time() + ":" + result);
+    }
+
     public static void pln(int[] array) {
         plnArray(array);
     }

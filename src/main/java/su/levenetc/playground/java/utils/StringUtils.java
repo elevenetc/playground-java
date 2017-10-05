@@ -25,4 +25,13 @@ public class StringUtils {
     public static boolean isLetter(char ch) {
         return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z');
     }
+
+    public static String swap(String str, int a, int b) {
+        if (a == b) return str;
+        char[] charArray = str.toCharArray();
+        char aTemp = charArray[a];
+        charArray[a] = charArray[b];
+        charArray[b] = aTemp;
+        return String.valueOf(charArray);
+    }
 }
