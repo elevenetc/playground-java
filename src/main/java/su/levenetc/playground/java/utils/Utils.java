@@ -7,6 +7,7 @@ import java.util.*;
  */
 public class Utils {
 
+
     public static boolean isCompletable(String full, String prefix) {
         if (prefix.length() > full.length()) return false;
         if (prefix.length() == 0) return false;
@@ -53,6 +54,10 @@ public class Utils {
         LinkedList<Integer> result = new LinkedList<>();
         for (int value : values) result.add(value);
         return result;
+    }
+
+    public static char[] charArray(char... values) {
+        return values;
     }
 
     public static int[] array(int... values) {

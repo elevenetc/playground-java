@@ -12,6 +12,8 @@ import java.util.List;
  */
 public class Out {
 
+    public static int index = 0;
+
     public static final String ANSI_RESET = "\u001B[0m";
 
     public static final String ANSI_BLACK = "\u001B[30m";
@@ -110,6 +112,10 @@ public class Out {
         System.out.print(result.toString());
     }
 
+    public static void pln(char[] chars) {
+        System.out.println(String.valueOf(chars));
+    }
+
     public static void pln(Object result) {
         System.out.println(result);
     }
@@ -154,6 +160,10 @@ public class Out {
         System.out.println(result);
     }
 
+    public static void plnIndex(String value) {
+        pln(index++, value);
+    }
+
     public static void result(Object in, Object out) {
         pln(" in: " + in + "\nout: " + out);
     }
@@ -180,6 +190,10 @@ public class Out {
 
     public static void plnCurrentThread(Object tag) {
         pln(currentThread() + ": " + tag);
+    }
+
+    public static void plnCurrentThread(Object tag, String message) {
+        pln(tag, currentThread() + ": " + message);
     }
 
     public static void plnCurrentThread(String tag) {
@@ -244,5 +258,9 @@ public class Out {
             if (i < to) Out.p(", ");
         }
         Out.p("]");
+    }
+
+    public static void format(String format, Object... str) {
+        Out.pln(String.format(format, str));
     }
 }

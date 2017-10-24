@@ -1,14 +1,33 @@
 package su.levenetc.playground.java.utils;
 
+import java.util.concurrent.Executors;
+
 import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
-
-import java.util.concurrent.Executors;
 
 /**
  * Created by elevenetc on 04/07/15.
  */
 public class ThreadsUtils {
+
+    public static Thread runContinuous(Runnable task, String name) {
+        return runContinuous(task, name, -1);
+    }
+
+    public static Thread runContinuous(Runnable task, String name, long delay) {
+        Thread thread = new Thread(() -> {
+            while (true) {
+                if (delay > 0) ThreadsUtils.sleep(delay);
+                task.run();
+            }
+        }, name);
+        thread.start();
+        return thread;
+    }
+
+    public static void run(Runnable task) {
+        new Thread(task).start();
+    }
 
     public static Scheduler createScheduler(String name) {
         return Schedulers.from(Executors.newSingleThreadExecutor(runnable -> new Thread(runnable, name)));

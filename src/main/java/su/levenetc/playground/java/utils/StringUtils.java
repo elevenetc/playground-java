@@ -34,4 +34,24 @@ public class StringUtils {
         charArray[b] = aTemp;
         return String.valueOf(charArray);
     }
+
+    public static void swap(String[] letters, int left, int right) {
+        String temp = letters[left];
+        letters[left] = letters[right];
+        letters[right] = temp;
+    }
+
+    public static String set(String str, int index, char value) {
+        char[] chars = str.toCharArray();
+        chars[index] = value;
+        return String.valueOf(chars);
+    }
+
+    public static String multiply(char ch, int length) {
+        StringBuilder sb = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            sb.append(ch);
+        }
+        return sb.toString();
+    }
 }
