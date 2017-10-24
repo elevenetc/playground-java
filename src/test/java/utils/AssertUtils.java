@@ -1,9 +1,25 @@
+package utils;
+
 import java.util.*;
 
 /**
  * Created by eugene.levenetc on 13/04/2017.
  */
 public class AssertUtils {
+
+    public static boolean assertContains(List<int[]> arrays, int... values) {
+        for (int[] array : arrays) {
+            boolean found = true;
+            for (int i = 0; i < values.length; i++) {
+                if (array[i] != values[i]) {
+                    found = false;
+                    break;
+                }
+            }
+            if (found) return true;
+        }
+        throw new AssertionError("cant find values: " + Arrays.toString(values));
+    }
 
     public static <K, T> void assertContains(Map<K, Set<T>> map, T... checkSet) {
         List<Set<T>> list = new ArrayList<>();
