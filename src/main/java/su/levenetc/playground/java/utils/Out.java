@@ -224,10 +224,10 @@ public class Out {
     }
 
     public static void pln(int[][] matrix) {
-        for (int i = 0; i < matrix.length; i++) {
-            final int[] row = matrix[i];
-            for (int k = 0; k < matrix.length; k++) {
-                Out.p(row[k]);
+        for (int r = 0; r < matrix.length; r++) {
+            final int[] row = matrix[r];
+            for (int c = 0; c < row.length; c++) {
+                Out.p(row[c]);
                 Out.p(" ");
             }
             Out.pln();
