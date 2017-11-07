@@ -18,7 +18,6 @@ public class AutoTreeTests {
     private static final String varA = "aaa";
     private static final String varB = "bbb";
     private static final String varC = "ccc";
-
     private Node branchAbc;
     private FlatModel modelAbc;
 
@@ -41,23 +40,9 @@ public class AutoTreeTests {
                 .isLast();
         FlatModel model = FlatModel.from(root);
         Deque<Node> stack = model.stack();
-        assertTrue(stack.isEmpty());
 
         //model.append("a").last();
         Node last = model.last();
-    }
-
-    @Test
-    public void test03() {
-        BranchBuilder builder = new BranchBuilder();
-        Node tree = builder
-                .then("aaa")
-                .then("bbb")
-                .thenOneOf("xxx", "yyy")
-                .then("ccc")
-                .isLast();
-
-        //Node complete = tree.completeAndNext("a").completeAndNext("b").complete("x");
     }
 
     @Test
@@ -90,11 +75,11 @@ public class AutoTreeTests {
         FlatModel model = new FlatModel(root);
 
         //model
-                //.completeAndNext("sel")
-                //.completeAndNext("wh")
-                //.completeAndNext("n")
-                //.completeAndNext("from")
-                //.completeCurrent("st");
+        //.completeAndNext("sel")
+        //.completeAndNext("wh")
+        //.completeAndNext("n")
+        //.completeAndNext("from")
+        //.completeCurrent("st");
 
         assertEquals("students", ((SingleNode) model.last()).getVariant());
         model.pop();
@@ -141,9 +126,9 @@ public class AutoTreeTests {
     public void testBasicPop() {
 
         //modelAbc
-                //.completeAndNext("a")
-                //.completeAndNext("b")
-                //.completeCurrent("c");
+        //.completeAndNext("a")
+        //.completeAndNext("b")
+        //.completeCurrent("c");
 
         assertEquals(varC, ((SingleNode) modelAbc.last()).getVariant());
         modelAbc.pop();
@@ -152,4 +137,6 @@ public class AutoTreeTests {
         assertEquals(varA, ((SingleNode) modelAbc.last()).getVariant());
 
     }
+
+
 }

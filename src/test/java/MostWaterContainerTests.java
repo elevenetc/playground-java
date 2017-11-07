@@ -6,6 +6,7 @@ import static su.levenetc.playground.java.algs.MostWaterContainer.get2;
 import static su.levenetc.playground.java.utils.Utils.array;
 
 public class MostWaterContainerTests {
+
     @Test
     public void test01() {
         assertArrayEquals(array(0, 2), get1(1, 1, 1));
