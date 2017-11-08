@@ -23,6 +23,9 @@ public class IntNode {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         IntNode node = this;
+        sb.append("[");
+        sb.append(value);
+        sb.append("]");
         sb.append("{");
         while (node != null) {
             sb.append(String.valueOf(node.value));
@@ -44,5 +47,20 @@ public class IntNode {
             current = current.next;
         }
         return root;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        IntNode intNode = (IntNode) o;
+
+        return value == intNode.value;
+    }
+
+    @Override
+    public int hashCode() {
+        return value;
     }
 }
