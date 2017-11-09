@@ -24,18 +24,19 @@ public class FindKthLastElement {
 
 
     static int findIterative(int k, IntNode root) {
-        IntNode first = root;
-        IntNode second = root;
+        IntNode fast = root;
+        IntNode slow = root;
 
         for (int i = 1; i <= k; i++) {
-            first = first.next;
-            if (first == null) return -1;
+            fast = fast.next;
+            if (fast == null) return -1;
         }
 
-        while (first != null) {
-            first = first.next;
-            second = second.next;
+        while (fast != null) {
+            fast = fast.next;
+            slow = slow.next;
         }
-        return second.value;
+
+        return slow.value;
     }
 }

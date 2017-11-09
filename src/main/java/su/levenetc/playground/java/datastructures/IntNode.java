@@ -38,6 +38,10 @@ public class IntNode {
         return sb.toString();
     }
 
+    public static IntNode node(int value) {
+        return new IntNode(value);
+    }
+
     public static IntNode list(int... values) {
         if (values.length == 0) return null;
         IntNode root = new IntNode(values[0]);
