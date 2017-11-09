@@ -59,6 +59,20 @@ public class IntNode {
         return value == intNode.value;
     }
 
+    public boolean deepEquals(IntNode node) {
+        if (node == null) return false;
+        IntNode current = this;
+        while (current != null && node != null) {
+            if (current.value != node.value) {
+                return false;
+            }
+            current = current.next;
+            node = node.next;
+        }
+
+        return current == null && node == null;
+    }
+
     @Override
     public int hashCode() {
         return value;
