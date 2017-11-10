@@ -1,5 +1,8 @@
 package su.levenetc.playground.java.datastructures;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class IntNode {
     public int value;
     public IntNode next;
@@ -27,7 +30,18 @@ public class IntNode {
         sb.append(value);
         sb.append("]");
         sb.append("{");
+
+        Set<IntNode> loopDetector = new HashSet<>();
+
         while (node != null) {
+
+            if (loopDetector.contains(node)) {
+                sb.append("[loop detected]");
+                break;
+            } else {
+                loopDetector.add(node);
+            }
+
             sb.append(String.valueOf(node.value));
             node = node.next;
             if (node != null) {
