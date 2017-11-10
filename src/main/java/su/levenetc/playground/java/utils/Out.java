@@ -55,6 +55,11 @@ public class Out {
         pln(binValue(val), postfix);
     }
 
+    public static void plnBin(byte val, String postfix) {
+        pln(binValue(val), postfix);
+    }
+
+
     public static void pBin(String prefix, int val) {
         Out.p(prefix + ": " + binValue(val));
     }
@@ -67,12 +72,47 @@ public class Out {
         Out.pln(binValue(val));
     }
 
+    public static void plnBin(byte val) {
+        Out.pln(binValue(val));
+    }
+
+
     @NotNull
     public static String binValue(int val) {
-        StringBuilder binValue = new StringBuilder(Integer.toBinaryString(val));
-        final int rem = 32 - binValue.length();
-        for (int i = 0; i < rem; i++) binValue.insert(0, new char[]{'0'}, 0, 1);
-        return binValue.toString();
+        String cutBinStr = Integer.toBinaryString(val);
+        return toBinString(cutBinStr, 32);
+    }
+
+    @NotNull
+    public static String binValue(byte val) {
+
+        String cutBinStr;
+
+        if (val == 0) {
+            cutBinStr = StringUtils.multiply('0', 32);
+        } else {
+            cutBinStr = Integer.toBinaryString(val);
+        }
+
+        return cutBinStr.substring(32 - 8, 32);
+    }
+
+    @NotNull
+    private static String toBinString(String cutBinStr, int totalLength) {
+
+        String fullBinStr = StringUtils.multiply('0', totalLength - cutBinStr.length()) + cutBinStr;
+
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < fullBinStr.length(); i++) {
+            char ch = fullBinStr.charAt(i);
+            sb.append(ch);
+            if (i != 31 && i != 0 && (i + 1) % 8 == 0) {
+                sb.append('_');
+            }
+        }
+
+        return sb.toString();
     }
 
     public static void pln(HashMap<String, String> hashMap) {
