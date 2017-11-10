@@ -1,6 +1,9 @@
 package su.levenetc.playground.java.algs;
 
+import java.nio.ByteBuffer;
+
 public class ByteAlgs {
+
     public static byte[] intToByte(int value) {
         byte[] result = new byte[4];
         result[0] = (byte) (value & 0xFF);
@@ -20,5 +23,14 @@ public class ByteAlgs {
         result = result << 8;
         result = result | (0xFF & array[0]);
         return result;
+    }
+
+
+    public static byte[] floatToByte(float value) {
+        return ByteBuffer.allocate(4).putFloat(value).array();
+    }
+
+    public static float byteToFloat(byte[] array) {
+        return ByteBuffer.wrap(array).getFloat();
     }
 }
