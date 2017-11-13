@@ -128,8 +128,8 @@ public class Out {
         pln(prefix + ": (" + a + ", " + b + ")");
     }
 
-    public static void pln(Object a, Object b) {
-        pln(a + ": " + b);
+    public static void pln(Object prefix, Object b) {
+        pln(prefix + ": " + b);
     }
 
     public static void pln() {

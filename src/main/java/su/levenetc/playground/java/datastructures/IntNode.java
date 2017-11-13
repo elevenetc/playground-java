@@ -77,7 +77,7 @@ public class IntNode {
         return value == intNode.value;
     }
 
-    public boolean deepEquals(IntNode node) {
+    public boolean valueEquals(IntNode node) {
         if (node == null) return false;
         IntNode current = this;
         while (current != null && node != null) {
