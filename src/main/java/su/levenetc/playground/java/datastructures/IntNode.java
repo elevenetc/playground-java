@@ -22,12 +22,23 @@ public class IntNode {
         return null;
     }
 
+    public int length() {
+        IntNode node = next;
+        int result = 1;
+        while (node != null) {
+            node = node.next;
+            result++;
+        }
+        return result;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         IntNode node = this;
         sb.append("[");
-        sb.append(value);
+        sb.append("length:");
+        sb.append(length());
         sb.append("]");
         sb.append("{");
 
@@ -65,6 +76,15 @@ public class IntNode {
             current = current.next;
         }
         return root;
+    }
+
+    public static IntNode tail(IntNode head) {
+        IntNode tail = head;
+        while (head != null) {
+            tail = head;
+            head = head.next;
+        }
+        return tail;
     }
 
     @Override
