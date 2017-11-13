@@ -24,9 +24,7 @@ class TwoLinkedListsSum {
 
         Data sum = sum(valueA, valueB);
 
-        if (sum.rem > 0) {
-            prepend(sum.result, 1);
-        }
+        if (sum.rem > 0) prepend(sum.result, 1);
 
         return sum.result;
     }
@@ -47,7 +45,7 @@ class TwoLinkedListsSum {
                 result.result = node;
             }
 
-            if (s > 10) {
+            if (s >= 10) {
                 result.rem = 1;
                 result.result.value = s % 10;
             } else {
