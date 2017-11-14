@@ -89,12 +89,14 @@ public class Out {
         String cutBinStr;
 
         if (val == 0) {
-            cutBinStr = StringUtils.multiply('0', 32);
+            cutBinStr = StringUtils.multiply('0', 8);
         } else {
             cutBinStr = Integer.toBinaryString(val);
+            if (cutBinStr.length() < 8)
+                cutBinStr = StringUtils.prepend('0', 8 - cutBinStr.length(), cutBinStr);
         }
 
-        return cutBinStr.substring(32 - 8, 32);
+        return cutBinStr;
     }
 
     @NotNull

@@ -54,4 +54,14 @@ public class StringUtils {
         }
         return sb.toString();
     }
+
+    public static String prepend(char ch, String src) {
+        return prepend(ch, 1, src);
+    }
+
+    public static String prepend(char ch, int count, String src) {
+        for (int i = 0; i < count; i++)
+            src = ch + src;
+        return src;
+    }
 }

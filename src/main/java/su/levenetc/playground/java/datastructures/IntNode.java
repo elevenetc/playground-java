@@ -56,7 +56,7 @@ public class IntNode {
             sb.append(String.valueOf(node.value));
             node = node.next;
             if (node != null) {
-                sb.append(", ");
+                sb.append(">");
             }
         }
         sb.append("}");
