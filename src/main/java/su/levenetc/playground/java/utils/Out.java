@@ -92,8 +92,12 @@ public class Out {
             cutBinStr = StringUtils.multiply('0', 8);
         } else {
             cutBinStr = Integer.toBinaryString(val);
-            if (cutBinStr.length() < 8)
+            if (cutBinStr.length() < 8) {
                 cutBinStr = StringUtils.prepend('0', 8 - cutBinStr.length(), cutBinStr);
+            } else if (cutBinStr.length() > 8) {
+                int l = cutBinStr.length();
+                cutBinStr = cutBinStr.substring(l - 8, l);
+            }
         }
 
         return cutBinStr;
