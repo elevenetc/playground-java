@@ -2,7 +2,7 @@ package su.levenetc.playground.java.algs;
 
 import java.nio.ByteBuffer;
 
-public class ByteAlgs {
+public class BitAlgs {
 
     public static byte[] intToByte(int value) {
         byte[] result = new byte[4];
@@ -32,5 +32,15 @@ public class ByteAlgs {
 
     public static float byteToFloat(byte[] array) {
         return ByteBuffer.wrap(array).getFloat();
+    }
+
+    public static int bitCountIterative(int n) {
+        int count = 0;
+        while (n > 0) {
+            if ((n & 1) == 1)
+                count++;
+            n >>>= 1;
+        }
+        return count;
     }
 }
