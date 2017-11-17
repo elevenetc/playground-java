@@ -1,12 +1,12 @@
 package su.levenetc.playground.java.algs.stacks;
 
-import su.levenetc.playground.java.Main;
-
 public class Stack {
 
     Node top;
+    private int size;
 
     public void push(int value) {
+        size++;
         Node newNode = new Node(value);
         if (top == null) {
             top = newNode;
@@ -22,6 +22,7 @@ public class Stack {
     }
 
     public int pop() {
+        size--;
         Node l = this.top;
         top = l.prev;
         return l.value;
@@ -29,6 +30,10 @@ public class Stack {
 
     public boolean isEmpty() {
         return top == null;
+    }
+
+    public int size() {
+        return size;
     }
 
     static class Node {
