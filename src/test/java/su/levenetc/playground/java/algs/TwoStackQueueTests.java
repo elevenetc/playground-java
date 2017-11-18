@@ -7,7 +7,7 @@ import su.levenetc.playground.java.algs.stacks.TwoStackQueue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class TwoStackTests {
+public class TwoStackQueueTests {
     @Test
     public void test() {
         TwoStackQueue queue = new TwoStackQueue();

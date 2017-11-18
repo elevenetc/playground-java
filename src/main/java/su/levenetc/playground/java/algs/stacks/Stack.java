@@ -36,6 +36,32 @@ public class Stack {
         return size;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append('[');
+
+        if (isEmpty()) {
+            sb.append("empty");
+        } else {
+            Node n = top;
+
+            while (n != null) {
+
+                sb.append(n.value);
+
+                if (n.prev != null) {
+                    sb.append('>');
+                }
+
+                n = n.prev;
+            }
+        }
+
+        sb.append(']');
+        return sb.toString();
+    }
+
     static class Node {
         Node prev;
         int value;
