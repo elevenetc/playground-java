@@ -2,11 +2,11 @@ package su.levenetc.playground.java.algs.stacks;
 
 public class TwoStackQueue {
 
-    Stack stackFresh = new Stack();
-    Stack stackOld = new Stack();
+    private Stack back = new Stack();
+    private Stack front = new Stack();
 
     public int size() {
-        return stackOld.size() + stackFresh.size();
+        return front.size() + back.size();
     }
 
     public boolean isEmpty() {
@@ -14,22 +14,22 @@ public class TwoStackQueue {
     }
 
     public void enqueue(int value) {
-        stackFresh.push(value);
+        back.push(value);
     }
 
     public int dequeue() {
-        moveToOld();
-        return stackOld.pop();
+        moveToFront();
+        return front.pop();
     }
 
     public int peek() {
-        moveToOld();
-        return stackOld.peek();
+        moveToFront();
+        return front.peek();
     }
 
-    private void moveToOld() {
-        if (stackOld.isEmpty())
-            while (!stackFresh.isEmpty())
-                stackOld.push(stackFresh.pop());
+    private void moveToFront() {
+        if (front.isEmpty())
+            while (!back.isEmpty())
+                front.push(back.pop());
     }
 }
