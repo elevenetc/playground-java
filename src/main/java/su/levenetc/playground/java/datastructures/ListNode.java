@@ -1,15 +1,16 @@
 package su.levenetc.playground.java.datastructures;
 
-public class IntNode {
-    public int value;
-    public IntNode next;
+public class ListNode {
 
-    public IntNode(int value) {
+    public int value;
+    public ListNode next;
+
+    public ListNode(int value) {
         this.value = value;
     }
 
-    public IntNode get(int value) {
-        IntNode node = this;
+    public ListNode get(int value) {
+        ListNode node = this;
         while (node != null) {
             if (node.value == value) {
                 return node;
@@ -19,8 +20,8 @@ public class IntNode {
         return null;
     }
 
-    public int length() {
-        IntNode node = next;
+    public int size() {
+        ListNode node = next;
         int result = 1;
         int max = 1000;
         while (node != null) {
@@ -38,10 +39,10 @@ public class IntNode {
     public String toString() {
         int counter = 0;
         StringBuilder sb = new StringBuilder();
-        IntNode node = this;
-        int length = length();
+        ListNode node = this;
+        int length = size();
         sb.append("[");
-        sb.append("length:");
+        sb.append("size:");
         sb.append(length);
         sb.append("]");
         sb.append("{");
@@ -72,23 +73,23 @@ public class IntNode {
         return sb.toString();
     }
 
-    public static IntNode node(int value) {
-        return new IntNode(value);
+    public static ListNode node(int value) {
+        return new ListNode(value);
     }
 
-    public static IntNode list(int... values) {
+    public static ListNode list(int... values) {
         if (values.length == 0) return null;
-        IntNode root = new IntNode(values[0]);
-        IntNode current = root;
+        ListNode root = new ListNode(values[0]);
+        ListNode current = root;
         for (int i = 1; i < values.length; i++) {
-            current.next = new IntNode(values[i]);
+            current.next = new ListNode(values[i]);
             current = current.next;
         }
         return root;
     }
 
-    public static IntNode tail(IntNode head) {
-        IntNode tail = head;
+    public static ListNode tail(ListNode head) {
+        ListNode tail = head;
         while (head != null) {
             tail = head;
             head = head.next;
@@ -101,14 +102,14 @@ public class IntNode {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        IntNode intNode = (IntNode) o;
+        ListNode listNode = (ListNode) o;
 
-        return value == intNode.value;
+        return value == listNode.value;
     }
 
-    public boolean valueEquals(IntNode node) {
+    public boolean valueEquals(ListNode node) {
         if (node == null) return false;
-        IntNode current = this;
+        ListNode current = this;
         while (current != null && node != null) {
             if (current.value != node.value) {
                 return false;

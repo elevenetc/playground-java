@@ -1,15 +1,15 @@
 package su.levenetc.playground.java.algs;
 
-import su.levenetc.playground.java.datastructures.IntNode;
+import su.levenetc.playground.java.datastructures.ListNode;
 
 public class MergeTwoLinkedLists {
-    static IntNode merge(IntNode l1, IntNode l2) {
+    static ListNode merge(ListNode l1, ListNode l2) {
         if (l1 == null) return l2;
         if (l2 == null) return l1;
 
 
-        IntNode result = null;
-        IntNode node = null;
+        ListNode result = null;
+        ListNode node = null;
         while (l1 != null && l2 != null) {
             int value;
             if (l1.value < l2.value) {
@@ -20,15 +20,15 @@ public class MergeTwoLinkedLists {
                 l2 = l2.next;
             }
             if (result == null) {
-                result = new IntNode(value);
+                result = new ListNode(value);
                 node = result;
             } else {
-                node.next = new IntNode(value);
+                node.next = new ListNode(value);
                 node = node.next;
             }
         }
 
-        IntNode rest = null;
+        ListNode rest = null;
 
         if (l1 != null) {
             rest = l1;

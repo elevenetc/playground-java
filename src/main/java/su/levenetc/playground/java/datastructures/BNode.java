@@ -3,20 +3,20 @@ package su.levenetc.playground.java.datastructures;
 /**
  * Created by eugene.levenetc on 06/02/2017.
  */
-public class BTNode {
+public class BNode {
     public int value;
-    public BTNode left;
-    public BTNode right;
+    public BNode left;
+    public BNode right;
 
-    public BTNode(int value) {
+    public BNode(int value) {
         this.value = value;
     }
 
-    public void setLeft(BTNode left) {
+    public void setLeft(BNode left) {
         this.left = left;
     }
 
-    public void setRight(BTNode right) {
+    public void setRight(BNode right) {
         this.right = right;
     }
 }

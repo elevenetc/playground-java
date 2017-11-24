@@ -5,6 +5,18 @@ public class Stack {
     Node top;
     private int size;
 
+    public Stack() {
+
+    }
+
+    public Stack(int... values) {
+        push(values);
+    }
+
+    public void push(int... values) {
+        for (int v : values) push(v);
+    }
+
     public void push(int value) {
         size++;
         Node newNode = new Node(value);

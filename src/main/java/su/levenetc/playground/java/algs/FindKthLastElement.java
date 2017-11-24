@@ -1,18 +1,18 @@
 package su.levenetc.playground.java.algs;
 
-import su.levenetc.playground.java.datastructures.IntNode;
+import su.levenetc.playground.java.datastructures.ListNode;
 
 public class FindKthLastElement {
 
     static int result = -1;
 
-    static int findRecursive(int k, IntNode root) {
+    static int findRecursive(int k, ListNode root) {
         result = -1;
         recurse(root, k);
         return result;
     }
 
-    private static int recurse(IntNode node, int k) {
+    private static int recurse(ListNode node, int k) {
         if (node == null) {
             return 0;
         } else {
@@ -23,9 +23,9 @@ public class FindKthLastElement {
     }
 
 
-    static int findIterative(int k, IntNode root) {
-        IntNode fast = root;
-        IntNode slow = root;
+    static int findIterative(int k, ListNode root) {
+        ListNode fast = root;
+        ListNode slow = root;
 
         for (int i = 1; i <= k; i++) {
             fast = fast.next;

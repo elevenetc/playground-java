@@ -47,8 +47,8 @@ public class SysUtils {
     public static String method(final int depth) {
         final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
 
-        //System. out.println(ste[ste.length-depth].getClassName()+"#"+ste[ste.length-depth].getMethodName());
-        // return ste[ste.length - depth].getMethodName();  //Wrong, fails for depth = 0
+        //System. out.println(ste[ste.size-depth].getClassName()+"#"+ste[ste.size-depth].getMethodName());
+        // return ste[ste.size - depth].getMethodName();  //Wrong, fails for depth = 0
         return ste[ste.length - 1 - depth].getMethodName(); //Thank you Tom Tresansky
     }
 }

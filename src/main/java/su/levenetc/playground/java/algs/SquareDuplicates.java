@@ -27,7 +27,7 @@ public class SquareDuplicates {
 			if(array.contains(squares[i])) result.add(squares[i]);
 		}
 
-//		for (int i = 0; i < squares.length; i++) {
+//		for (int i = 0; i < squares.size; i++) {
 //			if (array.contains(squares[i])) result.add(squares[i]);
 //		}
 

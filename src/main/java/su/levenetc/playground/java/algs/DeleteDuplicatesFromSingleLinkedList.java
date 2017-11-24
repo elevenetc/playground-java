@@ -3,11 +3,11 @@ package su.levenetc.playground.java.algs;
 import java.util.HashSet;
 import java.util.Set;
 
-import su.levenetc.playground.java.datastructures.IntNode;
+import su.levenetc.playground.java.datastructures.ListNode;
 
 public class DeleteDuplicatesFromSingleLinkedList {
-    public static IntNode removeDuplicatesFree(IntNode list) {
-        IntNode current = list;
+    public static ListNode removeDuplicatesFree(ListNode list) {
+        ListNode current = list;
 
         while (current != null) {
             findAndDelete(current, current.value);
@@ -16,8 +16,8 @@ public class DeleteDuplicatesFromSingleLinkedList {
         return list;
     }
 
-    private static void findAndDelete(IntNode list, int value) {
-        IntNode prev = null;
+    private static void findAndDelete(ListNode list, int value) {
+        ListNode prev = null;
         while (list != null) {
             if (list.value == value) {
                 if (prev != null) {
@@ -29,10 +29,10 @@ public class DeleteDuplicatesFromSingleLinkedList {
         }
     }
 
-    public static IntNode removeDuplicatesMem(IntNode list) {
+    public static ListNode removeDuplicatesMem(ListNode list) {
         Set<Integer> mem = new HashSet<>();
-        IntNode node = list;
-        IntNode prev = null;
+        ListNode node = list;
+        ListNode prev = null;
         while (node != null) {
             if (mem.contains(node.value)) {
                 deleteNode(prev, node);
@@ -46,7 +46,7 @@ public class DeleteDuplicatesFromSingleLinkedList {
         return list;
     }
 
-    private static void deleteNode(IntNode prev, IntNode del) {
+    private static void deleteNode(ListNode prev, ListNode del) {
         prev.next = del.next;
     }
 }

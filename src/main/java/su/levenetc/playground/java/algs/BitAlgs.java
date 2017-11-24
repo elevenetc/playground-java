@@ -4,25 +4,20 @@ import java.nio.ByteBuffer;
 
 public class BitAlgs {
 
-    public static byte[] intToByte(int value) {
-        byte[] result = new byte[4];
-        result[0] = (byte) (value & 0xFF);
-        result[1] = (byte) ((value & 0xFF00) >> 8);
-        result[2] = (byte) ((value & 0xFF0000) >> 16);
-        result[3] = (byte) ((value & 0xFF000000) >> 24);
-        return result;
+    public static byte[] intToByte(int i) {
+        return new byte[]{
+                (byte) (i >>> 24),
+                (byte) ((i << 8) >>> 24),
+                (byte) ((i << 16) >>> 24),
+                (byte) ((i << 24) >>> 24)
+        };
     }
 
-    public static int byteToInt(byte[] array) {
-        int result = 0;
-        result = result | (0xFF & array[3]);
-        result = result << 8;
-        result = result | (0xFF & array[2]);
-        result = result << 8;
-        result = result | (0xFF & array[1]);
-        result = result << 8;
-        result = result | (0xFF & array[0]);
-        return result;
+    public static int byteToInt(byte[] bytes) {
+        return bytes[3] & 0xFF
+                | (bytes[2] & 0xFF) << 8
+                | (bytes[1] & 0xFF) << 16
+                | (bytes[0] & 0xFF) << 24;
     }
 
 

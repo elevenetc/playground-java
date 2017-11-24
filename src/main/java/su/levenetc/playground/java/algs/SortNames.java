@@ -66,10 +66,10 @@ public class SortNames {
 //				b = b.toLowerCase();
 //
 //				char cA0 = a.charAt(0);
-//				char cA1 = a.charAt(a.length() - 1);
+//				char cA1 = a.charAt(a.size() - 1);
 //
 //				char cB0 = b.charAt(0);
-//				char cB1 = b.charAt(b.length() - 1);
+//				char cB1 = b.charAt(b.size() - 1);
 //
 //				String a0 = String.valueOf(cA0);
 //				String a1 = String.valueOf(cA1);

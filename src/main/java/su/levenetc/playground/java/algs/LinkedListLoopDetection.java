@@ -1,13 +1,13 @@
 package su.levenetc.playground.java.algs;
 
-import su.levenetc.playground.java.datastructures.IntNode;
+import su.levenetc.playground.java.datastructures.ListNode;
 import su.levenetc.playground.java.utils.Out;
 
 public class LinkedListLoopDetection {
 
-    static IntNode loopStartNode(IntNode head) {
-        IntNode slow = head;
-        IntNode fast = head;
+    static ListNode loopStartNode(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
 
         while (fast != null && fast.next != null) {
             slow = slow.next;
@@ -30,10 +30,10 @@ public class LinkedListLoopDetection {
         return fast;
     }
 
-    static boolean hasLoop(IntNode list) {
+    static boolean hasLoop(ListNode list) {
         if (list == null || list.next == null) return false;
-        IntNode slow = list;
-        IntNode fast = list;
+        ListNode slow = list;
+        ListNode fast = list;
 
         while (fast != null && fast.next != null) {
             slow = slow.next;
@@ -46,9 +46,9 @@ public class LinkedListLoopDetection {
         return fast != null && fast.next != null;
     }
 
-    static IntNode findLoopCollisionNode(IntNode list) {
-        IntNode slow = list;
-        IntNode fast = list;
+    static ListNode findLoopCollisionNode(ListNode list) {
+        ListNode slow = list;
+        ListNode fast = list;
 
 
         Out.pln("start...");

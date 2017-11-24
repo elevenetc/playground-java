@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static su.levenetc.playground.java.algs.TwoLinkedListsSum.sumDirect;
 import static su.levenetc.playground.java.algs.TwoLinkedListsSum.sumReverse;
-import static su.levenetc.playground.java.datastructures.IntNode.list;
+import static su.levenetc.playground.java.datastructures.ListNode.list;
 import static su.levenetc.playground.java.utils.TestUtils.assertEquals;
 
 public class TwoLinkedListsSumTests {

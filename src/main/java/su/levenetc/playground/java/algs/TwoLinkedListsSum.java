@@ -1,10 +1,10 @@
 package su.levenetc.playground.java.algs;
 
-import su.levenetc.playground.java.datastructures.IntNode;
+import su.levenetc.playground.java.datastructures.ListNode;
 
 class TwoLinkedListsSum {
 
-    static IntNode sumDirect(IntNode valueA, IntNode valueB) {
+    static ListNode sumDirect(ListNode valueA, ListNode valueB) {
         int aLength = listLength(valueA);
         int bLength = listLength(valueB);
 
@@ -29,7 +29,7 @@ class TwoLinkedListsSum {
         return sum.result;
     }
 
-    static Data sum(IntNode listA, IntNode listB) {
+    static Data sum(ListNode listA, ListNode listB) {
         if (listA == null || listB == null) {
             return new Data();
         } else {
@@ -38,9 +38,9 @@ class TwoLinkedListsSum {
             int s = listA.value + listB.value + result.rem;
 
             if (result.result == null) {
-                result.result = new IntNode(0);
+                result.result = new ListNode(0);
             } else {
-                IntNode node = IntNode.node(0);
+                ListNode node = ListNode.node(0);
                 node.next = result.result;
                 result.result = node;
             }
@@ -59,16 +59,16 @@ class TwoLinkedListsSum {
 
     static class Data {
         int rem;
-        IntNode result;
+        ListNode result;
     }
 
-    static IntNode prepend(IntNode head, int value) {
-        IntNode result = IntNode.node(value);
+    static ListNode prepend(ListNode head, int value) {
+        ListNode result = ListNode.node(value);
         result.next = head;
         return result;
     }
 
-    static int listLength(IntNode list) {
+    static int listLength(ListNode list) {
         int result = 0;
         while (list != null) {
             result++;
@@ -77,9 +77,9 @@ class TwoLinkedListsSum {
         return result;
     }
 
-    static int sumReverse(IntNode aNum, IntNode bNum) {
-        IntNode sumRoot = new IntNode(0);
-        IntNode current = sumRoot;
+    static int sumReverse(ListNode aNum, ListNode bNum) {
+        ListNode sumRoot = new ListNode(0);
+        ListNode current = sumRoot;
         int rem = 0;
         while (aNum != null && bNum != null) {
             int aValue = aNum.value;//5
@@ -98,12 +98,12 @@ class TwoLinkedListsSum {
             bNum = bNum.next;
 
             if (aNum != null && bNum != null) {
-                current.next = new IntNode(rem);
+                current.next = new ListNode(rem);
                 current = current.next;
             }
         }
 
-        IntNode remNodes = null;
+        ListNode remNodes = null;
         if (aNum != null) remNodes = aNum;
         else if (bNum != null) remNodes = bNum;
 
@@ -114,10 +114,10 @@ class TwoLinkedListsSum {
         return toNum(sumRoot);
     }
 
-    private static int toNum(IntNode root) {
+    private static int toNum(ListNode root) {
         int mult = 1;
         int result = 0;
-        IntNode node = root;
+        ListNode node = root;
         while (node != null) {
             result += node.value * mult;
             mult *= 10;
