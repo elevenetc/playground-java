@@ -38,4 +38,16 @@ public class BitAlgs {
         }
         return count;
     }
+
+    public static int setBit(int value, int bit) {
+        return value | (1 << bit);
+    }
+
+    static boolean getBit(int value, int bit) {
+        return value == ((1 << bit) | value);
+    }
+
+    static int deleteBit(int value, int bit) {
+        return value & ~(1 << bit);
+    }
 }

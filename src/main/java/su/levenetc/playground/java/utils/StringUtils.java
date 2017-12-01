@@ -41,7 +41,7 @@ public class StringUtils {
         letters[right] = temp;
     }
 
-    public static String set(String str, int index, char value) {
+    public static String setChar(String str, int index, char value) {
         char[] chars = str.toCharArray();
         chars[index] = value;
         return String.valueOf(chars);

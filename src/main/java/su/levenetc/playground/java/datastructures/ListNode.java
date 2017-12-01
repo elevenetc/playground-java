@@ -77,6 +77,17 @@ public class ListNode {
         return new ListNode(value);
     }
 
+    public static ListNode range(int from, int to) {
+        ListNode root = new ListNode(from);
+        ListNode node = root;
+        while (from != to) {
+            from++;
+            node.next = new ListNode(from);
+            node = node.next;
+        }
+        return root;
+    }
+
     public static ListNode list(int... values) {
         if (values.length == 0) return null;
         ListNode root = new ListNode(values[0]);

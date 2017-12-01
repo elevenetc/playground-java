@@ -90,8 +90,18 @@ public class Utils {
         return result;
     }
 
-    public static boolean contains(int[][] arrays, int... array) {
+    public static boolean containsOrdered(int[][] arrays, int... array) {
         for (int[] a : arrays) if (Arrays.equals(a, array)) return true;
+        return false;
+    }
+
+    public static boolean containsNotOrdered(int[][] arrays, int... array) {
+        HashSet<Integer> checkSet = new HashSet(toList(array));
+        for (int[] a : arrays) {
+            if (new HashSet(toList(a)).equals(checkSet)) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -100,9 +110,27 @@ public class Utils {
         return false;
     }
 
-    public static <T> List<T> toList(T... values) {
-        List<T> result = new ArrayList<>();
-        result.addAll(Arrays.asList(values));
+    public static List<Integer> toList(int... values) {
+        List<Integer> result = new LinkedList<>();
+        for (int value : values) {
+            result.add(value);
+        }
         return result;
     }
+
+    public static Set<Integer> intSet(int... values) {
+        Set<Integer> set = new HashSet<>();
+
+        for (int value : values) {
+            set.add(value);
+        }
+
+        return set;
+    }
+
+//    public static <T> List<T> toList(T... values) {
+//        List<T> result = new ArrayList<>();
+//        result.addAll(Arrays.asList(values));
+//        return result;
+//    }
 }

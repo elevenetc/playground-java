@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import su.levenetc.playground.java.utils.Out;
-import su.levenetc.playground.java.utils.StringUtils;
 
 import static su.levenetc.playground.java.utils.StringUtils.multiply;
+import static su.levenetc.playground.java.utils.StringUtils.setChar;
 import static su.levenetc.playground.java.utils.StringUtils.swap;
 
 /**
@@ -37,26 +37,43 @@ public class Permutations {
     }
 
     public static Set<String> permutateBin(int length) {
-        permutateBinInternal(multiply('0', length), 0);
+        permutateBin(multiply('0', length), 0);
         return null;
     }
 
-    private static void permutateBinInternal(String str, int currentBit) {
+    private static void permutateBin(String str, int currentBit) {
         int length = str.length();
         if (currentBit == length) {
             Out.plnIndex(str);
         } else {
-            permutateBinInternal(StringUtils.set(str, currentBit, '1'), currentBit + 1);
-            permutateBinInternal(StringUtils.set(str, currentBit, '0'), currentBit + 1);
+            permutateBin(setChar(str, currentBit, '1'), currentBit + 1);
+            permutateBin(setChar(str, currentBit, '0'), currentBit + 1);
         }
     }
 
-    public static Set<String> permutate(String string) {
+    public static Set<String> permutateWithSwap(String string) {
         final String[] letters = string.split("");
         final Set<String> result = new HashSet<>();
-        permutateInternal(letters, letters.length, result);
+        permutateWithSwap(letters, letters.length, result);
         return result;
     }
+
+    private static void permutateWithSwap(String[] letters, int right, Set<String> result) {
+
+        if (right == 1) {
+            final String res = String.join("", letters);
+            result.add(res);
+        } else {
+
+            final boolean alwaysLeft = right % 2 == 0;
+
+            for (int left = 0; left < right; left++) {
+                permutateWithSwap(letters, right - 1, result);
+                swap(letters, alwaysLeft ? left : 0, right - 1);
+            }
+        }
+    }
+
 
     public static Set<String> permutate2(int length, char a, char b) {
         char[] chars = new char[length];
@@ -70,23 +87,6 @@ public class Permutations {
         Set<String> result = new HashSet<>();
         permutate3Internal("", str, result);
         return result;
-    }
-
-
-    private static void permutateInternal(String[] letters, int right, Set<String> result) {
-
-        if (right == 1) {
-            final String res = String.join("", letters);
-            result.add(res);
-        } else {
-
-            final boolean alwaysLeft = right % 2 == 0;
-
-            for (int left = 0; left < right; left++) {
-                permutateInternal(letters, right - 1, result);
-                swap(letters, alwaysLeft ? left : 0, right - 1);
-            }
-        }
     }
 
     private static void permutate2Internal(char[] chars, int length, char a, char b, Set<String> result) {
