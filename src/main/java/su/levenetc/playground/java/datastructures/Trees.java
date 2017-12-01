@@ -54,6 +54,15 @@ public class Trees {
         root.left.left.left.left = new BNode(4);
         root.left.left.left.left.left = new BNode(5);
         return root;
-
     }
+
+    public static BNode unbalanced2() {
+        BNode root = unbalanced();
+        root.right = new BNode(100);
+        root.right.right = new BNode(200);
+        root.right.right.right = new BNode(300);
+        return root;
+    }
+
+
 }
