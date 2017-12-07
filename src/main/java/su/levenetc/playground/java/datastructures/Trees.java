@@ -63,6 +63,4 @@ public class Trees {
         root.right.right.right = new BNode(300);
         return root;
     }
-
-
 }

@@ -19,4 +19,9 @@ public class BNode {
     public void setRight(BNode right) {
         this.right = right;
     }
+
+    @Override
+    public String toString() {
+        return String.format("{%d}", value);
+    }
 }
