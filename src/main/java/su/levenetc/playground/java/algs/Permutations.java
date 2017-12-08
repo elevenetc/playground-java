@@ -15,6 +15,37 @@ import static su.levenetc.playground.java.utils.StringUtils.swap;
  */
 public class Permutations {
 
+    public static Set<String> permutateIterative(String value) {
+        Set<String> result = new HashSet<>();
+        result.add(value);
+        char[] a = value.toCharArray();
+        int n = a.length;
+        int[] weight = new int[n];  // Weight index control array initially all zeros. Of course, same size of the char array.
+        int i = 1; //Upper bound index. i.e: if string is "abc" then index i could be at "c"
+        while (i < n) {
+            Out.pln(weight);
+            if (weight[i] < i) { //if the weight index is bigger or the same it means that we have already switched between these i,j (one iteration before).
+                int j = ((i % 2) == 0) ? 0 : weight[i];//Lower bound index. i.e: if string is "abc" then j index will always be 0.
+                swap(a, i, j);
+                result.add(join(a));
+                weight[i]++; //Adding 1 to the specific weight that relates to the char array.
+                i = 1; //if i was 2 (for example), after the swap we now need to swap for i=1
+            } else {
+                weight[i] = 0;//Weight index will be zero because one iteration before, it was 1 (for example) to indicate that char array a[i] swapped.
+                i++;//i index will have the option to go forward in the char array for "longer swaps"
+            }
+        }
+        return result;
+    }
+
+    private static String join(char[] a) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(a);
+        return builder.toString();
+    }
+
+    ///
+
     public static boolean arePerms(String permA, String permB) {
 
         if (permA.length() != permB.length()) return false;
@@ -74,7 +105,6 @@ public class Permutations {
         }
     }
 
-
     public static Set<String> permutate2(int length, char a, char b) {
         char[] chars = new char[length];
         Set<String> result = new HashSet<>();
@@ -118,7 +148,7 @@ public class Permutations {
                 );
     }
 
-    public static Set<String> permutate4(String str) {
+    public static Set<String> permutateRecursive(String str) {
         Set<String> result = new HashSet<>();
         permute4Internal(str, 0, str.length() - 1, result);
         return result;

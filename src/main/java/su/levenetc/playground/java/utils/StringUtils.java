@@ -41,6 +41,13 @@ public class StringUtils {
         letters[right] = temp;
     }
 
+
+    public static void swap(char[] a, int i, int j) {
+        char temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+    }
+
     public static String setChar(String str, int index, char value) {
         char[] chars = str.toCharArray();
         chars[index] = value;
