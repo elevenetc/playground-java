@@ -15,6 +15,10 @@ public class Graph {
         add(nodes);
     }
 
+    public GNode node(int index) {
+        return nodesList.get(index);
+    }
+
     public void add(GNode... nodes) {
         this.nodesSet.addAll(Arrays.asList(nodes));
         this.nodesList.addAll(Arrays.asList(nodes));
