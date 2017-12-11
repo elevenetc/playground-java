@@ -19,22 +19,14 @@ public class StringToInt {
 
     public static String intToString(int value) {
 
-        if (value < 10) return charOf(value) + "";
+        if (value == 0) return "0";
 
-        int dec = 10;
-        int dev = 1;
         StringBuilder sb = new StringBuilder();
-
         while (value != 0) {
-            int rem = value % dec;
-            value -= rem;
-
-            sb.insert(0, charOf(rem / dev));
-
-            dec *= 10;
-            dev *= 10;
+            int curr = value % 10;
+            value = value / 10;
+            sb.insert(0, curr);
         }
-
         return sb.toString();
     }
 
