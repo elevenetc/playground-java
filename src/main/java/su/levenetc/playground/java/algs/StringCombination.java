@@ -11,14 +11,12 @@ public class StringCombination {
         return result;
     }
 
-    private static void combinations(int start, StringBuilder output, String value, Set<String> result) {
+    private static void combinations(int start, StringBuilder combination, String value, Set<String> result) {
         for (int i = start; i < value.length(); ++i) {
-            output.append(value.charAt(i));
-            result.add(output.toString());
-            if (i < value.length()) {
-                combinations(i + 1, output, value, result);
-            }
-            output.setLength(output.length() - 1);
+            combination.append(value.charAt(i));
+            result.add(combination.toString());
+            combinations(i + 1, combination, value, result);
+            combination.setLength(combination.length() - 1);
         }
     }
 }

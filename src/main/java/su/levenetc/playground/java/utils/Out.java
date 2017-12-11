@@ -143,7 +143,24 @@ public class Out {
     }
 
     public static void pln(Collection result) {
-        System.out.println(Arrays.toString(result.toArray()));
+        Object[] array = result.toArray();
+        if (array instanceof String[]) {
+            plnStringArray((String[]) array);
+        } else {
+            System.out.println(Arrays.toString(array));
+        }
+    }
+
+    public static void plnStringArray(String[] array) {
+        Out.pln('[');
+        for (int i = 0; i < array.length; i++) {
+            String s = array[i];
+            Out.p(String.format("\"%s\"", s));
+            if (i != array.length - 1) {
+                Out.p(", ");
+            }
+        }
+        Out.p(']');
     }
 
     public static void p(String prefix, Object result) {
