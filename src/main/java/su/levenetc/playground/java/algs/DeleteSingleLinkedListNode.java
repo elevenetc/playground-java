@@ -1,12 +1,12 @@
 package su.levenetc.playground.java.algs;
 
-import su.levenetc.playground.java.datastructures.ListNode;
+import su.levenetc.playground.java.datastructures.LNode;
 
 public class DeleteSingleLinkedListNode {
-    static void delete(ListNode node) {
+    static void delete(LNode node) {
         if (node == null || node.next == null) return;
-        ListNode current = node;
-        ListNode next = node.next;
+        LNode current = node;
+        LNode next = node.next;
         while (next != null) {
             current.value = next.value;
 

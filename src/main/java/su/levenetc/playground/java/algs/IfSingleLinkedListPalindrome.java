@@ -3,15 +3,15 @@ package su.levenetc.playground.java.algs;
 import java.util.Deque;
 import java.util.LinkedList;
 
-import su.levenetc.playground.java.datastructures.ListNode;
+import su.levenetc.playground.java.datastructures.LNode;
 
 public class IfSingleLinkedListPalindrome {
-    static boolean check(ListNode root) {
+    static boolean check(LNode root) {
 
-        ListNode slow = root;
-        ListNode fast = root;
-        Deque<ListNode> left = new LinkedList<>();
-        ListNode right = null;
+        LNode slow = root;
+        LNode fast = root;
+        Deque<LNode> left = new LinkedList<>();
+        LNode right = null;
 
         while (fast != null) {
 

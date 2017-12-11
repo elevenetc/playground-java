@@ -3,18 +3,18 @@ package su.levenetc.playground.java.algs;
 import java.util.Deque;
 import java.util.LinkedList;
 
-import su.levenetc.playground.java.datastructures.ListNode;
+import su.levenetc.playground.java.datastructures.LNode;
 
 public class IntersectionOfTwoLinkedLists {
 
-    static ListNode getMem(ListNode listA, ListNode listB) {
-        Deque<ListNode> stackA = fillStack(listA);
-        Deque<ListNode> stackB = fillStack(listB);
-        ListNode intersection = null;
+    static LNode getMem(LNode listA, LNode listB) {
+        Deque<LNode> stackA = fillStack(listA);
+        Deque<LNode> stackB = fillStack(listB);
+        LNode intersection = null;
 
         while (!stackA.isEmpty() || !stackB.isEmpty()) {
-            ListNode nodeA = stackA.pop();
-            ListNode nodeB = stackB.pop();
+            LNode nodeA = stackA.pop();
+            LNode nodeB = stackB.pop();
 
             if (nodeA == nodeB) {
                 intersection = nodeA;
@@ -24,8 +24,8 @@ public class IntersectionOfTwoLinkedLists {
         return intersection;
     }
 
-    private static Deque<ListNode> fillStack(ListNode node) {
-        Deque<ListNode> result = new LinkedList<>();
+    private static Deque<LNode> fillStack(LNode node) {
+        Deque<LNode> result = new LinkedList<>();
         while (node != null) {
             result.push(node);
             node = node.next;
@@ -33,15 +33,15 @@ public class IntersectionOfTwoLinkedLists {
         return result;
     }
 
-    static ListNode getWithoutMem(ListNode listA, ListNode listB) {
+    static LNode getWithoutMem(LNode listA, LNode listB) {
 
         ListData dataA = length(listA);
         ListData dataB = length(listB);
 
         if (dataA.last != dataB.last) return null;
 
-        ListNode longer;
-        ListNode shorter;
+        LNode longer;
+        LNode shorter;
         ListData longData;
         ListData shortData;
 
@@ -67,7 +67,7 @@ public class IntersectionOfTwoLinkedLists {
         return longer;
     }
 
-    private static ListNode getKthNode(ListNode node, int k) {
+    private static LNode getKthNode(LNode node, int k) {
         while (k != 0) {
             node = node.next;
             k--;
@@ -75,9 +75,9 @@ public class IntersectionOfTwoLinkedLists {
         return node;
     }
 
-    private static ListData length(ListNode node) {
+    private static ListData length(LNode node) {
         int length = 0;
-        ListNode last = null;
+        LNode last = null;
         while (node != null) {
             length++;
             last = node;
@@ -88,9 +88,9 @@ public class IntersectionOfTwoLinkedLists {
 
     static class ListData {
         int length;
-        ListNode last;
+        LNode last;
 
-        public ListData(int length, ListNode last) {
+        public ListData(int length, LNode last) {
             this.length = length;
             this.last = last;
         }

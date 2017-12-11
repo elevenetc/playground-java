@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 import static su.levenetc.playground.java.algs.IfSingleLinkedListPalindrome.check;
-import static su.levenetc.playground.java.datastructures.ListNode.list;
+import static su.levenetc.playground.java.datastructures.LNode.list;
 
 public class IfSingleLinkedListPalindromeTests {
     @Test
