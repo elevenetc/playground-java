@@ -6,7 +6,7 @@ public class MinStack extends Stack {
 
     @Override
     public void push(int value) {
-        if (value < min()) {
+        if (value <= min()) {
             minStack.push(value);
         }
         super.push(value);
