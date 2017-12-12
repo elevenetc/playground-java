@@ -4,6 +4,28 @@ import java.nio.ByteBuffer;
 
 public class BitAlgs {
 
+    static int rotate(int value, int shift) {
+        if (shift == 0) return value;
+        shift = shift % 32;
+        if (shift > 0) {
+            return rotateRight(value, shift);
+        } else {
+            return rotateLeft(value, shift * -1);
+        }
+    }
+
+    static int rotateLeft(int value, int shift) {
+        int right = value << shift;
+        int left = value >>> (32 - shift);
+        return right | left;
+    }
+
+    static int rotateRight(int value, int shift) {
+        int left = value >>> shift;
+        int right = value << (32 - shift);
+        return right + left;
+    }
+
     public static byte[] intToByte(int i) {
         return new byte[]{
                 (byte) (i >>> 24),
