@@ -3,6 +3,13 @@ package su.levenetc.playground.java.algs.graphs;
 public class Graphs {
 
     public static Graph diamond3() {
+
+        //   0
+        //  / \
+        // 1   2
+        //  \ /
+        //   3
+
         GNode[] nodes = createNodes(3);
         nodes[0].child(nodes[1]);
         nodes[0].child(nodes[2]);
