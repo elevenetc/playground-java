@@ -35,7 +35,7 @@ public class Trees {
         return root;
     }
 
-    public static BNode perfectBalancedBST() {
+    public static BNode perfectBalancedBST3() {
 
         //       100
         //     /     \
@@ -56,6 +56,43 @@ public class Trees {
 
         return root;
     }
+
+    public static BNode perfectBalancedBST4() {
+
+        //                 10
+        //           /            \
+        //          5              15
+        //       /     \         /     \
+        //      3       7       13     17
+        //     / \     / \     /  \   /  \
+        //    1   4   6   8   11  14 16  18
+
+        BNode root = new BNode(10);
+
+        root.setLeft(new BNode(5));
+        root.setRight(new BNode(15));
+
+        root.left.setLeft(new BNode(3));
+        root.left.setRight(new BNode(7));
+
+        root.right.setLeft(new BNode(13));
+        root.right.setRight(new BNode(17));
+
+        root.left.left.setLeft(1);
+        root.left.left.setRight(4);
+
+        root.left.right.setLeft(6);
+        root.left.right.setRight(8);
+
+        root.right.left.setLeft(11);
+        root.right.left.setRight(14);
+
+        root.right.right.setLeft(16);
+        root.right.right.setRight(18);
+
+        return root;
+    }
+
 
     public static BNode nonBST() {
 

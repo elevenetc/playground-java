@@ -14,6 +14,14 @@ public class BNode {
         this.value = value;
     }
 
+    public void setLeft(int value) {
+        setLeft(new BNode(value));
+    }
+
+    public void setRight(int value) {
+        setRight(new BNode(value));
+    }
+
     public void setLeft(BNode left) {
         this.left = left;
         this.left.parent = this;
