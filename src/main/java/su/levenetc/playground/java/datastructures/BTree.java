@@ -7,6 +7,13 @@ public class BTree {
         this.root = root;
     }
 
+    public BNode cutChildren(int value) {
+        BNode node = get(value);
+        node.left = null;
+        node.right = null;
+        return root;
+    }
+
     public BNode get(int value) {
         if (root == null) return null;
         return find(root, value);

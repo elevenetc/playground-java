@@ -93,6 +93,21 @@ public class Trees {
         return root;
     }
 
+    public static BNode notBalancedBST4() {
+
+        //                 10
+        //           /            \
+        //          5              15
+        //       /     \         /     \
+        //      3       7       13     17
+        //     / \     / \            /  \
+        //    1   4   6   8          16  18
+
+
+        BNode root = perfectBalancedBST4();
+        return new BTree(root).cutChildren(13);
+    }
+
 
     public static BNode nonBST() {
 
@@ -116,7 +131,7 @@ public class Trees {
         return root;
     }
 
-    public static BNode unbalanced() {
+    public static BNode unbalancedNonBST() {
 
         //          0
         //         /
@@ -139,7 +154,7 @@ public class Trees {
         return root;
     }
 
-    public static BNode unbalanced2() {
+    public static BNode unbalancedNonBST2() {
 
         //          0
         //         / \
@@ -153,10 +168,33 @@ public class Trees {
         // /
         //5
 
-        BNode root = unbalanced();
+        BNode root = unbalancedNonBST();
         root.setRight(new BNode(100));
         root.right.setRight(new BNode(200));
         root.right.right.setRight(new BNode(300));
         return root;
     }
+
+    public static BNode unbalancedNonBST3() {
+
+        //          0
+        //         / \
+        //        1  100
+        //       /     \
+        //      2      200
+        //     /         \
+        //    3          300
+        //   / \
+        //  4   10
+        // /
+        //5
+
+        BNode root = unbalancedNonBST2();
+        root.setRight(new BNode(100));
+        root.right.setRight(new BNode(200));
+        root.right.right.setRight(new BNode(300));
+        new BTree(root).get(3).setRight(10);
+        return root;
+    }
+
 }
