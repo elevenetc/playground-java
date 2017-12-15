@@ -4,7 +4,7 @@ import su.levenetc.playground.java.datastructures.BNode;
 
 public class IsBTBalanced {
 
-    static boolean isBalanced(BNode node) {
+    public static boolean isBalanced(BNode node) {
         return internal(node) != -1;
     }
 

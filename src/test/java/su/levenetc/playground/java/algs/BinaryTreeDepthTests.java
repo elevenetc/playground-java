@@ -9,17 +9,17 @@ import static su.levenetc.playground.java.algs.graphs.BinaryTreeDepth.maxIterati
 import static su.levenetc.playground.java.algs.graphs.BinaryTreeDepth.maxRecursive;
 import static su.levenetc.playground.java.algs.graphs.BinaryTreeDepth.minIterative;
 import static su.levenetc.playground.java.algs.graphs.BinaryTreeDepth.minRecursive;
-import static su.levenetc.playground.java.datastructures.Trees.perfectTree;
+import static su.levenetc.playground.java.datastructures.Trees.perfectNonBST;
 import static su.levenetc.playground.java.datastructures.Trees.unbalancedNonBST;
 import static su.levenetc.playground.java.datastructures.Trees.unbalancedNonBST2;
 
 public class BinaryTreeDepthTests {
     @Test
     public void testMax() {
-        assertEquals(3, maxIterative(perfectTree()));
+        assertEquals(3, maxIterative(perfectNonBST()));
         assertEquals(6, maxIterative(unbalancedNonBST()));
 
-        assertEquals(3, maxRecursive(perfectTree()));
+        assertEquals(3, maxRecursive(perfectNonBST()));
         assertEquals(6, maxRecursive(unbalancedNonBST()));
     }
 
