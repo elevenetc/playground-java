@@ -14,7 +14,7 @@ public class Trees {
         return root;
     }
 
-    public static BNode perfectTree() {
+    public static BNode perfectNonBST() {
 
         //        0
         //     /     \
@@ -37,11 +37,13 @@ public class Trees {
 
     public static BNode perfectBalancedBST3() {
 
+        //
         //       100
         //     /     \
         //    50     150
         //   /  \   /   \
         // 25   75 125  175
+        //
 
         BNode root = new BNode(100);
 
@@ -57,8 +59,35 @@ public class Trees {
         return root;
     }
 
+    public static BNode bstZigZag() {
+
+        //
+        //     10
+        //    /
+        //   5
+        //    \
+        //     6
+        //      \
+        //       7
+        //        \
+        //         8
+        //          \
+        //           9
+        //
+
+        BNode root = new BNode(10);
+        root.setLeft(5);
+        root.left.setRight(6);
+        root.left.right.setRight(7);
+        root.left.right.right.setRight(8);
+        root.left.right.right.right.setRight(9);
+
+        return root;
+    }
+
     public static BNode perfectBalancedBST4() {
 
+        //
         //                 10
         //           /            \
         //          5              15
@@ -66,6 +95,7 @@ public class Trees {
         //      3       7       13     17
         //     / \     / \     /  \   /  \
         //    1   4   6   8   11  14 16  18
+        //
 
         BNode root = new BNode(10);
 
@@ -93,7 +123,7 @@ public class Trees {
         return root;
     }
 
-    public static BNode notBalancedBST4() {
+    public static BNode balancedBST4() {
 
         //                 10
         //           /            \
