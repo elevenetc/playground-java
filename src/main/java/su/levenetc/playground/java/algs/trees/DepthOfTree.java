@@ -5,9 +5,18 @@ import su.levenetc.playground.java.datastructures.BNode;
 public class DepthOfTree {
     public static int min(BNode node) {
         if (node == null) return 0;
+        if (node.left == null && node.right == null) return 1;
+
         int left = min(node.left);
         int right = min(node.right);
-        return (left == 0 || right == 0) ? left + right + 1 : Math.min(left, right) + 1;
+
+        if (left == 0) {
+            return right + 1;
+        } else if (right == 0) {
+            return left + 1;
+        } else {
+            return Math.min(left, right) + 1;
+        }
     }
 
     public static int max(BNode node) {

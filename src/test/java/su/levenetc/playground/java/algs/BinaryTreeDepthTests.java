@@ -10,22 +10,22 @@ import static su.levenetc.playground.java.algs.graphs.BinaryTreeDepth.maxRecursi
 import static su.levenetc.playground.java.algs.graphs.BinaryTreeDepth.minIterative;
 import static su.levenetc.playground.java.algs.graphs.BinaryTreeDepth.minRecursive;
 import static su.levenetc.playground.java.datastructures.Trees.perfectTree;
-import static su.levenetc.playground.java.datastructures.Trees.unbalanced;
-import static su.levenetc.playground.java.datastructures.Trees.unbalanced2;
+import static su.levenetc.playground.java.datastructures.Trees.unbalancedNonBST;
+import static su.levenetc.playground.java.datastructures.Trees.unbalancedNonBST2;
 
 public class BinaryTreeDepthTests {
     @Test
     public void testMax() {
         assertEquals(3, maxIterative(perfectTree()));
-        assertEquals(6, maxIterative(unbalanced()));
+        assertEquals(6, maxIterative(unbalancedNonBST()));
 
         assertEquals(3, maxRecursive(perfectTree()));
-        assertEquals(6, maxRecursive(unbalanced()));
+        assertEquals(6, maxRecursive(unbalancedNonBST()));
     }
 
     @Test
     public void testMin() {
-        BNode root = unbalanced2();
+        BNode root = unbalancedNonBST2();
         assertEquals(3, minIterative(root));
         assertEquals(3, minRecursive(root));
     }
