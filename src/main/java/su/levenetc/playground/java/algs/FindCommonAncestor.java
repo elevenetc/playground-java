@@ -3,7 +3,29 @@ package su.levenetc.playground.java.algs;
 import su.levenetc.playground.java.datastructures.BNode;
 
 public class FindCommonAncestor {
+
+    public static BNode withoutParent(BNode root, BNode a, BNode b) {
+        if (root == null) {
+            return null;
+        } else if (root == a) {
+            return a;
+        } else if (root == b) {
+            return b;
+        } else {
+            BNode left = withoutParent(root.left, a, b);
+            BNode right = withoutParent(root.right, a, b);
+
+            if ((left == a && right == b) || (left == b && right == a)) {
+                //found
+                return root;
+            } else {
+                return left == null ? right : left;
+            }
+        }
+    }
+
     public static BNode withParent(BNode nA, BNode nB) {
+
         int depthA = depth(nA);
         int depthB = depth(nB);
 

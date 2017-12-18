@@ -5,6 +5,7 @@ import su.levenetc.playground.java.datastructures.BNode;
 public class InOrderSuccessor {
 
     public static BNode get(BNode n) {
+
         if (n == null) return null;
 
         if (n.parent == null || n.right != null) {
@@ -12,6 +13,7 @@ public class InOrderSuccessor {
         } else {
             return getFirstRightParent(n);
         }
+
     }
 
     private static BNode getFirstRightParent(BNode child) {
@@ -21,6 +23,7 @@ public class InOrderSuccessor {
             child = parent;
             parent = parent.parent;
         }
+
         return parent;
     }
 
