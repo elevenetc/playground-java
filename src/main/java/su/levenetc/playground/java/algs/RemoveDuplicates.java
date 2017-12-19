@@ -5,7 +5,7 @@ import java.util.Set;
 
 import su.levenetc.playground.java.datastructures.LNode;
 
-public class DeleteDuplicatesFromSingleLinkedList {
+public class RemoveDuplicates {
     public static LNode removeDuplicatesFree(LNode list) {
         LNode current = list;
 

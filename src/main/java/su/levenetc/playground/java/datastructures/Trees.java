@@ -59,6 +59,31 @@ public class Trees {
         return root;
     }
 
+    public static BNode perfectBalancedBST3_2() {
+
+        //
+        //        5
+        //     /     \
+        //    3       7
+        //  /   \   /   \
+        // 1     4 6     8
+        //
+
+        BNode root = new BNode(5);
+
+        root.setLeft(new BNode(3));
+        root.setRight(new BNode(7));
+
+        root.left.setLeft(new BNode(1));
+        root.left.setRight(new BNode(4));
+
+        root.right.setLeft(new BNode(6));
+        root.right.setRight(new BNode(8));
+
+        return root;
+    }
+
+
     public static BNode bstZigZag() {
 
         //

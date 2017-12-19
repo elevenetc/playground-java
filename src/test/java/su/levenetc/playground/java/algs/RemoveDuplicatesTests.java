@@ -5,11 +5,11 @@ import org.junit.Test;
 import su.levenetc.playground.java.datastructures.LNode;
 
 import static org.junit.Assert.assertTrue;
-import static su.levenetc.playground.java.algs.DeleteDuplicatesFromSingleLinkedList.removeDuplicatesFree;
-import static su.levenetc.playground.java.algs.DeleteDuplicatesFromSingleLinkedList.removeDuplicatesMem;
+import static su.levenetc.playground.java.algs.RemoveDuplicates.removeDuplicatesFree;
+import static su.levenetc.playground.java.algs.RemoveDuplicates.removeDuplicatesMem;
 import static su.levenetc.playground.java.datastructures.LNode.list;
 
-public class DeleteDuplicatesFromSingleLinkedListTests {
+public class RemoveDuplicatesTests {
     @Test
     public void test01() {
         LNode list = list(1, 2, 3);
