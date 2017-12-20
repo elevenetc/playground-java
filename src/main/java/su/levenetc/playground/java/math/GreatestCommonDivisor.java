@@ -6,8 +6,8 @@ package su.levenetc.playground.java.math;
 public class GreatestCommonDivisor {
 
     public static long calc(long a, long b) {
-        long rem = Long.MAX_VALUE;
-        while (rem > 0) {
+        long rem = 1;
+        while (rem != 0) {
             rem = a % b;
             a = b;
             b = rem;

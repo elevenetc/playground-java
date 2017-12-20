@@ -10,6 +10,7 @@ import static org.junit.Assert.assertEquals;
 public class TestMath {
     @Test
     public void testGCD() {
+        assertEquals(3, GreatestCommonDivisor.calc(6, 9));
         assertEquals(10, GreatestCommonDivisor.calc(20, 10));
         assertEquals(17657, GreatestCommonDivisor.calc(28851538, 1183019));
         assertEquals(17657, GreatestCommonDivisor.calc(1183019, 28851538));
