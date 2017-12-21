@@ -14,22 +14,29 @@ public class BNode {
         this.value = value;
     }
 
-    public void setLeft(int value) {
-        setLeft(new BNode(value));
+    public void setLeftAndRight(int left, int right) {
+        setLeft(new BNode(left));
+        setRight(new BNode(right));
     }
 
-    public void setRight(int value) {
-        setRight(new BNode(value));
+    public BNode setLeft(int value) {
+        return setLeft(new BNode(value));
     }
 
-    public void setLeft(BNode left) {
+    public BNode setRight(int value) {
+        return setRight(new BNode(value));
+    }
+
+    public BNode setLeft(BNode left) {
         this.left = left;
         this.left.parent = this;
+        return left;
     }
 
-    public void setRight(BNode right) {
+    public BNode setRight(BNode right) {
         this.right = right;
         this.right.parent = this;
+        return right;
     }
 
     @Override

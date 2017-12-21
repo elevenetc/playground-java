@@ -11,8 +11,8 @@ import static su.levenetc.playground.java.algs.trees.ContainsTree.contains1;
 import static su.levenetc.playground.java.algs.trees.ContainsTree.contains2;
 import static su.levenetc.playground.java.datastructures.Trees.balancedBST4;
 import static su.levenetc.playground.java.datastructures.Trees.nonBST;
-import static su.levenetc.playground.java.datastructures.Trees.simleLeftNonBST;
-import static su.levenetc.playground.java.datastructures.Trees.simleRightNonBST;
+import static su.levenetc.playground.java.datastructures.Trees.simpleLeftNonBST;
+import static su.levenetc.playground.java.datastructures.Trees.simpleRightNonBST;
 
 public class ContainsTreeTests {
     @Test
@@ -36,8 +36,8 @@ public class ContainsTreeTests {
         assertFalse(contains1(t1.root, t2.root));
         assertFalse(contains2(t1.root, t2.root));
 
-        assertFalse(contains1(simleLeftNonBST(), simleRightNonBST()));
-        assertFalse(contains2(simleLeftNonBST(), simleRightNonBST()));
+        assertFalse(contains1(simpleLeftNonBST(), simpleRightNonBST()));
+        assertFalse(contains2(simpleLeftNonBST(), simpleRightNonBST()));
     }
 
 }

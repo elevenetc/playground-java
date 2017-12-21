@@ -2,8 +2,57 @@ package su.levenetc.playground.java.datastructures;
 
 public class Trees {
 
+    public static BNode mirrorOrPerfectNonBST() {
 
-    public static BNode simleLeftNonBST() {
+        //        0
+        //     /     \
+        //    2       1
+        //   / \     / \
+        //  6   5   4   3
+
+        BNode root = new BNode(0);
+        root.setLeft(2).setLeftAndRight(6, 5);
+        root.setRight(1).setLeftAndRight(4, 3);
+        return root;
+    }
+
+    public static BNode almostMirrored() {
+
+        //
+        //        0
+        //     /     \
+        //    1       1
+        //   / \     / \
+        //  2   3   3   2
+        //               \
+        //                4
+        //
+
+        BNode root = mirrored();
+
+        new BTree(root).get(2).setLeft(4);
+
+        return root;
+    }
+
+    public static BNode mirrored() {
+
+        //
+        //        0
+        //     /     \
+        //    1       1
+        //   / \     / \
+        //  2   3   3   2
+        //
+
+        BNode root = new BNode(0);
+        root.setLeft(1).setLeftAndRight(2, 3);
+        root.setRight(1).setLeftAndRight(3, 2);
+
+        return root;
+    }
+
+    public static BNode simpleLeftNonBST() {
 
         //     0
         //    /
@@ -14,7 +63,7 @@ public class Trees {
         return root;
     }
 
-    public static BNode simleRightNonBST() {
+    public static BNode simpleRightNonBST() {
 
         //     0
         //      \
