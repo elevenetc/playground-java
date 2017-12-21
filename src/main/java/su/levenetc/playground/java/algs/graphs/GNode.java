@@ -7,6 +7,10 @@ import java.util.Objects;
 
 public class GNode {
 
+    public static GNode node(int value) {
+        return new GNode(value);
+    }
+
     public final int value;
     public final List<GNode> children = new LinkedList<>();
 
@@ -18,8 +22,18 @@ public class GNode {
         children.add(node);
     }
 
+    public GNode add(GNode node) {
+        children.add(node);
+        return node;
+    }
+
     public void add(GNode... nodes) {
         children.addAll(Arrays.asList(nodes));
+    }
+
+    public void add(int... nodes) {
+        for (int nodeValue : nodes)
+            add(node(nodeValue));
     }
 
     @Override

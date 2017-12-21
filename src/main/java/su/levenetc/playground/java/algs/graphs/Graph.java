@@ -28,4 +28,13 @@ public class Graph {
     public String toString() {
         return nodesList.toString();
     }
+
+    public GNode get(int value) {
+        for (GNode node : nodesSet) {
+            if (node.value == value) {
+                return node;
+            }
+        }
+        return null;
+    }
 }

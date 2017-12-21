@@ -2,6 +2,30 @@ package su.levenetc.playground.java.datastructures;
 
 public class Trees {
 
+
+    public static BNode simleLeftNonBST() {
+
+        //     0
+        //    /
+        //   1
+
+        BNode root = new BNode(0);
+        root.left = new BNode(1);
+        return root;
+    }
+
+    public static BNode simleRightNonBST() {
+
+        //     0
+        //      \
+        //       1
+
+        BNode root = new BNode(0);
+        root.right = new BNode(1);
+        return root;
+    }
+
+
     public static BNode simpleTwoBST() {
 
         //     0
