@@ -3,10 +3,10 @@ package su.levenetc.playground.java.algs;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static su.levenetc.playground.java.algs.BitAlgs.byteToInt;
-import static su.levenetc.playground.java.algs.BitAlgs.intToByte;
+import static su.levenetc.playground.java.algs.BitOps.byteToInt;
+import static su.levenetc.playground.java.algs.BitOps.intToByte;
 
-public class BitAlgsTest {
+public class BitOpsTest {
     @Test
     public void testByteToInt() {
         assertEquals(10, byteToInt(intToByte(10)));

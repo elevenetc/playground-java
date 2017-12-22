@@ -2,7 +2,7 @@ import org.junit.Test;
 
 import static java.lang.Integer.bitCount;
 import static org.junit.Assert.assertEquals;
-import static su.levenetc.playground.java.algs.BitAlgs.bitCountIterative;
+import static su.levenetc.playground.java.algs.BitOps.bitCountIterative;
 
 /**
  * Created by eugene.levenetc on 04/07/2017.

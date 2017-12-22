@@ -39,6 +39,24 @@ public class Out {
         pln(String.format("%s, %s, %s", a, b, c));
     }
 
+    public static void plnBin(byte[] bytes) {
+        plnBin(null, bytes);
+    }
+
+    public static void plnBin(String prefix, byte[] bytes) {
+        pln();
+        if (prefix != null) p(prefix);
+        p('[');
+        for (int i = 0; i < bytes.length; i++) {
+            p(binValue(bytes[i]));
+            if (i != bytes.length - 1) {
+                p(", ");
+            }
+        }
+        p(']');
+        pln();
+    }
+
     public static void plnBin(Object prefix, int val) {
         plnBin(prefix.toString(), val);
     }

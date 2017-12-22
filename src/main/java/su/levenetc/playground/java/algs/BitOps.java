@@ -2,7 +2,7 @@ package su.levenetc.playground.java.algs;
 
 import java.nio.ByteBuffer;
 
-public class BitAlgs {
+public class BitOps {
 
     static int rotate(int value, int shift) {
         if (shift == 0) return value;
@@ -71,5 +71,13 @@ public class BitAlgs {
 
     static int deleteBit(int value, int bit) {
         return value & ~(1 << bit);
+    }
+
+    static boolean isEven(int n) {
+        return (n | 1) != n;
+    }
+
+    static boolean isOdd(int n) {
+        return (n | 1) == n;
     }
 }
