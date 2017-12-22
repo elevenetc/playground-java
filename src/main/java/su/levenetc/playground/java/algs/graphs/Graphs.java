@@ -1,6 +1,7 @@
 package su.levenetc.playground.java.algs.graphs;
 
 import static su.levenetc.playground.java.algs.graphs.GNode.node;
+import static su.levenetc.playground.java.algs.graphs.Graph.traverseAll;
 
 public class Graphs {
 
@@ -24,25 +25,30 @@ public class Graphs {
 
     public static Graph dimond3Extended() {
 
-        //   0
-        //  / \
-        // 1   2
-        //  \ /
-        //   3
-        //   |
-        //   4
-        //    \
-        //     5
+        //     0
         //    / \
-        //   6   7
-
+        //   1   2
+        //    \ /
+        //     3
+        //     |
+        //     4
+        //    / \
+        //   5   6
+        //    \ / \
+        //     7   8
 
         Graph graph = diamond3();
 
         GNode node = graph.get(3);
         GNode n4 = node.add(node(4));
-        GNode n5 = n4.add(node(5));
-        n5.add(6, 7);
+        GNode n5 = n4.add(5);
+        GNode n6 = n4.add(6);
+        GNode n7 = n5.add(7);
+
+        n6.add(n7);
+        n6.add(8);
+
+        graph.resetNodes(traverseAll(graph.get(0)));
 
         return graph;
     }

@@ -7,6 +7,8 @@ import java.util.Objects;
 
 public class GNode {
 
+    public Graph graph;
+
     public static GNode node(int value) {
         return new GNode(value);
     }
@@ -29,6 +31,10 @@ public class GNode {
 
     public void add(GNode... nodes) {
         children.addAll(Arrays.asList(nodes));
+    }
+
+    public GNode add(int node) {
+        return add(node(node));
     }
 
     public void add(int... nodes) {

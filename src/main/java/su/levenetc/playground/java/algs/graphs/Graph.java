@@ -15,6 +15,15 @@ public class Graph {
         add(nodes);
     }
 
+    public void resetNodes(Set<GNode> nodes) {
+        LinkedList<GNode> list = new LinkedList<>(nodes);
+        nodesList.clear();
+        nodesSet.clear();
+
+        nodesList.addAll(list);
+        nodesSet.addAll(list);
+    }
+
     public GNode node(int index) {
         return nodesList.get(index);
     }
@@ -36,5 +45,23 @@ public class Graph {
             }
         }
         return null;
+    }
+
+    public static Set<GNode> traverseAll(GNode node) {
+        Set<GNode> visited = new HashSet<>();
+        Queue<GNode> q = new LinkedList<>();
+
+        q.offer(node);
+        while (!q.isEmpty()) {
+            GNode poll = q.poll();
+            if (visited.contains(poll)) continue;
+
+            visited.add(poll);
+
+            for (GNode child : poll.children) {
+                q.add(child);
+            }
+        }
+        return visited;
     }
 }
