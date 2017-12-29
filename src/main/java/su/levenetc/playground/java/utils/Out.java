@@ -161,6 +161,12 @@ public class Out {
     }
 
     public static void pln(Collection result) {
+
+        if (result == null) {
+            Out.pln("null");
+            return;
+        }
+
         Object[] array = result.toArray();
         if (array instanceof String[]) {
             plnStringArray((String[]) array);
