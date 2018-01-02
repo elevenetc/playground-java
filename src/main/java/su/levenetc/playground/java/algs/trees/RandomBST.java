@@ -1,5 +1,10 @@
 package su.levenetc.playground.java.algs.trees;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
+import su.levenetc.playground.java.utils.Out;
+
 public class RandomBST {
 
     Node root;
@@ -12,12 +17,43 @@ public class RandomBST {
         }
     }
 
+    public void printInOrder() {
+        printInOrder(root);
+    }
+
+    public void printInOrder(Node node) {
+        if (node == null) return;
+        printInOrder(node.left);
+        Out.p(node.value + ", ");
+        printInOrder(node.right);
+    }
+
+    public void printByLayers() {
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        q.add(null);
+
+        while (!q.isEmpty()) {
+            Node n = q.poll();
+
+            if (n == null) {
+                Out.pln();
+                if (!q.isEmpty()) q.add(null);
+            } else {
+                Out.p(n.value);
+
+                if (n.left != null) q.add(n.left);
+                if (n.right != null) q.add(n.right);
+            }
+        }
+    }
+
     public int getRandom() {
         int rnd = (int) (Math.random() * (root.size + 1));
         return getRandom(root, rnd);
     }
 
-    private int getRandom(int rnd) {
+    public int getRandom(int rnd) {
         return getRandom(root, rnd);
     }
 

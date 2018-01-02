@@ -15,5 +15,6 @@ public class ShiftZerosBackTests {
         assertArrayEquals(array(1, 2, 3, 0), shift(1, 2, 3, 0));
         assertArrayEquals(array(2, 3, 4, 0), shift(0, 2, 3, 4));
         assertArrayEquals(array(1, 0), shift(0, 1));
+        assertArrayEquals(array(1, 0), shift(1, 0, 3, 0, 0, 4, 0, 6, 0, 9));
     }
 }
