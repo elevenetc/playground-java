@@ -31,8 +31,7 @@ public class CountPrimes {
         if (n < 2) return false;
         if (n > 2 && n % 2 == 0) return false;
 
-        int top = (int) Math.sqrt(n) + 1;
-        for (int i = 3; i < top; i += 2) {
+        for (int i = 3; i <= (int) Math.sqrt(n); i++) {
             if (n % i == 0) return false;
         }
         return true;
