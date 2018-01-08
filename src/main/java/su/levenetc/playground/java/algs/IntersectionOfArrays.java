@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class IntersectionOfArrays {
+
     static List<Integer> get(int[] a, int[] b) {
         Map<Integer, Integer> map = new HashMap<>();
         int[] array;
