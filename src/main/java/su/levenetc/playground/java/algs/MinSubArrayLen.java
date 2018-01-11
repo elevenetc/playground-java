@@ -24,15 +24,17 @@ public class MinSubArrayLen {
 
     ///
 
-    public static int get2(int s, int... nums) {
-        int sum = 0;
+    public static int get2(int sum, int... nums) {
+        int currentSum = 0;
         int result = Integer.MAX_VALUE;
-        int l = 0;
-        for (int r = 0; r < nums.length; r++) {
-            sum += nums[r];
-            while (sum >= s) {
-                result = Math.min(result, r - l + 1);
-                sum -= nums[l++];
+        int start = 0;
+        for (int end = 0; end < nums.length; end++) {
+            currentSum += nums[end];
+            while (currentSum >= sum) {
+                int currentLen = end - start + 1;
+                result = Math.min(result, currentLen);
+                currentSum -= nums[start];
+                start++;
             }
         }
         return result == Integer.MAX_VALUE ? 0 : result;
