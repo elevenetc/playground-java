@@ -8,7 +8,7 @@ import static su.levenetc.playground.java.algs.trees.TreeMirrors.isMirrored;
 import static su.levenetc.playground.java.algs.trees.TreeMirrors.isMirroredTrees;
 import static su.levenetc.playground.java.datastructures.Trees.almostMirrored;
 import static su.levenetc.playground.java.datastructures.Trees.balancedBST4;
-import static su.levenetc.playground.java.datastructures.Trees.mirrorOrPerfectNonBST;
+import static su.levenetc.playground.java.datastructures.Trees.mirrorOfPerfectNonBST;
 import static su.levenetc.playground.java.datastructures.Trees.mirrored;
 import static su.levenetc.playground.java.datastructures.Trees.perfectNonBST;
 import static su.levenetc.playground.java.datastructures.Trees.simpleTwoBST;
@@ -21,7 +21,7 @@ public class TreeMirrorsTests {
         assertFalse(isMirrored(perfectNonBST()));
         assertFalse(isMirrored(almostMirrored()));
 
-        assertTrue(isMirroredTrees(mirrorOrPerfectNonBST(), perfectNonBST()));
-        assertFalse(isMirroredTrees(mirrorOrPerfectNonBST(), balancedBST4()));
+        assertTrue(isMirroredTrees(mirrorOfPerfectNonBST(), perfectNonBST()));
+        assertFalse(isMirroredTrees(mirrorOfPerfectNonBST(), balancedBST4()));
     }
 }

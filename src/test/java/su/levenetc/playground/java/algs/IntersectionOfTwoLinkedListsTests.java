@@ -19,6 +19,7 @@ public class IntersectionOfTwoLinkedListsTests {
         interNode.next = new LNode(200);
         assertEquals(interNode, getMem(listA, listB));
         assertEquals(interNode, getWithoutMem(listA, listB));
+        assertEquals(interNode, intersection(listA, listB));
     }
 
     @Test
@@ -27,6 +28,32 @@ public class IntersectionOfTwoLinkedListsTests {
         LNode listB = LNode.list(0, 1, 2);
         assertEquals(null, getMem(listA, listB));
         assertEquals(null, getWithoutMem(listA, listB));
+        assertEquals(null, intersection(listA, listB));
+    }
+
+    static LNode intersection(LNode listA, LNode listB) {
+        int sizeA = listA.size();
+        int sizeB = listB.size();
+
+        if (sizeA > sizeB) {
+            listA = cut(listA, sizeA - sizeB);
+        } else if (sizeB > sizeA) {
+            listB = cut(listB, sizeB - sizeA);
+        }
+
+        while (listA != listB) {
+            listA = listA.next;
+            listB = listB.next;
+        }
+        return listA;
+    }
+
+    static LNode cut(LNode list, int diff) {
+        while (diff != 0) {
+            list = list.next;
+            diff--;
+        }
+        return list;
     }
 
 }

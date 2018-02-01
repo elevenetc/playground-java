@@ -28,6 +28,7 @@ public class IsPowerOfTests {
 
     @Test
     public void test03() {
+        assertTrue(IsPowerOf.three(27));
         assertTrue(IsPowerOf.three(9));
         assertTrue(IsPowerOf.three(81));
         assertFalse(IsPowerOf.three(10));
