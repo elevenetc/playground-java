@@ -5,6 +5,19 @@ import java.util.Map;
 
 public class HouseRobbery {
 
+    public static int rob0(int... nums) {
+        return rob0Int(0, nums);
+    }
+
+    private static int rob0Int(int i, int[] nums) {
+        if (i > nums.length - 1) return 0;
+        int r0 = rob0Int(i + 1, nums);
+        int r1 = nums[i] + rob0Int(i + 2, nums);
+        return Math.max(r0, r1);
+    }
+
+    //
+
     public static int rob1(int... nums) {
         if (nums.length == 0) return 0;
         else if (nums.length == 1) return nums[0];
@@ -25,32 +38,57 @@ public class HouseRobbery {
 
     //
 
-    public static int rob2(int... nums) {
+    public static int rob2Invalid(int... nums) {
         if (nums == null || nums.length == 0) return 0;
         else if (nums.length == 1) return nums[0];
+        else if (nums.length == 2) return Math.max(nums[0], nums[1]);
 
         int[] m = new int[nums.length];
         m[0] = nums[0];
-        m[1] = Math.max(nums[0], nums[1]);
+        m[1] = nums[1];
 
-        for (int i = 2; i < nums.length; i++)
-            m[i] = Math.max(m[i - 1], m[i - 2] + nums[i]);
+        for (int i = 2; i < nums.length; i++) {
+            int h1 = m[i - 2];
+            int h2 = m[i - 1];
+            int h3 = nums[i];
+            m[i] = Math.max(h2, h1 + h3);
+        }
 
         return m[nums.length - 1];
     }
 
     //
 
-    public static int rob3(int... nums) {
-        int h0 = nums[0];
-        int h1 = Math.max(nums[0], nums[1]);
+    public static int rob3Invalid(int... nums) {
+
+        if (nums.length == 0) return 0;
+        if (nums.length == 1) return nums[0];
+        if (nums.length == 2) return Math.max(nums[0], nums[1]);
+
+        int h1 = nums[0];
+        int h2 = nums[1];
+
         for (int i = 2; i < nums.length; i++) {
-            int current = nums[i];
-            int prev = h1;
-            h1 = Math.max(h0 + current, h1);
-            h0 = prev;
+            int h3 = nums[i];
+            int _h2 = h2;
+            h2 = Math.max(h1 + h3, _h2);
+            h1 = _h2;
         }
-        return h1;
+
+        return h2;
+    }
+
+    //
+
+    public static int rob4(int... h){
+        int prevMax = 0;
+        int currMax = 0;
+        for (int n : h) {
+            int _currMax = currMax;
+            currMax = Math.max(prevMax + n, currMax);
+            prevMax = _currMax;
+        }
+        return currMax;
     }
 
 }
