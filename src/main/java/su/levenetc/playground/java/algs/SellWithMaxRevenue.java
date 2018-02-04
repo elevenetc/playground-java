@@ -17,15 +17,15 @@ public class SellWithMaxRevenue {
     }
 
     public static int sellOnce2(int[] prices) {
-        int min = prices[0];
-        int max = 0;
+        int minPrice = prices[0];
+        int maxRevenue = 0;
 
         for (int p : prices) {
-            max = Math.max(max, p - min);
-            min = Math.min(min, p);
+            maxRevenue = Math.max(maxRevenue, p - minPrice);
+            minPrice = Math.min(minPrice, p);
         }
 
-        return max;
+        return maxRevenue;
     }
 
     public static int sellMultipleTimes(int[] prices) {

@@ -25,6 +25,7 @@ public class MeetingRoom {
     }
 
     public static class Interval {
+        
         int start;
         int end;
 

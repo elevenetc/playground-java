@@ -54,6 +54,14 @@ public class Graphs {
     }
 
     public static Graph basicBinaryTree() {
+
+        //        0
+        //      /   \
+        //     1     2
+        //    / \   / \
+        //   3   4 5   6
+
+
         GNode[] nodes = createNodes(6);
 
         nodes[0].child(nodes[1]);

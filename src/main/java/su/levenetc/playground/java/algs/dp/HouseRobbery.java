@@ -80,15 +80,17 @@ public class HouseRobbery {
 
     //
 
-    public static int rob4(int... h){
-        int prevMax = 0;
-        int currMax = 0;
-        for (int n : h) {
-            int _currMax = currMax;
-            currMax = Math.max(prevMax + n, currMax);
-            prevMax = _currMax;
+    public static int rob4(int... h) {
+        int h1 = 0;
+        int h2 = 0;
+        for (int i = 0; i < h.length; i++) {
+            int h3 = h[i];
+            int _h2 = h2;
+            h2 = Math.max(h1 + h3, h2);
+            h1 = _h2;
+            //
         }
-        return currMax;
+        return h2;
     }
 
 }

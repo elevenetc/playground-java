@@ -5,7 +5,7 @@ import su.levenetc.playground.java.utils.Out;
 
 public class LinkedListLoopDetection {
 
-    static LNode loopStartNode(LNode head) {
+    public static LNode loopStartNode(LNode head) {
         LNode slow = head;
         LNode fast = head;
 

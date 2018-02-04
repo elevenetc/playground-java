@@ -60,8 +60,20 @@ public class Utils {
         return values;
     }
 
+    public static boolean[] bArray(boolean... values) {
+        return values;
+    }
+
     public static int[] array(int... values) {
         return values;
+    }
+
+    public static <T> Deque<T> stack(T... values) {
+        Deque<T> result = new LinkedList<>();
+
+        result.addAll(Arrays.asList(values));
+
+        return result;
     }
 
     public static <T> Set<T> set(T... values) {

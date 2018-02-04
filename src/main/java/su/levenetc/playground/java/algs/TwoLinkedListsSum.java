@@ -82,12 +82,12 @@ class TwoLinkedListsSum {
         LNode current = sumRoot;
         int rem = 0;
         while (aNum != null && bNum != null) {
-            int aValue = aNum.value;//5
-            int bValue = bNum.value;//4
-            int sum = aValue + bValue + current.value;//9
+            int aValue = aNum.value;
+            int bValue = bNum.value;
+            int sum = aValue + bValue + current.value;
 
             if (sum <= 9) {
-                current.value = sum;//9
+                current.value = sum;
                 rem = 0;
             } else {
                 current.value = sum - 10;
