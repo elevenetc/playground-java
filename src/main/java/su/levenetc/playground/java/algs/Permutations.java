@@ -2,6 +2,7 @@ package su.levenetc.playground.java.algs;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import su.levenetc.playground.java.utils.Out;
@@ -113,12 +114,6 @@ public class Permutations {
         return result;
     }
 
-    public static Set<String> permutate3(String str) {
-        Set<String> result = new HashSet<>();
-        permutate3Internal("", str, result);
-        return result;
-    }
-
     private static void permutate2Internal(char[] chars, int length, char a, char b, Set<String> result) {
         for (int i = 0; i < chars.length; i++) {
             if (chars[i] == a) {
@@ -135,15 +130,20 @@ public class Permutations {
         }
     }
 
-    private static void permutate3Internal(String prefix, String str, Set<String> result) {
-        int length = str.length();
-        if (length == 0)
+    public static Set<String> permutatePrefix(String str) {
+        Set<String> result = new LinkedHashSet<>();
+        permutatePrefix("", str, result);
+        return result;
+    }
+
+    private static void permutatePrefix(String prefix, String s, Set<String> result) {
+        if (s.isEmpty())
             result.add(prefix);
         else
-            for (int i = 0; i < length; i++)
-                permutate3Internal(
-                        prefix + str.charAt(i),
-                        str.substring(0, i) + str.substring(i + 1, length),
+            for (int i = 0; i < s.length(); i++)
+                permutatePrefix(
+                        prefix + s.charAt(i),
+                        s.substring(0, i) + s.substring(i + 1, s.length()),
                         result
                 );
     }
@@ -153,7 +153,6 @@ public class Permutations {
         permute4Internal(str, 0, str.length() - 1, result);
         return result;
     }
-
 
     private static void permute4Internal(
             final String string,

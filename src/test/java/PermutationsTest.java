@@ -3,13 +3,14 @@ import org.junit.Test;
 import java.util.Set;
 
 import su.levenetc.playground.java.algs.Permutations;
-import su.levenetc.playground.java.utils.Out;
 import utils.AssertUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static su.levenetc.playground.java.algs.Permutations.arePerms;
+import static su.levenetc.playground.java.algs.Permutations.permutate2;
+import static su.levenetc.playground.java.algs.Permutations.permutatePrefix;
 import static su.levenetc.playground.java.algs.Permutations.permutateIterative;
 import static su.levenetc.playground.java.algs.Permutations.permutateRecursive;
 import static su.levenetc.playground.java.algs.Permutations.permutateWithSwap;
@@ -21,27 +22,32 @@ public class PermutationsTest {
 
     @Test
     public void test01() {
-        final String[] mutations = {"abc", "acb", "bac", "bca", "cab", "cba"};
-
-        String input = "abc";
-        assertPermutations(mutations, permutateWithSwap(input));
-        assertPermutations(mutations, permutateRecursive(input));
-        assertPermutations(mutations, permutateIterative(input));
+        perms(
+                "abc",
+                "abc", "acb", "bac", "bca", "cab", "cba"
+        );
+        perms(
+                "1234",
+                "1234", "1243", "1324", "1342", "1423", "1432", "2134", "2143", "2314", "2341", "2413", "2431", "3124", "3142", "3214", "3241", "3412", "3421", "4123", "4132", "4213", "4231", "4312", "4321"
+        );
     }
 
     @Test
     public void test03() {
-        final String[] mutations = {"1234", "1243", "1324", "1342", "1423", "1432", "2134", "2143", "2314", "2341", "2413", "2431", "3124", "3142", "3214", "3241", "3412", "3421", "4123", "4132", "4213", "4231", "4312", "4321"};
-        String input = "1234";
+
+    }
+
+    private void perms(String input, String... mutations) {
         assertPermutations(mutations, permutateWithSwap(input));
         assertPermutations(mutations, permutateRecursive(input));
         assertPermutations(mutations, permutateIterative(input));
+        assertPermutations(mutations, permutatePrefix(input));
     }
 
     @Test
     public void test02() {
         AssertUtils.assertContains(
-                Permutations.permutate2(2, '-', '*'),
+                permutate2(2, '-', '*'),
                 "**", "-*", "*-"
         );
     }

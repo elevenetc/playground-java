@@ -2,7 +2,7 @@ package su.levenetc.playground.java.algs;
 
 import java.util.ArrayList;
 
-public class SwithBulbs {
+public class SwitchBulbs {
     public static int bulbs(ArrayList<Integer> bulbs) {
         int result = 0;
         int state = 1;

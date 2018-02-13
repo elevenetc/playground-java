@@ -1,12 +1,12 @@
 package su.levenetc.playground.java.algs;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class StringCombination {
 
     public static Set<String> get(String value) {
-        HashSet<String> result = new HashSet<>();
+        Set<String> result = new LinkedHashSet<>();
         combinations(0, new StringBuilder(), value, result);
         return result;
     }
