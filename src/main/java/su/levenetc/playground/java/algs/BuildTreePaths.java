@@ -6,14 +6,14 @@ import java.util.List;
 import su.levenetc.playground.java.datastructures.BNode;
 
 public class BuildTreePaths {
-    public List<String> binaryTreePaths(BNode root) {
+    public static List<String> binaryTreePaths(BNode root) {
         List<String> res = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         helper(res, root, sb);
         return res;
     }
 
-    private void helper(List<String> res, BNode root, StringBuilder sb) {
+    private static void helper(List<String> res, BNode root, StringBuilder sb) {
         if (root == null) {
             return;
         }

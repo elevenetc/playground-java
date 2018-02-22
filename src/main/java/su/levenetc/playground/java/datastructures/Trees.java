@@ -156,6 +156,22 @@ public class Trees {
         return root;
     }
 
+    public static BNode almostBST() {
+
+        //
+        //        5
+        //     /     \
+        //    3       7
+        //  /   \   /   \
+        // 1    44 6     8
+        //
+
+        BNode root = perfectBalancedBST3_2();
+        BNode n4 = new BTree(root).get(4);
+        n4.value = 44;
+
+        return root;
+    }
 
     public static BNode bstZigZag() {
 

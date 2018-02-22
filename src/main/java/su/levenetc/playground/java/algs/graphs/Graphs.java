@@ -5,6 +5,40 @@ import static su.levenetc.playground.java.algs.graphs.Graph.traverseAll;
 
 public class Graphs {
 
+    public static Graph spider() {
+        //          0
+        //      /   |   \
+        //     1    2    3
+        //    /     |     \
+        //   4      5      6
+        //  /\      |      /\
+        // 7  8     9    10  11
+        //         / \
+        //        12  13
+
+        GNode[] nodes = createNodes(13);
+        nodes[0].child(nodes[1]);
+        nodes[0].child(nodes[2]);
+        nodes[0].child(nodes[3]);
+
+        nodes[1].child(nodes[4]);
+        nodes[2].child(nodes[5]);
+        nodes[3].child(nodes[6]);
+
+        nodes[4].child(nodes[7]);
+        nodes[4].child(nodes[8]);
+
+        nodes[5].child(nodes[9]);
+
+        nodes[6].child(nodes[10]);
+        nodes[6].child(nodes[11]);
+
+        nodes[9].child(nodes[12]);
+        nodes[9].child(nodes[13]);
+
+        return new Graph(nodes);
+    }
+
     public static Graph diamond3() {
 
         //   0
