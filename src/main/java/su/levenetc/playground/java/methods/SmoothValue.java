@@ -1,9 +1,9 @@
 package su.levenetc.playground.java.methods;
 
-import su.levenetc.playground.java.utils.Out;
-import su.levenetc.playground.java.utils.ThreadsUtils;
-
 import java.util.Random;
+
+import su.levenetc.playground.java.utils.Out;
+import su.levenetc.playground.java.utils.ThreadUtils;
 
 /**
  * Created by levenetc on 02/09/15.
@@ -25,7 +25,7 @@ public class SmoothValue {
 				boolean threw = false;
 
 				while (true) {
-					ThreadsUtils.sleep(200);
+					ThreadUtils.sleep(200);
 					val += 0.1;
 					if (!threw && val > 0.5f && rnd.nextBoolean()) {
 						threw = true;

@@ -1,23 +1,15 @@
+import org.junit.Test;
+
 import io.reactivex.Completable;
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
-import org.junit.Test;
-import rx.functions.Action0;
-import rx.subscriptions.Subscriptions;
 import su.levenetc.playground.java.rxjava.LongRunningAction;
 import su.levenetc.playground.java.utils.Out;
-import su.levenetc.playground.java.utils.ThreadsUtils;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import su.levenetc.playground.java.utils.ThreadUtils;
 
 /**
  * Created by eleven on 02/10/2016.
@@ -41,7 +33,7 @@ public class RxTests {
         PublishSubject<String> observable = PublishSubject.create();
 
         observable
-                .observeOn(ThreadsUtils.createScheduler("Thread:A"))
+                .observeOn(ThreadUtils.createScheduler("Thread:A"))
                 .subscribe(s -> {
                     Out.pln("Consumer:A:start:" + s);
                     Out.plnCurrentThread();
@@ -49,7 +41,7 @@ public class RxTests {
                 });
 
         observable
-                .observeOn(ThreadsUtils.createScheduler("Thread:B"))
+                .observeOn(ThreadUtils.createScheduler("Thread:B"))
                 .subscribe(s -> {
                     Out.pln("Consumer:B:start:" + s);
                     Out.plnCurrentThread();
@@ -59,7 +51,7 @@ public class RxTests {
         new Thread(() -> observable.onNext("X"), "ProducerThread").start();
 
 
-        ThreadsUtils.sleep(500);
+        ThreadUtils.sleep(500);
     }
 
     @Test
@@ -74,7 +66,7 @@ public class RxTests {
         final Disposable sub = completable.subscribe(() -> Out.pln("Sub-B"));
         sub.dispose();
 
-        ThreadsUtils.sleep(1500);
+        ThreadUtils.sleep(1500);
 
         completable.subscribe(() -> Out.pln("Sub-C"));
     }
@@ -94,7 +86,7 @@ public class RxTests {
             int i = 0;
             while (i != 10) {
                 i++;
-                ThreadsUtils.sleep(100);
+                ThreadUtils.sleep(100);
                 Out.pln("fast:" + i);
                 subscriber.onNext((float) i);
             }
@@ -106,7 +98,7 @@ public class RxTests {
             int i = 0;
             while (i != 10) {
                 i++;
-                ThreadsUtils.sleep(1000);
+                ThreadUtils.sleep(1000);
                 Out.pln("slow:" + i);
                 subscriber.onNext((float) i);
             }
@@ -117,12 +109,12 @@ public class RxTests {
                 .subscribeOn(Schedulers.computation())
                 .subscribe(new Consumer<Float>() {
                     @Override
-                    public void accept(Float aFloat) throws Exception {
+                    public void accept(Float aFloat) {
                         Out.pln("result:" + aFloat);
                     }
                 });
 
-        ThreadsUtils.sleep(3 * 1000);
+        ThreadUtils.sleep(3 * 1000);
     }
 
     @Test
@@ -133,7 +125,7 @@ public class RxTests {
             int i = 0;
             while (i != 10) {
                 i++;
-                ThreadsUtils.sleep(100);
+                ThreadUtils.sleep(100);
                 Out.pln("fast:" + i);
                 subscriber.onNext((float) i);
             }
@@ -145,7 +137,7 @@ public class RxTests {
             int i = 0;
             while (i != 10) {
                 i++;
-                ThreadsUtils.sleep(1000);
+                ThreadUtils.sleep(1000);
                 Out.pln("slow:" + i);
                 subscriber.onNext((float) i);
             }
@@ -155,7 +147,7 @@ public class RxTests {
         Observable
                 .zip(obsA, obsB, new BiFunction<Float, Float, Float>() {
                     @Override
-                    public Float apply(Float aFloat, Float bFloat) throws Exception {
+                    public Float apply(Float aFloat, Float bFloat) {
                         Out.pln("compare: a:" + aFloat + ", b:" + bFloat);
                         return Math.min(aFloat, bFloat);
                     }
@@ -163,11 +155,11 @@ public class RxTests {
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Consumer<Float>() {
                     @Override
-                    public void accept(Float progress) throws Exception {
+                    public void accept(Float progress) {
                         Out.pln(progress);
                     }
                 });
 
-        ThreadsUtils.sleep(3 * 1000);
+        ThreadUtils.sleep(3 * 1000);
     }
 }

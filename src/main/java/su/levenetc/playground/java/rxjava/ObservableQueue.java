@@ -1,13 +1,13 @@
 package su.levenetc.playground.java.rxjava;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import rx.Observable;
 import rx.Scheduler;
 import rx.functions.Func1;
 import su.levenetc.playground.java.utils.Objects;
 import su.levenetc.playground.java.utils.Out;
-import su.levenetc.playground.java.utils.ThreadsUtils;
-
-import java.util.concurrent.atomic.AtomicInteger;
+import su.levenetc.playground.java.utils.ThreadUtils;
 
 /**
  * Created by eugene.levenetc on 01/07/16.
@@ -18,7 +18,7 @@ public class ObservableQueue {
 
 		queue.setResObs(Observable.create(subscriber -> {
 			Out.plnCurrentThread("res loading");
-			ThreadsUtils.sleep(200);
+			ThreadUtils.sleep(200);
 			subscriber.onNext(new Res());
 			subscriber.onCompleted();
 		}));
@@ -40,7 +40,7 @@ public class ObservableQueue {
 				.observeOn(RX.getMain())
 				.subscribe(RX::onCompleteWithThread, RX::onErrorWithThread);
 
-		ThreadsUtils.sleep(5500);
+		ThreadUtils.sleep(5500);
 
 		queue.add(obsD)
 				.observeOn(RX.getMain())

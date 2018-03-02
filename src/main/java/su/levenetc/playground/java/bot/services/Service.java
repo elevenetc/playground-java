@@ -4,7 +4,7 @@ import io.reactivex.Scheduler;
 import su.levenetc.playground.java.bot.ServicesPool;
 import su.levenetc.playground.java.bot.platforms.Platform;
 import su.levenetc.playground.java.bot.platforms.slack.InitData;
-import su.levenetc.playground.java.utils.ThreadsUtils;
+import su.levenetc.playground.java.utils.ThreadUtils;
 
 /**
  * Created by eugene.levenetc on 22/10/2016.
@@ -37,7 +37,7 @@ public abstract class Service {
 
     protected Scheduler getScheduler() {
         if (scheduler == null)
-            scheduler = ThreadsUtils.createScheduler(getClass().getCanonicalName());
+            scheduler = ThreadUtils.createScheduler(getClass().getCanonicalName());
         return scheduler;
     }
 

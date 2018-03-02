@@ -14,7 +14,7 @@ public class OrderedExecutor implements Executor {
         thread = new Thread(() -> {
             while (isEnabled) {
                 try {
-                    ThreadsUtils.sleep(1000);
+                    ThreadUtils.sleep(1000);
                     queue.take().run();
 
                 } catch (InterruptedException e) {

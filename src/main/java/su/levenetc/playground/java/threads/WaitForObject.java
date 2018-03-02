@@ -3,7 +3,7 @@ package su.levenetc.playground.java.threads;
 
 import su.levenetc.playground.java.utils.Out;
 import su.levenetc.playground.java.utils.ThreadX;
-import su.levenetc.playground.java.utils.ThreadsUtils;
+import su.levenetc.playground.java.utils.ThreadUtils;
 
 
 /**
@@ -37,7 +37,7 @@ public class WaitForObject {
 		threadB.setRunnable(new Runnable() {
 			@Override
 			public void run() {
-				ThreadsUtils.sleep(1000);
+				ThreadUtils.sleep(1000);
 				data = 1;
 				synchronized (lock){
 					lock.notify();

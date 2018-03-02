@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import su.levenetc.playground.java.utils.OrderedExecutor;
 import su.levenetc.playground.java.utils.Out;
-import su.levenetc.playground.java.utils.ThreadsUtils;
+import su.levenetc.playground.java.utils.ThreadUtils;
 
 public class OrderedExecutorTests {
     @Test
@@ -13,6 +13,6 @@ public class OrderedExecutorTests {
         executor.execute(() -> Out.pln("hello-1"));
         executor.execute(() -> Out.pln("hello-2"));
 
-        ThreadsUtils.sleep(5000);
+        ThreadUtils.sleep(5000);
     }
 }

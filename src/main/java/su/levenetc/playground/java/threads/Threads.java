@@ -1,7 +1,7 @@
 package su.levenetc.playground.java.threads;
 
 import su.levenetc.playground.java.utils.Out;
-import su.levenetc.playground.java.utils.ThreadsUtils;
+import su.levenetc.playground.java.utils.ThreadUtils;
 
 
 /**
@@ -49,14 +49,14 @@ public class Threads {
 			Out.meth("sycnedMeth - start");
 			value += 1f;
 			Out.pln(value);
-			ThreadsUtils.sleepB();
+			ThreadUtils.sleepB();
 			Out.meth("sycnedMeth - finish");
 		}
 
 		public void sycnedBlock() {
 			synchronized (lock) {
 				Out.meth("sycnedBlock - start");
-				ThreadsUtils.sleepB();
+				ThreadUtils.sleepB();
 				value += 1f;
 				Out.pln(value);
 				Out.meth("sycnedBlock - finish");

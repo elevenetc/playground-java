@@ -37,7 +37,7 @@ public class ThreadsObjects {
 		}
 
 		protected void work() {
-			ThreadsUtils.sleep(workTime);
+			ThreadUtils.sleep(workTime);
 		}
 
 		protected void end() {

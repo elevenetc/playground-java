@@ -4,7 +4,7 @@ import rx.Observable;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import su.levenetc.playground.java.utils.Out;
-import su.levenetc.playground.java.utils.ThreadsUtils;
+import su.levenetc.playground.java.utils.ThreadUtils;
 
 /**
  * Created by eleven on 16/11/2015.
@@ -13,7 +13,7 @@ public class RXOrderOfSub {
 	public static void run() {
 
 		Out.pln();
-		ThreadsUtils.sleep(200);
+		ThreadUtils.sleep(200);
 
 		Out.pln("ST:" + Thread.currentThread());
 
@@ -33,7 +33,7 @@ public class RXOrderOfSub {
 //				.observeOn(Schedulers.immediate())
 				.subscribe(RXOrderOfSub::handleEnd);
 
-		ThreadsUtils.sleep(2000);
+		ThreadUtils.sleep(2000);
 		Out.pln();
 	}
 

@@ -8,16 +8,31 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by elevenetc on 04/07/15.
  */
-public class ThreadsUtils {
+public class ThreadUtils {
 
-    public static Thread runContinuous(Runnable task, String name) {
-        return runContinuous(task, name, -1);
+    public static void sleepBackForever(){
+        new Thread(ThreadUtils::sleepForever).start();
     }
 
-    public static Thread runContinuous(Runnable task, String name, long delay) {
+    public static void postBack(Runnable task, long delay) {
+        new Thread(() -> {
+            sleep(delay);
+            task.run();
+        }).start();
+    }
+
+    public static Thread runBackRepeated(Runnable task, long delay) {
+        return runBackRepeated(task, "", delay);
+    }
+
+    public static Thread runBackRepeated(Runnable task, String name) {
+        return runBackRepeated(task, name, -1);
+    }
+
+    public static Thread runBackRepeated(Runnable task, String name, long delay) {
         Thread thread = new Thread(() -> {
             while (true) {
-                if (delay > 0) ThreadsUtils.sleep(delay);
+                if (delay > 0) ThreadUtils.sleep(delay);
                 task.run();
             }
         }, name);

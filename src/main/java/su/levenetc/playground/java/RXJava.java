@@ -1,13 +1,13 @@
 package su.levenetc.playground.java;
 
+import java.util.concurrent.TimeUnit;
+
 import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import su.levenetc.playground.java.rxjava.*;
-import su.levenetc.playground.java.utils.ThreadsUtils;
-
-import java.util.concurrent.TimeUnit;
+import su.levenetc.playground.java.utils.ThreadUtils;
 
 /**
  * Created by elevenetc on 20/06/15.
@@ -113,7 +113,7 @@ public class RXJava {
 		Observable.create(new Observable.OnSubscribe<Object>() {
 			@Override
 			public void call(Subscriber<? super Object> subscriber) {
-				ThreadsUtils.sleep(200);
+				ThreadUtils.sleep(200);
 				subscriber.onCompleted();
 			}
 		}).subscribe(new Action1<Object>() {

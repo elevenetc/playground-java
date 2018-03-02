@@ -1,15 +1,15 @@
 package su.levenetc.playground.java.rxjava;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import rx.Observable;
 import rx.Scheduler;
 import rx.Subscriber;
 import rx.functions.Action0;
 import rx.schedulers.Schedulers;
 import su.levenetc.playground.java.utils.Out;
-import su.levenetc.playground.java.utils.ThreadsUtils;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import su.levenetc.playground.java.utils.ThreadUtils;
 
 /**
  * Created by eugene.levenetc on 01/07/16.
@@ -27,7 +27,7 @@ public class RX {
 					subscriber.onError(new RuntimeException(tag));
 				} else {
 					Out.plnCurrentThread(tag);
-					ThreadsUtils.sleep(duration);
+					ThreadUtils.sleep(duration);
 					if (checkBeforeComplete != null) checkBeforeComplete.call();
 					subscriber.onNext(result);
 					subscriber.onCompleted();

@@ -1,11 +1,11 @@
 package su.levenetc.playground.java.rxjava;
 
+import java.util.concurrent.Executors;
+
 import rx.Observable;
 import rx.Scheduler;
 import rx.schedulers.Schedulers;
-import su.levenetc.playground.java.utils.ThreadsUtils;
-
-import java.util.concurrent.Executors;
+import su.levenetc.playground.java.utils.ThreadUtils;
 
 /**
  * Created by eugene.levenetc on 30/06/16.
@@ -30,6 +30,6 @@ public class CheckThreadDoOnSub {
 			System.out.println("result at: " + Thread.currentThread());
 		});
 
-		ThreadsUtils.sleep(200);
+		ThreadUtils.sleep(200);
 	}
 }
