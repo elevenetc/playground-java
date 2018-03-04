@@ -81,8 +81,8 @@ public class Trees {
         //   /   \
         // -1     1
 
-        BNode root = new BNode(0);
-        root.left = new BNode(-1);
+        BNode root = new BNode(1);
+        root.left = new BNode(1);
         root.right = new BNode(1);
         return root;
     }

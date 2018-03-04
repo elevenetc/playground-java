@@ -12,7 +12,7 @@ import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
 import su.levenetc.playground.java.utils.Out;
-import su.levenetc.playground.java.utils.ThreadsUtils;
+import su.levenetc.playground.java.utils.ThreadUtils;
 
 public class ViewRecreation {
 
@@ -90,7 +90,7 @@ public class ViewRecreation {
                     while (true) {
                         stream.onNext("socket-hello: " + i);
                         i++;
-                        ThreadsUtils.sleep(1000);
+                        ThreadUtils.sleep(1000);
                     }
                 }
             }).start();

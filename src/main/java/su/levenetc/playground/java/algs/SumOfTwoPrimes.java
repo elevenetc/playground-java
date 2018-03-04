@@ -2,12 +2,12 @@ package su.levenetc.playground.java.algs;
 
 import java.util.ArrayList;
 
-public class SumOfPrimes {
+public class SumOfTwoPrimes {
     public static ArrayList<Integer> get(int n) {
 
         ArrayList<Integer> result = new ArrayList<>();
 
-        for (int i = 2; i <= n / 2; i++) {
+        for (int i = 2; i <= n; i++) {
             if (isPrime(i) && isPrime(n - i)) {
                 result.add(i);
                 result.add(n - i);

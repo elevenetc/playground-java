@@ -10,7 +10,22 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class ThreadUtils {
 
-    public static void sleepBackForever(){
+    public static Object fakeCalc() {
+        return fakeCalc(null);
+    }
+
+    public static Object fakeCalc(Object any) {
+        Out.plnCurrentThread("start calc on:" + any);
+        sleep((long) (1000 + Math.random() * 1000));
+        Out.plnCurrentThread("finish calc on:" + any);
+        return any;
+    }
+
+    public static void sleepBackFor(long ms) {
+        new Thread(() -> sleep(ms)).start();
+    }
+
+    public static void sleepBackForever() {
         new Thread(ThreadUtils::sleepForever).start();
     }
 
