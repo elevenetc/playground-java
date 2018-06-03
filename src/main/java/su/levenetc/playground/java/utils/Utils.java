@@ -64,6 +64,10 @@ public class Utils {
         return values;
     }
 
+    public static String[] array(String... values) {
+        return values;
+    }
+
     public static int[] array(int... values) {
         return values;
     }

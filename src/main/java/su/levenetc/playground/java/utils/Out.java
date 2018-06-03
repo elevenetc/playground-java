@@ -2,10 +2,7 @@ package su.levenetc.playground.java.utils;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by elevenetc on 04/07/15.
@@ -94,11 +91,24 @@ public class Out {
         Out.pln(binValue(val));
     }
 
+    public static void plnHex(Object prefix, int value) {
+        Out.pln(prefix, hexValue(value));
+    }
+
+    public static void plnHex(int value) {
+        Out.pln(hexValue(value));
+    }
+
 
     @NotNull
     public static String binValue(int val) {
         String cutBinStr = Integer.toBinaryString(val);
         return toBinString(cutBinStr, 32);
+    }
+
+    @NotNull
+    public static String hexValue(int val) {
+        return Integer.toHexString(val);
     }
 
     @NotNull
@@ -244,7 +254,10 @@ public class Out {
     }
 
     public static void pln(String result) {
-        System.out.println(result);
+        int min = Calendar.getInstance().get(Calendar.MINUTE);
+        int sec = Calendar.getInstance().get(Calendar.SECOND);
+        int ms = Calendar.getInstance().get(Calendar.MILLISECOND);
+        System.out.println(String.format("%d:%d.%d | %s", min, sec, ms, result));
     }
 
     public static void plnIndex(String value) {
@@ -268,7 +281,7 @@ public class Out {
     }
 
     public static void newLine() {
-        System.out.println("");
+        System.out.println();
     }
 
     public static void plnCurrentThread() {

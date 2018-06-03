@@ -1,9 +1,9 @@
 package su.levenetc.playground.java.utils;
 
-import java.util.concurrent.Executors;
-
 import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
+
+import java.util.concurrent.Executors;
 
 /**
  * Created by elevenetc on 04/07/15.
@@ -87,7 +87,7 @@ public class ThreadUtils {
         try {
             Thread.sleep(ms);
         } catch (InterruptedException e) {
-
+            e.printStackTrace();
         }
 
         if (handler != null) handler.wakeupHandler();
