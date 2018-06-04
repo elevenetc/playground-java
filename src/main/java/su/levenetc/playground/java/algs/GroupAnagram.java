@@ -1,6 +1,9 @@
 package su.levenetc.playground.java.algs;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class GroupAnagram {
     public static List<List<String>> groupAnagrams(String[] strs) {
@@ -14,33 +17,23 @@ public class GroupAnagram {
             group.add(strs[0]);
             result.add(group);
         } else {
-            Set<Group> groups = new HashSet<>();
-            groups.add(new Group(strs[0]));
+            Map<Group, Group> groups = new HashMap<>();
+            Group initGroup = new Group(strs[0]);
+            groups.put(initGroup, initGroup);
 
             for (int i = 1; i < strs.length; i++) {
                 String s = strs[i];
-                boolean foundGroup = false;
 
                 Group tmpGroup = new Group(s);
 
-                if (!groups.contains(tmpGroup)) {
-                    groups.add(tmpGroup);
+                if (groups.containsKey(tmpGroup)) {
+                    groups.get(tmpGroup).words.add(s);
                 } else {
-                    //groups.
+                    groups.put(tmpGroup, tmpGroup);
                 }
-
-                for (Group g : groups) {
-                    if (g.fit(s)) {
-                        foundGroup = true;
-                        g.words.add(s);
-                        break;
-                    }
-                }
-
-                if (!foundGroup) groups.add(new Group(s));
             }
 
-            for (Group g : groups) {
+            for (Group g : groups.keySet()) {
                 result.add(g.words);
             }
         }
@@ -51,7 +44,6 @@ public class GroupAnagram {
     static class Group {
 
         Map<Character, Integer> chars = new HashMap<>();
-        Map<Character, Integer> checkChars = new HashMap<>();
         List<String> words = new LinkedList<>();
 
         public Group(String s) {
@@ -63,20 +55,6 @@ public class GroupAnagram {
                 }
             }
             words.add(s);
-        }
-
-        public boolean fit(String s) {
-            checkChars.clear();
-
-            for (char ch : s.toCharArray()) {
-                if (checkChars.containsKey(ch)) {
-                    checkChars.put(ch, checkChars.get(ch) + 1);
-                } else {
-                    checkChars.put(ch, 1);
-                }
-            }
-
-            return checkChars.equals(chars);
         }
 
         @Override
