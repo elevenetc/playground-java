@@ -8,8 +8,23 @@ import java.util.Set;
  */
 public class IsValidSudoku {
 
-    public static boolean get(char[][] grid) {
+    public static boolean isValid(char[][] grid) {
         return isRowsValid(grid) && isColumnsValid(grid) && isBlocksValid(grid);
+    }
+
+    public static boolean isValid2(char[][] board) {
+        Set<String> seen = new HashSet<>();
+        for (int r = 0; r < 9; r++) {
+            for (int c = 0; c < 9; c++) {
+                char value = board[r][c];
+                if (value != '.')
+                    if (!seen.add(value + " in row " + r) ||
+                            !seen.add(value + " in column " + c) ||
+                            !seen.add(value + " in block " + r / 3 + "-" + c / 3))
+                        return false;
+            }
+        }
+        return true;
     }
 
     static boolean isRowsValid(char[][] grid) {
