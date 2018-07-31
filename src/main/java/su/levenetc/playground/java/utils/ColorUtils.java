@@ -12,6 +12,9 @@ public class ColorUtils {
         return blend(f, t);
     }
 
+    /**
+     * @param brightness 0.0 - 1.0
+     */
     public static int brightness(int color, float brightness) {
         int r = ((color & 0xff0000) >> 16);
         int g = ((color & 0xff00) >> 8);
@@ -48,5 +51,12 @@ public class ColorUtils {
         }
 
         return red << 16 | green << 8 | blue;
+    }
+
+    /**
+     * @param alpha 0 - 255
+     */
+    public static int setAlpha(int rgb, int alpha) {
+        return rgb | (alpha << 24);
     }
 }

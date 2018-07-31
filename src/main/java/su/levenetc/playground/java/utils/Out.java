@@ -229,6 +229,10 @@ public class Out {
         System.out.println(Arrays.toString(array));
     }
 
+    public static void plnArray(String[] array) {
+        System.out.println(Arrays.toString(array));
+    }
+
     public static void plnArray(boolean[] array) {
         System.out.println(Arrays.toString(array));
     }
@@ -344,6 +348,21 @@ public class Out {
         }
     }
 
+    public static void plnRange(int from, int to) {
+        int i = from;
+        Out.p('[');
+        while (i <= to) {
+            Out.p(i);
+            i++;
+
+            if (i <= to) {
+                Out.p(", ");
+            }
+        }
+        Out.p(']');
+        Out.pln();
+    }
+
     public static void plnRange(int[] a, int from, int to) {
         plnRange(null, a, from, to, -1);
     }
@@ -358,6 +377,7 @@ public class Out {
             if (i < to) Out.p(", ");
         }
         Out.p("]");
+
     }
 
     public static void format(String format, Object... str) {

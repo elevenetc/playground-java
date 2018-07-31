@@ -22,8 +22,16 @@ public class ThreadUtils {
     }
 
     public static void sleepBackFor(long ms) {
-        new Thread(() -> sleep(ms)).start();
+        sleepBackFor(ms, null);
     }
+
+    public static void sleepBackFor(long ms, Runnable onComplete) {
+        new Thread(() -> {
+            sleep(ms);
+            if (onComplete != null) onComplete.run();
+        }).start();
+    }
+
 
     public static void sleepBackForever() {
         new Thread(ThreadUtils::sleepForever).start();
@@ -83,11 +91,28 @@ public class ThreadUtils {
         sleep(ms, null);
     }
 
+    public static void sleep(long ms, boolean catchInterruption) {
+        sleep(ms, null, catchInterruption);
+    }
+
     public static void sleep(long ms, DoOnWakeup handler) {
+        sleep(ms, handler, true);
+    }
+
+    public static void sleep(long ms, DoOnWakeup handler, boolean catchInterruption) {
+
+
         try {
             Thread.sleep(ms);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Out.pln("sleep thread is interrupted");
+
+            if (catchInterruption) {
+                e.printStackTrace();
+            } else {
+                throw new RuntimeException(e);
+            }
+
         }
 
         if (handler != null) handler.wakeupHandler();

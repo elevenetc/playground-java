@@ -50,6 +50,12 @@ public class Utils {
         return result;
     }
 
+    public static List<List<Integer>> list(List<Integer>... values) {
+        List<List<Integer>> result = new LinkedList<>();
+        result.addAll(Arrays.asList(values));
+        return result;
+    }
+
     public static List<Integer> list(int... values) {
         LinkedList<Integer> result = new LinkedList<>();
         for (int value : values) result.add(value);
@@ -64,6 +70,10 @@ public class Utils {
         return values;
     }
 
+    public static int[][] array(int[]... values) {
+        return values;
+    }
+
     public static String[] array(String... values) {
         return values;
     }
@@ -71,6 +81,11 @@ public class Utils {
     public static int[] array(int... values) {
         return values;
     }
+
+    public static <T> T emptyArray() {
+        return (T) new Object[0];
+    }
+
 
     public static <T> Deque<T> stack(T... values) {
         Deque<T> result = new LinkedList<>();
