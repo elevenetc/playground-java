@@ -1,17 +1,15 @@
 package su.levenetc.playground.java.algs;
 
 public class MaxContiguousSum {
-    static int n(int... nums) {
-        int result = Integer.MIN_VALUE;
-        int currentMax = 0;
-        for (int num : nums) {
-            currentMax += num;
-            if (currentMax > result) {
-                result = currentMax;
-            } else if (currentMax < 0) {
-                currentMax = 0;
-            }
+    public static int n(int... nums) {
+        int result = nums[0];
+        int currentMax = nums[0];
+
+        for (int i = 1; i < nums.length; i++) {
+            currentMax = Math.max(nums[i], currentMax + nums[i]);
+            result = Math.max(currentMax, result);
         }
+
         return result;
     }
 
