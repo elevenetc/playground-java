@@ -73,6 +73,9 @@ dependencies {
     testCompile 'org.mockito:mockito-core:2.1.0-RC.2'
     compile 'org.assertj:assertj-core:3.9.0'
 
+    compile 'org.jline:jline:3.9.0'
+    compile 'net.java.dev.jna:jna:5.0.0'
+
 }
 
 jacocoTestReport {
