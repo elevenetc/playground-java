@@ -213,6 +213,10 @@ public class Out {
         System.out.println(String.valueOf(chars));
     }
 
+    public static void pln(byte[] bytes) {
+        pln(Arrays.toString(bytes));
+    }
+
     public static void pln(Object result) {
         System.out.println(result);
     }
@@ -294,6 +298,10 @@ public class Out {
 
     public static void plnCurrentThread(Object tag) {
         pln(currentThread() + ": " + tag);
+    }
+
+    public static void plnCurrentThread(Object tag, Object message) {
+        plnCurrentThread(tag, message.toString());
     }
 
     public static void plnCurrentThread(Object tag, String message) {
