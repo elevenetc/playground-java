@@ -1,18 +1,49 @@
 package su.levenetc.playground.java.rxjava;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
+
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import org.jetbrains.annotations.NotNull;
 import su.levenetc.playground.java.utils.Out;
 import su.levenetc.playground.java.utils.ThreadUtils;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
-
 public class RxUtils {
+
+    public static Observable<String> list(String... i) {
+        return list(0, i);
+    }
+
+    public static Observable<String> list(long delay, String... i) {
+        return Observable.create(e -> {
+            for (String n : i) {
+
+                ThreadUtils.sleep(delay);
+
+                if (!e.isDisposed()) {
+
+                    Out.plnCurrentThread("emitting", n);
+                    e.onNext(n);
+                }
+            }
+            if (!e.isDisposed()) e.onComplete();
+
+        });
+    }
+
+    public static Observable<Integer> obs(int s) {
+        return Observable.just(s);
+    }
+
+    public static Observable<String> obs(String s) {
+        return Observable.just(s);
+    }
 
     public static Scheduler scheduler(String name) {
         return Schedulers.from(Executors.newSingleThreadScheduledExecutor(r -> new Thread(r, name)));
@@ -86,5 +117,41 @@ public class RxUtils {
                 return a + b;
             }
         });
+    }
+
+    public static void printLong(Observable<Long> observable) {
+        print(observable.map(aLong -> aLong));
+    }
+
+    public static void printString(Observable<String> observable) {
+        print(observable.map(o -> o));
+    }
+
+    public static void print(Maybe<Integer> observable) {
+        print(observable.toObservable().cast(Object.class));
+    }
+
+    public static void print(Observable<Object> observable) {
+        observable
+                .doOnSubscribe(disposable -> Out.pln("doOnSubscribe"))
+                .subscribe(
+                        o -> Out.plnCurrentThread("onNext", o),
+                        throwable -> Out.plnCurrentThread("onError", throwable),
+                        () -> Out.plnCurrentThread("complete")
+                );
+    }
+
+    public static Observable<Object> longRunning(long time) {
+        return Observable.fromCallable(new Callable<Object>() {
+            @Override
+            public Object call() throws Exception {
+                ThreadUtils.sleep(time);
+                return "long-running-" + time;
+            }
+        }).subscribeOn(Schedulers.io());
+    }
+
+    public static void printInt(Observable<Integer> scan) {
+        print(scan.cast(Object.class));
     }
 }
